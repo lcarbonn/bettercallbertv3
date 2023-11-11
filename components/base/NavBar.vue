@@ -1,9 +1,5 @@
-<script setup>
-  import Person from '~icons/bi/person'
-</script>
-
 <template>
-  <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'dark'" sticky='top'>
+  <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
     <BNavbarBrand href="/">
       <BAvatar rounded
                   src="/icon.png"></BAvatar> BetterCallBert
@@ -12,8 +8,8 @@
     <BCollapse id="nav-collapse" is-nav>
       <BNavbarNav>
         <BNavItem href="#">Link</BNavItem>
-        <BNavItem href="#" disabled>Disabled</BNavItem>
         <BNavItem href="#"><Person/></BNavItem>
+        <!-- <BNavItem href="#"><BButton @click="changeColor"> Current color: {{ currentColor }} </BButton></BNavItem> -->
       </BNavbarNav>
       <!-- Right aligned nav items -->
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
@@ -39,3 +35,9 @@
     </BCollapse>
   </BNavbar>
 </template>
+
+<script setup>
+  import Person from '~icons/bi/person'
+  import {vBColorMode} from 'bootstrap-vue-next' 
+</script>
+

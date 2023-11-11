@@ -8,7 +8,7 @@
 import {vBColorMode} from 'bootstrap-vue-next'
 
 // Unlike the composable variant, this is not strongly typed by default!
-const currentColor = ref<'light' | 'dark'>('dark')
+const currentColor = ref<'light' | 'dark'>('light')
 
 const changeColor = () => {
   currentColor.value = currentColor.value === 'dark' ? 'light' : 'dark'

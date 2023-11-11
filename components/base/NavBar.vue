@@ -6,10 +6,8 @@
     </BNavbarBrand>
     <BNavbarToggle target="nav-collapse" />
     <BCollapse id="nav-collapse" is-nav>
-      <BNavbarNav>
-        <BNavItem href="#">Link</BNavItem>
+      <BNavbarNav small fill>
         <BNavItem href="#"><Person/></BNavItem>
-        <!-- <BNavItem href="#"><BButton @click="changeColor"> Current color: {{ currentColor }} </BButton></BNavItem> -->
       </BNavbarNav>
       <!-- Right aligned nav items -->
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
@@ -29,8 +27,8 @@
         </BNavItemDropdown>
       </BNavbarNav>
       <BNavForm class="d-flex">
-        <BFormInput class="me-2" placeholder="Search" />
-        <BButton type="submit" variant="outline-success">Search</BButton>
+        <BFormInput class="me-2" placeholder="Search" v-b-color-mode="'light'" />
+        <BButton type="submit">Search</BButton>
       </BNavForm>
     </BCollapse>
   </BNavbar>

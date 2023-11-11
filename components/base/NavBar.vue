@@ -1,3 +1,7 @@
+<script setup>
+  import Person from '~icons/bi/person'
+</script>
+
 <template>
   <BNavbar toggleable="lg" variant="primary" v-b-color-mode="'dark'" sticky='top'>
     <BNavbarBrand href="/">
@@ -9,6 +13,7 @@
       <BNavbarNav>
         <BNavItem href="#">Link</BNavItem>
         <BNavItem href="#" disabled>Disabled</BNavItem>
+        <BNavItem href="#"><Person/></BNavItem>
       </BNavbarNav>
       <!-- Right aligned nav items -->
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
@@ -34,6 +39,3 @@
     </BCollapse>
   </BNavbar>
 </template>
-
-<script>
-</script>

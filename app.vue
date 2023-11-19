@@ -4,18 +4,14 @@
     <BContainer>
       <NuxtPage />
     </BContainer>
-    <BaseFooter :appVersion="appVersion"></BaseFooter>
+    <BContainer>
+      <span>{{firebaseUser}}</span>
+    </BContainer>
+    <BaseFooter :appVersion="version"></BaseFooter>
   </div>
 </template>
-<script>
-import { version } from '../package.json';
-export default {  
-  data: () => ({
-    appVersion: version
-  }),
-
-  created() {
-    console.debug("appVersion:"+this.appVersion)
-  }
-}
+<script setup>
+  import { version } from '../package.json';
+  console.debug("appVersion:",version)
+  const firebaseUser = useFirebaseUser();
 </script>

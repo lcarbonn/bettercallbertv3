@@ -16,6 +16,7 @@ import {
     ).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log("signInUser", errorCode, errorMessage)
     });
     return credentials;
   };
@@ -27,6 +28,7 @@ import {
     ).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log("signInAnonymous", errorCode, errorMessage)
     });
     return credentials;
   };
@@ -44,18 +46,21 @@ import {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
+        console.log("Auth changed", user)
         firebaseUser.value = user;
     } else {
         //if signed out
+        console.log("Auth changed", user)
         firebaseUser.value = signInAnonymous().user
         // router.push("/");
       }
     });
-    console.log("firebaseUser", firebaseUser)
+    // console.log("firebaseUser", firebaseUser)
   };
   
   export const signOutUser = async () => {
     const auth = getAuth();
     const result = await auth.signOut();
+    console.log("signOutUser", result)
     return result;
   };

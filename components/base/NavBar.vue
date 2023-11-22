@@ -12,8 +12,8 @@
           <template #button-content>
             <em><Person/></em>
           </template>
-          <BDropdownItem href="/login">Sign In</BDropdownItem>
-          <BDropdownItem @click="signOut()">Sign Out</BDropdownItem>
+          <BDropdownItem v-show="isAnonymous" href="/login">Sign In</BDropdownItem>
+          <BDropdownItem v-show="!isAnonymous" @click="signOut()">Sign Out</BDropdownItem>
         </BNavItemDropdown>
       </BNavbarNav>
       <!-- <BNavForm class="d-flex">
@@ -29,11 +29,14 @@
   import {vBColorMode} from 'bootstrap-vue-next'
 
   const firebaseUser = useFirebaseUser()
-  console.log("firebaseUser navbar",firebaseUser)
   
   const signOut = async () => {
     await signOutUser();
-    navigateTo('/')
+    // navigateTo('/')
   };
+
+  const isAnonymous = computed(() => {
+    return firebaseUser.value?.isAnonymous
+  })
 </script>
 

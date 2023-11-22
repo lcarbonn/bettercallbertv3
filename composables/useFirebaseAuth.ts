@@ -9,6 +9,8 @@ import {
   
   export const signInUser = async (email:string, password:string) => {
     const auth = getAuth();
+    const snackBarMessage = useSnackBarMessage()
+
     const credentials = await signInWithEmailAndPassword(
       auth,
       email,
@@ -17,31 +19,38 @@ import {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log("signInUser", errorCode, errorMessage)
+      snackBarMessage.value = "Error on login"+errorMessage
     });
+    if(credentials) snackBarMessage.value = "Hello " + credentials.user.email
     return credentials;
   };
 
   export const signInAnonymous = async () => {
     const auth = getAuth();
+    const snackBarMessage = useSnackBarMessage()
     const credentials = await signInAnonymously(
       auth
     ).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log("signInAnonymous", errorCode, errorMessage)
+      snackBarMessage.value = "Error on login"+errorMessage
     });
     return credentials;
+  };
+
+  export const signOutUser = async () => {
+    const auth = getAuth();
+    const snackBarMessage = useSnackBarMessage()
+    const result = await auth.signOut();
+    snackBarMessage.value = "SignOut"
+    return result;
   };
 
   export const initUser = async () => {
     const auth = getAuth();
     const firebaseUser = useFirebaseUser();
-    // firebaseUser.value = auth.currentUser;
-  
-    // const userCookie = useCookie("userCookie");
-  
-    // const router = useRouter();
-  
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
@@ -52,15 +61,8 @@ import {
         //if signed out
         console.log("Auth changed", user)
         firebaseUser.value = signInAnonymous().user
-        // router.push("/");
       }
     });
     // console.log("firebaseUser", firebaseUser)
   };
   
-  export const signOutUser = async () => {
-    const auth = getAuth();
-    const result = await auth.signOut();
-    console.log("signOutUser", result)
-    return result;
-  };

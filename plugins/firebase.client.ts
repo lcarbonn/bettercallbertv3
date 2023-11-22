@@ -5,8 +5,6 @@ import { getStorage } from "firebase/storage"
 
 export default defineNuxtPlugin(nuxtApp => {
     const config = useRuntimeConfig()
-    console.log("config.FIREBASE_API_KEY=",config.FIREBASE_API_KEY)
-    console.log("config.public.FIREBASE_API_KEY=",config.public.FIREBASE_API_KEY)
     const firebaseConfig = {
         apiKey: config.public.FIREBASE_API_KEY,
         authDomain: config.public.FIREBASE_AUTH_DOMAIN,

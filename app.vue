@@ -8,6 +8,7 @@
       <span>{{firebaseUser}}</span>
     </BContainer>
     <BaseFooter :appVersion="version"></BaseFooter>
+    <BaseSnackbar></BaseSnackbar>
   </div>
 </template>
 <script setup>

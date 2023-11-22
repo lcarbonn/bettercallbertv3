@@ -6,7 +6,6 @@ import {
     signInAnonymously,
     onAuthStateChanged,
   } from "firebase/auth";
-import type { UserCredential } from "firebase/auth";
 
   export const signInUser = async (email:string, password:string) => {
     const auth = getAuth();

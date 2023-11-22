@@ -6,7 +6,8 @@ import {
     signInAnonymously,
     onAuthStateChanged,
   } from "firebase/auth";
-  
+import type { UserCredential } from "firebase/auth";
+
   export const signInUser = async (email:string, password:string) => {
     const auth = getAuth();
     const snackBarMessage = useSnackBarMessage()
@@ -36,6 +37,8 @@ import {
       console.log("signInAnonymous", errorCode, errorMessage)
       snackBarMessage.value = "Error on login"+errorMessage
     });
+    const firebaseUser = useFirebaseUser();
+    if(credentials) firebaseUser.value = credentials.user
     return credentials;
   };
 
@@ -60,9 +63,8 @@ import {
     } else {
         //if signed out
         console.log("Auth changed", user)
-        firebaseUser.value = signInAnonymous().user
+        signInAnonymous()
       }
     });
-    // console.log("firebaseUser", firebaseUser)
   };
   

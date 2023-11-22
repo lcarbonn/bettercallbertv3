@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- hidden input to help alert to react (bug?) -->
-    <BFormInput v-model="message" type="hidden" ></BFormInput>
+    <input :value="message" type="hidden"/>
     <BAlert v-model="dismissCountDown"
              class="position-fixed fixed-bottom m-0 rounded-0"
              style="z-index: 2000;"

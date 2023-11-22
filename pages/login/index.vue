@@ -43,7 +43,6 @@ const onSubmit = async (event) => {
     const credentials = await signInUser(form.email, form.password)
     console.log("signIn user=", credentials)
     if(credentials) navigateTo('/')
-    //TODO manage error
 }
 
 const onReset = (event) => {

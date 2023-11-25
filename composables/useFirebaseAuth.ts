@@ -1,18 +1,16 @@
-//https://firebase.google.com/docs/auth/web/start
-
 import {
-    getAuth,
     signInWithEmailAndPassword,
     signInAnonymously,
     onAuthStateChanged,
   } from "firebase/auth";
 
   export const signInUser = async (email:string, password:string) => {
-    const auth = getAuth();
+    //check 
+    const { $auth } = useNuxtApp()
     const snackBarMessage = useSnackBarMessage()
 
     const credentials = await signInWithEmailAndPassword(
-      auth,
+      $auth,
       email,
       password
     ).catch((error) => {
@@ -26,10 +24,10 @@ import {
   };
 
   export const signInAnonymous = async () => {
-    const auth = getAuth();
+    const { $auth } = useNuxtApp()
     const snackBarMessage = useSnackBarMessage()
     const credentials = await signInAnonymously(
-      auth
+      $auth
     ).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -42,18 +40,18 @@ import {
   };
 
   export const signOutUser = async () => {
-    const auth = getAuth();
+    const { $auth } = useNuxtApp()
     const snackBarMessage = useSnackBarMessage()
-    const result = await auth.signOut();
+    const result = await $auth.signOut();
     snackBarMessage.value = "SignOut"
     return result;
   };
 
   export const initUser = async () => {
-    const auth = getAuth();
+    const { $auth } = useNuxtApp()
     const firebaseUser = useFirebaseUser();
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged($auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User

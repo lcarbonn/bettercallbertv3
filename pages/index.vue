@@ -1,16 +1,16 @@
 <template>
-  <BCard v-b-color-mode="currentColor">
-    <BButton @click="changeColor"> Current color: {{ currentColor }} </BButton>
-  </BCard>
+  <div>
+    <p>{{ cards }}</p>
+    <p>{{ user }}</p>
+  </div>
 </template>
 
 <script setup lang="ts">
-import {vBColorMode} from 'bootstrap-vue-next'
 
-// Unlike the composable variant, this is not strongly typed by default!
-const currentColor = ref<'light' | 'dark'>('light')
+const user = useFirebaseUser()
+const cards = useCards()
 
-const changeColor = () => {
-  currentColor.value = currentColor.value === 'dark' ? 'light' : 'dark'
-}
+onMounted(async () => {
+  getCards()
+})
 </script>

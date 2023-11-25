@@ -1,9 +1,9 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from "firebase/auth"
-import { getFirestore } from 'firebase/firestore'
+import { getAuth, type Auth } from "firebase/auth"
+import { Firestore, getFirestore } from 'firebase/firestore'
 import { getStorage } from "firebase/storage"
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin((nuxtApp) => {
     const config = useRuntimeConfig()
     const firebaseConfig = {
         apiKey: config.public.FIREBASE_API_KEY,
@@ -16,20 +16,16 @@ export default defineNuxtPlugin(nuxtApp => {
         measurementId: config.public.FIREBASE_MEASUREMENT_ID
     }
     const app = initializeApp(firebaseConfig)
+    const db = getFirestore();
+
+    const auth = getAuth(app)
+
+    nuxtApp.provide('auth', auth)
+    nuxtApp.provide('db', db)
 
     initUser()
     
-    const auth = getAuth(app)
-    const firestore = getFirestore(app)
-    const storage = getStorage(app)
-
-    nuxtApp.vueApp.provide('auth', auth)
-    nuxtApp.provide('auth', auth)
-
-    nuxtApp.vueApp.provide('firestore', firestore)
-    nuxtApp.provide('firestore', firestore)
-
-    nuxtApp.vueApp.provide('storage', storage)
-    nuxtApp.provide('storage', storage)
+    // nuxtApp.vueApp.provide('auth', auth)
+    // nuxtApp.vueApp.provide('firestoreDb', db)
 
 })

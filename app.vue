@@ -4,9 +4,6 @@
     <BContainer>
       <NuxtPage />
     </BContainer>
-    <BContainer>
-      <span>{{firebaseUser}}</span>
-    </BContainer>
     <BaseFooter :appVersion="version"></BaseFooter>
     <BaseSnackbar></BaseSnackbar>
   </div>

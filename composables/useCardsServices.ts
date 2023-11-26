@@ -1,4 +1,4 @@
-import { collection, query, orderBy, getDocs, getDoc, doc, startAfter, limit, endBefore, updateDoc, deleteDoc, addDoc } from "firebase/firestore"
+import { collection, query, orderBy, getDocs, getDoc, doc, startAfter, limit, endBefore, updateDoc, deleteDoc, addDoc, type DocumentData } from "firebase/firestore"
 import { type Firestore } from "firebase/firestore"
 
 export const getCards= async () => {
@@ -7,15 +7,14 @@ export const getCards= async () => {
 
     console.debug("start get Cards")
     const cardsRef = collection($db as Firestore, "cards")
-    const list: {}[] = [];
-    let card = {}
+    const list: CardType[] = [];
 
-    const q = query(cardsRef);
+    const q = query(cardsRef, orderBy("idTheme"));
     getDocs(q)
     .then((querySnapshot)=> {
         querySnapshot.forEach(doc => {
-            card = {}
-            card = doc.data()
+            let card = new Card(doc)
+            // card = doc.data()
             card.id = doc.id
             if (card.src.indexOf("http") == -1) {
                 card.img = null

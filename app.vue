@@ -11,5 +11,4 @@
 <script setup>
   import { version } from '../package.json';
   console.debug("appVersion:",version)
-  const firebaseUser = useFirebaseUser();
 </script>

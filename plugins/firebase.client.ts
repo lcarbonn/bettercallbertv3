@@ -20,13 +20,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const auth = getAuth(app)
 
-    initUser()
-
     nuxtApp.provide('auth', auth)
     nuxtApp.provide('db', db)
 
-    
-    // nuxtApp.vueApp.provide('auth', auth)
-    // nuxtApp.vueApp.provide('firestoreDb', db)
+    initUser()
 
 })

@@ -1,5 +1,8 @@
-<template>
-    <DomainListCards :cards="cards"/>
+  <template>
+    <div>
+      <DomainListCards :cards="cards"/>
+    </div>
+
 </template>
 
 <script setup lang="ts">

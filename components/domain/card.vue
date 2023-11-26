@@ -14,10 +14,7 @@
 
 <script setup lang="ts">
     const props = defineProps({
-        card: {
-            type: Object,
-            default: null
-        },
+        card: Card,
         theme: {
             type: String,
             default: "primary"

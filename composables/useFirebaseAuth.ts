@@ -2,6 +2,7 @@ import {
     signInWithEmailAndPassword,
     signInAnonymously,
     onAuthStateChanged,
+    type Auth,
   } from "firebase/auth";
 
   export const signInUser = async (email:string, password:string) => {
@@ -10,7 +11,7 @@ import {
     const snackBarMessage = useSnackBarMessage()
 
     const credentials = await signInWithEmailAndPassword(
-      $auth,
+      $auth as Auth,
       email,
       password
     ).catch((error) => {
@@ -27,7 +28,7 @@ import {
     const { $auth } = useNuxtApp()
     const snackBarMessage = useSnackBarMessage()
     const credentials = await signInAnonymously(
-      $auth
+      $auth as Auth
     ).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -42,7 +43,7 @@ import {
   export const signOutUser = async () => {
     const { $auth } = useNuxtApp()
     const snackBarMessage = useSnackBarMessage()
-    const result = await $auth.signOut();
+    const result = await ($auth as Auth).signOut();
     snackBarMessage.value = "SignOut"
     return result;
   };
@@ -51,7 +52,7 @@ import {
     const { $auth } = useNuxtApp()
     const firebaseUser = useFirebaseUser();
 
-    onAuthStateChanged($auth, (user) => {
+    onAuthStateChanged($auth as Auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User

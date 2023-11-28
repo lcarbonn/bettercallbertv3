@@ -5,7 +5,9 @@
             bg-variant="secondary"
             text-variant="white"
             :header-bg-variant="theme"
-            overlay>
+            header-tag="header"
+            overlay
+            img-bottom>
         <template #header>
             <small>{{ card.title }}</small>
         </template>

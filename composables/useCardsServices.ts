@@ -13,8 +13,7 @@ export const getCards= async () => {
     getDocs(q)
     .then((querySnapshot)=> {
         querySnapshot.forEach(doc => {
-            let card = new Card(doc)
-            card.id = doc.id
+            const card = new Card(doc)
             if (card.src.indexOf("http") == -1) {
                 card.img = null
                 getImageSrc(card)

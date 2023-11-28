@@ -16,10 +16,21 @@
 
 <script setup lang="ts">
     const props = defineProps({
-        card: Card,
+        card: {
+            type:Card,
+            default:null
+        },
         theme: {
             type: String,
             default: "primary"
         },
+    })
+    const theme = computed(() => {
+        const themes = useThemes()
+        if(themes && props.card) {
+            const theme = getThemeColor(props.card.idTheme, themes.value)
+            return theme
+        }
+        return null
     })
 </script>

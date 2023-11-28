@@ -11,13 +11,7 @@
                   class="nodecoLink">
           <BSpinner v-if="!card.img"
                     label="Loading..."></BSpinner>
-          <DomainCard
-                      :card="card"
-                      ></DomainCard>
-          <!-- <DomainCard v-else
-                      :card="card"
-                      :theme="getVariantTheme(card.idTheme)"
-                      ></DomainCard> -->
+          <DomainCard :card="card"></DomainCard>
         </nuxt-link>
       </BCol>
     </BRow>
@@ -26,7 +20,7 @@
 <script setup lang="ts">
     const props = defineProps({
         cards: {
-            type: [Card],
+            type: [],
             default: null
         },
     })

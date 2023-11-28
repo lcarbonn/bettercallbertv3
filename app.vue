@@ -1,7 +1,7 @@
 <template>
   <div>
     <BaseNavBar></BaseNavBar>
-    <BContainer>
+    <BContainer fluid>
       <NuxtPage />
     </BContainer>
     <BaseFooter :appVersion="version"></BaseFooter>

@@ -38,14 +38,12 @@
   import Person from '~icons/bi/person'
   import {vBColorMode} from 'bootstrap-vue-next'
 
+  const emit = defineEmits(['filterCards'])
+
   const firebaseUser = useFirebaseUser()
   const themes = useThemes()
 
   const currentTheme = ref()
-
-  onMounted(() => {
-    currentTheme.value = "0VS7v4V2mBW0OsfKMPBP"
-  })
 
   // computed properties
   const isAnonymous = computed(() => {
@@ -64,19 +62,23 @@
   }
 
   const themeColor = (idTheme:string) => {
-        const themes = useThemes()
-        if(idTheme && themes) {
-            const color = "border-" + getThemeColor(idTheme, themes.value)
-            return color
-        }
-        return null
+    const themes = useThemes()
+    if(idTheme && themes) {
+        const color = "border-" + getThemeColor(idTheme, themes.value)
+        return color
     }
-  const filterCards = (idTheme:string) => {
-      currentTheme.value = idTheme
-      // if (this.isActive(idTheme)) this.$emit('filterCards')
-      // else this.$emit('filterCards', idTheme)
-  }
+    return null
+   }
 
+  const filterCards = (idTheme:string) => {
+    if (isCurrentTheme(idTheme)) {
+      emit('filterCards')
+      currentTheme.value = null
+    } else {
+      emit('filterCards', idTheme)
+      currentTheme.value = idTheme
+    }
+  }
 
 </script>
 

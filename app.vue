@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseNavBar></BaseNavBar>
+    <BaseNavBar  @filter-cards="filterCards"></BaseNavBar>
     <BContainer fluid>
       <NuxtPage />
     </BContainer>
@@ -8,7 +8,12 @@
     <BaseSnackbar></BaseSnackbar>
   </div>
 </template>
-<script setup>
-  import { version } from '../package.json';
+<script setup lang="ts">
+  import { version } from '~/package.json';
   console.debug("appVersion:",version)
+
+  const filterCards = (idTheme:string) => {
+    console.log("filterCards=", idTheme)
+  }
+    
 </script>

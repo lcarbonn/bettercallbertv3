@@ -7,12 +7,12 @@
             v-for="card in cards"
             :key="card.id"
             class="py-3">
-        <nuxt-link :to="'/cards/' + card.id"
-                  class="nodecoLink">
+        <!-- <nuxt-link :to="'/cards/' + card.id"
+                  class="nodecoLink"> -->
           <BSpinner v-if="!card.img"
                     label="Loading..."></BSpinner>
           <DomainCard :card="card"></DomainCard>
-        </nuxt-link>
+        <!-- </nuxt-link> -->
       </BCol>
     </BRow>
 </template>
@@ -20,7 +20,7 @@
 <script setup lang="ts">
     const props = defineProps({
         cards: {
-            type: [],
+            type: Array,
             default: null
         },
     })

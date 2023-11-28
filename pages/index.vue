@@ -5,11 +5,10 @@
 </template>
 
 <script setup lang="ts">
+  const cards = useCards()
 
-const cards = useCards()
-
-onMounted(() => {
-  getCards()
-  getThemes()
-})
+  onMounted(() => {
+    getCards()
+    getThemes()
+  })
 </script>

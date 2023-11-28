@@ -31,3 +31,8 @@
         },
     })
 </script>
+<style scoped>
+.nodecoLink {
+  text-decoration: none !important;
+}
+</style>

@@ -25,6 +25,8 @@ export const getCards= async () => {
         console.debug("result get Cards", list)
         const cards = useCards()
         cards.value = list
+        const fullCards = useFullCards()
+        fullCards.value = list
     })
     .catch((error) => {
         const snackBarMessage = useSnackBarMessage()
@@ -34,3 +36,19 @@ export const getCards= async () => {
         snackBarMessage.value = "Error getting cards"+errorMessage
     });
 };
+
+export const serviceFilterCards = (idTheme:string) => {
+    const list: CardType[] = [];
+    const cards = useCards()
+    const fullCards = useFullCards()
+    if (idTheme == null) {
+        cards.value = fullCards.value
+    } else {
+        fullCards.value.forEach((card) => {
+            if (card.idTheme == idTheme) {
+                list.push(card);
+            }
+        })
+        cards.value = list
+    }
+}

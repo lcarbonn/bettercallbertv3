@@ -14,11 +14,11 @@ export const getCards= async () => {
     .then((querySnapshot)=> {
         querySnapshot.forEach(doc => {
             let card = new Card(doc)
-            // card = doc.data()
             card.id = doc.id
             if (card.src.indexOf("http") == -1) {
                 card.img = null
-            } else {
+                getImageSrc(card)
+             } else {
                 card.img = card.src
             }
             list.push(card);
@@ -28,11 +28,10 @@ export const getCards= async () => {
         cards.value = list
     })
     .catch((error) => {
-        console.debug("error get Cards", error)
         const snackBarMessage = useSnackBarMessage()
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("error get Cards", errorCode, errorMessage)
-        snackBarMessage.value = "Error on login"+errorMessage
+        snackBarMessage.value = "Error getting cards"+errorMessage
     });
 };

@@ -1,6 +1,6 @@
 import { type DocumentData } from "firebase/firestore"
 
-export type CardType = {
+export interface CardType {
     id:string,
     title: string,
     idTheme: string,

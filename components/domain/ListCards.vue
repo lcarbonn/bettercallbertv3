@@ -9,8 +9,8 @@
             class="py-3">
         <nuxt-link :to="'/cards/' + card.id"
                   class="nodecoLink">
-          <!-- <BSpinner v-if="!card.img"
-                    label="Loading..."></BSpinner> -->
+          <BSpinner v-if="!card.img"
+                    label="Loading..."></BSpinner>
           <DomainCard
                       :card="card"
                       ></DomainCard>
@@ -26,7 +26,7 @@
 <script setup lang="ts">
     const props = defineProps({
         cards: {
-            type: [Object],
+            type: [Card],
             default: null
         },
     })

@@ -8,7 +8,7 @@
 
 const cards = useCards()
 
-onMounted(async () => {
+onMounted(() => {
   getCards()
   getThemes()
 })

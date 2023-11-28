@@ -6,6 +6,16 @@
     </BNavbarBrand>
     <BNavbarToggle target="nav-collapse" />
     <BCollapse id="nav-collapse" is-nav>
+      <BNavbarNav small fill v-if="themes">
+          <BNavItem v-for="theme in themes"
+            :key="theme.id"
+            :id="theme.id"
+            :active="isCurrentTheme(theme.id)"
+            @click="filterCards(theme.id)"
+            href="#">
+          <span style="border-bottom-style: solid;" :class="themeColor(theme.id)">{{ theme.title.toUpperCase() }}</span>
+        </BNavItem>
+      </BNavbarNav>      
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
         <BNavItemDropdown right>
           <!-- Using 'button-content' slot -->
@@ -24,19 +34,49 @@
   </BNavbar>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import Person from '~icons/bi/person'
   import {vBColorMode} from 'bootstrap-vue-next'
 
   const firebaseUser = useFirebaseUser()
-  
+  const themes = useThemes()
+
+  const currentTheme = ref()
+
+  onMounted(() => {
+    currentTheme.value = "0VS7v4V2mBW0OsfKMPBP"
+  })
+
+  // computed properties
+  const isAnonymous = computed(() => {
+    return firebaseUser.value?.isAnonymous
+  })
+
+  // methods
   const signOut = async () => {
     await signOutUser();
     // navigateTo('/')
   };
 
-  const isAnonymous = computed(() => {
-    return firebaseUser.value?.isAnonymous
-  })
+  const isCurrentTheme = (idTheme:string) => {
+    if(currentTheme) return idTheme == currentTheme.value
+    else return false
+  }
+
+  const themeColor = (idTheme:string) => {
+        const themes = useThemes()
+        if(idTheme && themes) {
+            const color = "border-" + getThemeColor(idTheme, themes.value)
+            return color
+        }
+        return null
+    }
+  const filterCards = (idTheme:string) => {
+      currentTheme.value = idTheme
+      // if (this.isActive(idTheme)) this.$emit('filterCards')
+      // else this.$emit('filterCards', idTheme)
+  }
+
+
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseNavBar  @filter-cards="filterCards"></BaseNavBar>
+    <BaseNavBar  @filter-cards="filterCards" @search-cards="searchCards"></BaseNavBar>
     <BContainer fluid>
       <NuxtPage />
     </BContainer>
@@ -23,5 +23,10 @@
     console.log("filterCards=", idTheme)
     serviceFilterCards(idTheme)
   }
-    
+
+  const searchCards = (textsearch:string) => {
+    console.log("searchCards=", textsearch)
+    serviceSearchCards(textsearch)
+  }
+
 </script>

@@ -17,7 +17,19 @@
         </BNavItem>
       </BNavbarNav>      
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
-        <BNavItemDropdown right>
+      <BNavForm class="d-flex">
+        <BInputGroup>
+          <BFormInput placeholder="Search" 
+              v-b-color-mode="'light'"
+              v-model="textsearch"
+              @keyup="searchCards()"/>
+          <BInputGroupAppend>
+              <BButton :disabled="!textsearch"
+                        @click="textsearch = null; searchCards()"><X/></BButton>
+            </BInputGroupAppend>
+        </BInputGroup>
+      </BNavForm>
+      <BNavItemDropdown right>
           <!-- Using 'button-content' slot -->
           <template #button-content>
             <em><Person/></em>
@@ -36,14 +48,17 @@
 
 <script setup lang="ts">
   import Person from '~icons/bi/person'
+  import X from '~icons/bi/x'
   import {vBColorMode} from 'bootstrap-vue-next'
 
-  const emit = defineEmits(['filterCards'])
+  const emit = defineEmits(['filterCards', 'searchCards'])
 
   const firebaseUser = useFirebaseUser()
   const themes = useThemes()
 
   const currentTheme = ref()
+
+  const textsearch = ref()
 
   // computed properties
   const isAnonymous = computed(() => {
@@ -78,6 +93,10 @@
       emit('filterCards', idTheme)
       currentTheme.value = idTheme
     }
+  }
+
+  const searchCards = () => {
+     emit('searchCards', textsearch.value)
   }
 
 </script>

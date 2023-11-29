@@ -52,3 +52,20 @@ export const serviceFilterCards = (idTheme:string) => {
         cards.value = list
     }
 }
+
+export const serviceSearchCards = (textsearch:string) => {
+    const list: CardType[] = [];
+    const cards = useCards()
+    const fullCards = useFullCards()
+    const st = textsearch ? textsearch.trim() : textsearch
+    if (!st) {
+        cards.value = fullCards.value
+    } else {
+        fullCards.value.forEach((card) => {
+            if (card.title.toLowerCase().includes(st.toLowerCase())) {
+                list.push(card);
+            }
+        })
+        cards.value = list
+    }   
+}

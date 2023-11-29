@@ -17,7 +17,6 @@ export const getThemes= async () => {
             const theme = new Theme(doc)
             list.push(theme);
         });
-        console.debug("result get Themes", list)
         const themes = useThemes()
         themes.value = list
     })

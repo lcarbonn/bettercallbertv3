@@ -86,6 +86,7 @@
    }
 
   const filterCards = (idTheme:string) => {
+    textsearch.value = null
     if (isCurrentTheme(idTheme)) {
       emit('filterCards')
       currentTheme.value = null
@@ -96,6 +97,7 @@
   }
 
   const searchCards = () => {
+    currentTheme.value = null
      emit('searchCards', textsearch.value)
   }
 

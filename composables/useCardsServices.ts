@@ -22,7 +22,6 @@ export const getCards= async () => {
             }
             list.push(card);
         });
-        console.debug("result get Cards", list)
         const cards = useCards()
         cards.value = list
         const fullCards = useFullCards()

@@ -20,10 +20,11 @@ export class Theme implements ThemeType {
       }    
 }
 
-export const getThemeColor = (idTheme:string, themes:ThemeType[]) => {
-    if (!idTheme || !themes) return null
+export const getThemeColor = (idTheme:string) => {
+    const themes = useThemes()
+    if (!idTheme || !themes?.value) return null
     let color = ""
-    themes.forEach(theme => {
+    themes.value.forEach(theme => {
         if (theme.id == idTheme) {
             color = theme.color
         }

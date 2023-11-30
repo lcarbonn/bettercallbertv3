@@ -25,7 +25,7 @@ export const getThemes= () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("error get Themes", errorCode, errorMessage)
-        snackBarMessage.value = "Error getting Themes"+errorMessage
+        snackBarMessage.value = "Error getting Themes : "+errorMessage
     });
 };
 

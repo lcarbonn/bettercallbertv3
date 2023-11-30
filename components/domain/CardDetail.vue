@@ -8,6 +8,22 @@
         <template #header>
             <small>{{ card.title }}</small>
         </template>
+        <BCard-body>
+            <BButton v-if="previousId"
+                      :href="'/cards/' + previousId"
+                      size="lg">
+                <ArrowLeftSquare variant="primary"/>
+            </BButton>
+            <BButton v-if="card.link"
+                      :href="card.link"
+                      target="_blank"
+                      variant="primary">Jump to source</BButton>
+            <BButton v-if="nextId"
+                      :href="'/cards/' + nextId"
+                      size="lg">
+                <ArrowRightSquare variant="primary"/>
+            </BButton>
+        </BCard-body>
 
         <BLink href="#" @click="show">
             <BCard-img :src="card.img"
@@ -19,24 +35,6 @@
                           :theme="theme">
         </DomainCardModal>
 
-                        <!-- <BCard-body>
-            <BButton v-if="previousId"
-                      :href="'/cards/' + previousId"
-                      size="lg">
-                <b-icon icon="arrow-left-square"
-                        variant="primary" />
-            </BButton>
-            <BButton v-if="card.link"
-                      :href="card.link"
-                      target="_blank"
-                      variant="primary">Jump to source</BButton>
-            <BButton v-if="nextId"
-                      :href="'/cards/' + nextId"
-                      size="lg">
-                <b-icon icon="arrow-right-square"
-                        variant="primary" />
-            </BButton>
-        </BCard-body> -->
         <!-- <BLink href="#"
                 @click="showDialog">
             <BCard-img :src="img"
@@ -52,11 +50,22 @@
 
 <script setup lang="ts">
 
+    // icons
+    import ArrowRightSquare from '~icons/bi/arrowRightSquare'
+    import ArrowLeftSquare from '~icons/bi/arrowLeftSquare'
     //props
     const props = defineProps({
         card: {
             type: Card,
-            default: null
+            default: undefined
+        },
+        nextId: {
+            type: String,
+            default: undefined
+        },
+        previousId: {
+            type: String,
+            default: undefined
         },
     })
 

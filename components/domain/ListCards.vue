@@ -20,7 +20,7 @@
 <script setup lang="ts">
     const props = defineProps({
         cards: {
-            type: Array,
+            type: Array<CardType>,
             default: undefined
         },
     })

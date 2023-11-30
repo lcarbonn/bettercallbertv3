@@ -15,7 +15,6 @@ export const getCards= () => {
         querySnapshot.forEach(doc => {
             const card = new Card(doc)
             if (card.src.indexOf("http") == -1) {
-                card.img = undefined
                 setCardsImageSrc(card)
              } else {
                 card.img = card.src
@@ -32,7 +31,7 @@ export const getCards= () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("error get Cards", errorCode, errorMessage)
-        snackBarMessage.value = "Error getting cards"+errorMessage
+        snackBarMessage.value = "Error getting cards : "+errorMessage
     });
 };
 
@@ -47,7 +46,6 @@ export const getCard = (id:string) => {
     .then((doc)=> {
         const card = new Card(doc)
         if (card.src.indexOf("http") == -1) {
-            card.img = undefined
             setCardImageSrc(card)
          } else {
             card.img = card.src
@@ -61,7 +59,7 @@ export const getCard = (id:string) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("error get Card", errorCode, errorMessage)
-        snackBarMessage.value = "Error getting card"+errorMessage
+        snackBarMessage.value = "Error getting card : "+errorMessage
     });
 };
 

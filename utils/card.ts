@@ -23,5 +23,22 @@ export class Card implements CardType {
         this.link = doc.data().link
         this.src = doc.data().src
         this.img = ""
-      }    
+    }
+}
+
+export const getCardNextId = (card:CardType, cards:CardType[]) => {
+    if(!card||!cards) return undefined
+    const i = cards.findIndex(x => x.id === card.id)
+    if(i<cards.length) {
+        let next = i+1
+        return cards[next].id
+    }
+    else return undefined
+}
+
+export const getCardPreviousId = (card:CardType, cards:CardType[]) => {
+    if(!card||!cards) return undefined
+    const i = cards.findIndex(x => x.id === card.id)
+    if(i>0) return cards[i-1].id
+    else return undefined
 }

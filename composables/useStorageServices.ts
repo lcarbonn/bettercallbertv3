@@ -11,14 +11,14 @@ export const setCardsImageSrc = (card:Card) => {
         // console.debug("url:" + url);
         const cards = useCards()
         const i = cards.value.indexOf(card)
-        cards.value[i].img = url
+        if(i>-1)cards.value[i].img = url
         // card.img = url
     }).catch((error) => {
         const snackBarMessage = useSnackBarMessage()
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("error set cardsImageSrc", errorCode, errorMessage)
-        snackBarMessage.value = "Error setting image src"+errorMessage
+        snackBarMessage.value = "Error setting image src on cards : " + errorMessage
         });
 };
 
@@ -31,12 +31,11 @@ export const setCardImageSrc = (card:Card) => {
         // console.debug("url:" + url);
         const card = useCard()
         card.value.img = url
-        // card.img = url
     }).catch((error) => {
         const snackBarMessage = useSnackBarMessage()
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log("error set cardImageSrc", errorCode, errorMessage)
-        snackBarMessage.value = "Error setting image src"+errorMessage
+        snackBarMessage.value = "Error setting image src on card : "+errorMessage
         });
 };

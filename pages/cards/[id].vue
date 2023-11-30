@@ -8,7 +8,9 @@
         </BButton> -->
         <!-- <BTooltip target="updateButton"
                    triggers="hover">Update</BTooltip> -->
-        <DomainCardDetail :card="card"
+        <DomainCardDetail :card="card" 
+                          :nextId="nextId"
+                          :previousId="previousId"
                 class="py-3" />
 
         <!-- <DomainCardDetail :card="card"
@@ -28,11 +30,21 @@
 
     // nuxt cycle hooks
     onMounted(() => {
+        getCards()
         getCard(id)
     })
 
     // use states
     const card = useCard()
+    const cards = useCards()
+
+    //computed properties
+    const previousId = computed(() => {
+        return getCardPreviousId(card.value, cards.value)
+    })
+    const nextId = computed(() => {
+        return getCardNextId(card.value, cards.value)
+    })
 
 // export default {
 //     name: "cardPage",

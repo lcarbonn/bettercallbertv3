@@ -1,8 +1,8 @@
 <template>
     <BCard v-if="card"
-            bg-variant="secondary"
+            bgVariant="secondary"
             text-variant="white"
-            :header-bg-variant="theme"
+            :headerBgVariant="theme"
             img-bottom
             align="center">
         <template #header>

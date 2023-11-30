@@ -21,7 +21,7 @@
     const props = defineProps({
         cards: {
             type: Array,
-            default: null
+            default: undefined
         },
     })
 </script>

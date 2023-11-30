@@ -1,6 +1,5 @@
 <template>
     <BContainer>
-        <span>{{ $route.params.id }}</span>
         <!-- <BButton v-show="!isAnonymous"
                   id="updateButton"
                   variant="secondary"

@@ -1,10 +1,10 @@
 <template>
-    <BCard :img-src="card.img"
-            :img-alt="card.title"
+    <BCard :imgSrc="card?.img"
+            :img-alt="card?.title"
             class="h-100"
             bg-variant="secondary"
             text-variant="white"
-            :header-bg-variant="theme"
+            :headerBgVariant="theme"
             header-tag="header"
             overlay
             img-bottom>
@@ -18,10 +18,10 @@
     const props = defineProps({
         card: {
             type:Card,
-            default:null
+            default:undefined
         }
     })
     const theme = computed(() => {
-        return getThemeColor(props.card.idTheme)
+        if(props.card) return getThemeColor(props.card.idTheme)
     })
 </script>

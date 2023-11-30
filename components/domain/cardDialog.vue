@@ -4,7 +4,7 @@
              centered
              body-bg-variant="secondary"
              header-text-variant="white"
-             :header-bg-variant="theme"
+             :headerBgVariant="theme"
              size="xl"
              ok-only>
         <p class="text-center">
@@ -21,15 +21,15 @@
     const props = defineProps({
             title: {
                 type: String,
-                default: null
+                default: undefined
             },
             img: {
                 type: String,
-                default: null
+                default: undefined
             },
             theme: {
                 type: String,
-                default: null
+                default: undefined
             }
     })
 

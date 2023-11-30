@@ -77,12 +77,7 @@
   }
 
   const themeColor = (idTheme:string) => {
-    const themes = useThemes()
-    if(idTheme && themes) {
-        const color = "border-" + getThemeColor(idTheme, themes.value)
-        return color
-    }
-    return null
+    return "border-" + getThemeColor(idTheme)
    }
 
   const filterCards = (idTheme:string) => {

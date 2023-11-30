@@ -30,10 +30,5 @@ export const getThemes= () => {
 };
 
 export const getTheme = (idTheme:string) => {
-    const themes = useThemes()
-    if(themes && idTheme) {
-        const theme = getThemeColor(idTheme, themes.value)
-        return theme
-    }
-    return "primary"
+     return getThemeColor(idTheme)
 }

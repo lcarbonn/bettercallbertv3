@@ -4,18 +4,18 @@ export interface CardType {
     id:string,
     title: string,
     idTheme: string,
-    link: string|null,
+    link: string|undefined,
     src: string,
-    img:string|null,
+    img:string|undefined,
 }
 
 export class Card implements CardType {
     id:string
     title: string
     idTheme: string
-    link: string|null
+    link: string|undefined
     src: string
-    img:string|null
+    img:string|undefined
     constructor(doc:DocumentData) {
         this.id = doc.id
         this.title = doc.data().title

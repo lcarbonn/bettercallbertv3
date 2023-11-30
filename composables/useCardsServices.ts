@@ -1,7 +1,7 @@
 import { collection, query, orderBy, getDocs, getDoc, doc, startAfter, limit, endBefore, updateDoc, deleteDoc, addDoc, type DocumentData } from "firebase/firestore"
 import { type Firestore } from "firebase/firestore"
 
-export const getCards= async () => {
+export const getCards= () => {
     
     const { $db } = useNuxtApp()
 
@@ -33,6 +33,35 @@ export const getCards= async () => {
         const errorMessage = error.message;
         console.log("error get Cards", errorCode, errorMessage)
         snackBarMessage.value = "Error getting cards"+errorMessage
+    });
+};
+
+export const getCard= (id:string) => {
+    
+    const { $db } = useNuxtApp()
+
+    console.debug("start get Card")
+    const docRef = doc($db as Firestore, "cards", id)
+
+    getDoc(docRef)
+    .then((doc)=> {
+        const card = new Card(doc)
+        if (card.src.indexOf("http") == -1) {
+            card.img = null
+            getImageSrc(card)
+         } else {
+            card.img = card.src
+        }
+
+        const stateCard = useCard()
+        stateCard.value = card
+    })
+    .catch((error) => {
+        const snackBarMessage = useSnackBarMessage()
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("error get Card", errorCode, errorMessage)
+        snackBarMessage.value = "Error getting card"+errorMessage
     });
 };
 

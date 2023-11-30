@@ -2,7 +2,7 @@ import { collection, query, orderBy, getDocs, getDoc, doc, startAfter, limit, en
 import { type Firestore } from "firebase/firestore"
 import { useThemes } from "./useStates";
 
-export const getThemes= async () => {
+export const getThemes= () => {
     
     const { $db } = useNuxtApp()
 
@@ -28,3 +28,12 @@ export const getThemes= async () => {
         snackBarMessage.value = "Error getting Themes"+errorMessage
     });
 };
+
+export const getTheme = (idTheme:string) => {
+    const themes = useThemes()
+    if(themes && idTheme) {
+        const theme = getThemeColor(idTheme, themes.value)
+        return theme
+    }
+    return "primary"
+}

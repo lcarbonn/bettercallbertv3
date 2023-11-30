@@ -1,34 +1,38 @@
 <template>
-    <BForm @submit="onSubmit">
-        <BFormGroup
-            id="input-email"
-            label="Email address:"
-            label-for="email"
-            description="We'll never share your email with anyone else."
-            >
-            <BFormInput
-                id="email"
-                v-model="form.email"
-                type="email"
-                placeholder="Enter email"
-                required
-            />
-        </BFormGroup>
-        <BFormGroup
-            id="input-pwd"
-            label="Password:"
-            label-for="password"
-            >
-            <BFormInput
-                id="password"
-                v-model="form.password"
-                type="password"
-                placeholder="Enter password"
-                required
-            />
-        </BFormGroup>
-        <BButton type="submit" variant="primary">Connexion</BButton>
-    </BForm>
+    <BContainer>
+        <BCard>
+            <BForm @submit="onSubmit">
+                <BFormGroup
+                    id="input-email"
+                    label="Email address:"
+                    label-for="email"
+                    description="We'll never share your email with anyone else."
+                    >
+                    <BFormInput
+                        id="email"
+                        v-model="form.email"
+                        type="email"
+                        placeholder="Enter email"
+                        required
+                    />
+                </BFormGroup>
+                <BFormGroup
+                    id="input-pwd"
+                    label="Password:"
+                    label-for="password"
+                    >
+                    <BFormInput
+                        id="password"
+                        v-model="form.password"
+                        type="password"
+                        placeholder="Enter password"
+                        required
+                    />
+                </BFormGroup>
+                <BButton type="submit" variant="primary">Connexion</BButton>
+            </BForm>
+        </BCard>
+    </BContainer>
 </template>
 
 <script setup>

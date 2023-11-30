@@ -15,8 +15,8 @@ export const getCards= () => {
         querySnapshot.forEach(doc => {
             const card = new Card(doc)
             if (card.src.indexOf("http") == -1) {
-                card.img = null
-                getImageSrc(card)
+                card.img = undefined
+                setCardsImageSrc(card)
              } else {
                 card.img = card.src
             }
@@ -47,8 +47,8 @@ export const getCard = (id:string) => {
     .then((doc)=> {
         const card = new Card(doc)
         if (card.src.indexOf("http") == -1) {
-            card.img = null
-            getImageSrc(card)
+            card.img = undefined
+            setCardImageSrc(card)
          } else {
             card.img = card.src
         }

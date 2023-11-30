@@ -14,10 +14,10 @@
                             :alt="card.title"
                             class="BCard-img"></BCard-img>
         </BLink>
-        <DomainCardDialog :title="card.title"
+        <DomainCardModal :title="card.title"
                           :img="card.img"
                           :theme="theme">
-        </DomainCardDialog>
+        </DomainCardModal>
 
                         <!-- <BCard-body>
             <BButton v-if="previousId"
@@ -67,8 +67,6 @@
     const theme = computed(() => {
         return getThemeColor(props.card.idTheme)
     })
-
-// import { BIcon, BIconArrowRightSquare, BIconArrowLeftSquare } from 'bootstrap-vue'
 
 // export default {
 //     name: "CardDetail",

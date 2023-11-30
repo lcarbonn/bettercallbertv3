@@ -23,12 +23,15 @@
 <script setup lang="ts">
     // import Gear from '~icons/bi/gear'
 
-    const route = useRoute()
-    console.log('id=', route.params.id)
-    const id:string = route.params.id as string
+    // const
+    const id:string = useRoute().params.id as string
+
+    // nuxt cycle hooks
     onMounted(() => {
         getCard(id)
     })
+
+    // use states
     const card = useCard()
 
 // export default {

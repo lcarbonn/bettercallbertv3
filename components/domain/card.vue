@@ -9,7 +9,7 @@
             overlay
             img-bottom>
         <template #header>
-            <small>{{ card.title }}</small>
+            <small>{{ card?.title }}</small>
         </template>
     </BCard>
 </template>

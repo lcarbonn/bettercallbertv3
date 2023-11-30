@@ -9,9 +9,15 @@
             <small>{{ card.title }}</small>
         </template>
 
-        <BCard-img :src="card.img"
-                        :alt="card.title"
-                        class="BCard-img"></BCard-img>
+        <BLink href="#" @click="show">
+            <BCard-img :src="card.img"
+                            :alt="card.title"
+                            class="BCard-img"></BCard-img>
+        </BLink>
+        <DomainCardDialog :title="card.title"
+                          :img="card.img"
+                          :theme="theme">
+        </DomainCardDialog>
 
                         <!-- <BCard-body>
             <BButton v-if="previousId"
@@ -46,13 +52,18 @@
 
 <script setup lang="ts">
 
-const props = defineProps({
+    //props
+    const props = defineProps({
         card: {
             type: Card,
             default: null
         },
     })
 
+    // refs
+    const {show} = useModal('modal-card')
+
+    //computed properties
     const theme = computed(() => {
         return getThemeColor(props.card.idTheme)
     })

@@ -36,7 +36,7 @@ export const getCards= () => {
     });
 };
 
-export const getCard= (id:string) => {
+export const getCard = (id:string) => {
     
     const { $db } = useNuxtApp()
 

@@ -3,7 +3,7 @@
             bgVariant="secondary"
             text-variant="white"
             :headerBgVariant="theme"
-            img-bottom
+            imgBottom
             align="center">
         <template #header>
             <small>{{ card.title }}</small>
@@ -34,17 +34,6 @@
                           :img="card.img"
                           :theme="theme">
         </DomainCardModal>
-
-        <!-- <BLink href="#"
-                @click="showDialog">
-            <BCard-img :src="img"
-                        :alt="card.title"
-                        class="BCard-img"></BCard-img>
-        </BLink> -->
-        <!-- <DomainCardDialog :title="card.title"
-                          :img="img"
-                          :theme="theme">
-        </DomainCardDialog> -->
     </BCard>
 </template>
 
@@ -57,15 +46,15 @@
     const props = defineProps({
         card: {
             type: Card,
-            default: undefined
+            default: null
         },
         nextId: {
             type: String,
-            default: undefined
+            default: null
         },
         previousId: {
             type: String,
-            default: undefined
+            default: null
         },
     })
 
@@ -77,70 +66,33 @@
         return getThemeColor(props.card.idTheme)
     })
 
-// export default {
-//     name: "CardDetail",
-//     components: {
-//         BIcon,
-//         BIconArrowRightSquare,
-//         BIconArrowLeftSquare
-//     },
+    //methods
+    const eventHandler = async (e:KeyboardEvent) => {
+            if (e.code == "ArrowLeft" && props.nextId) await navigateTo('/cards/' + props.nextId)
+            if (e.code == "ArrowRight" && props.previousId) await navigateTo('/cards/' + props.previousId)
+        }
+    const swipeRightHandler = async () => {
+            if (props.previousId) await navigateTo('/cards/' + props.previousId)
+        }
+    const swipeLeftHandler = async () => {
+            if (props.nextId) await navigateTo('/cards/' + props.nextId)
+        }
 
-//     props: {
-//         card: {
-//             type: Object,
-//             default: null
-//         },
-//         nextId: {
-//             type: String,
-//             default: null
-//         },
-//         previousId: {
-//             type: String,
-//             default: null
-//         },
-//         img: {
-//             type: String,
-//             default: null
-//         },
-//         theme: {
-//             type: String,
-//             default: null
-//         },
+    // nuxt cycle hooks
+    onMounted(() => {
+        // keyboard arrows
+        document.addEventListener("keyup", eventHandler)
+        // swiped-left
+        document.addEventListener('swiped-left', swipeLeftHandler)
+        // swiped-right
+        document.addEventListener('swiped-right', swipeRightHandler)
+    })
+    onBeforeUnmount(() => {
+        document.removeEventListener("keyup", eventHandler)
+        document.removeEventListener('swiped-left', swipeLeftHandler)
+        document.removeEventListener('swiped-right', swipeRightHandler)
+    })
 
-//     },
-
-//     mounted() {
-//         this.setupListeners()
-//     },
-//     destroyed() {
-//         document.removeEventListener("keyup", this.eventHandler)
-//         document.removeEventListener('swiped-left', this.swipeLeftHandler)
-//         document.removeEventListener('swiped-right', this.swipeRightHandler)
-//     },
-//     methods: {
-//         showDialog() {
-//             this.$bvModal.show('modal-card')
-//         },
-//         setupListeners() {
-//             document.addEventListener("keyup", this.eventHandler)
-//             // swiped-left
-//             document.addEventListener('swiped-left', this.swipeLeftHandler)
-
-//             // swiped-right
-//             document.addEventListener('swiped-right', this.swipeRightHandler)
-//         },
-//         eventHandler(e) {
-//             if (e.keyCode == "39" && this.nextId) this.$router.push('/cards/' + this.nextId)
-//             if (e.keyCode == "37" && this.previousId) this.$router.push('/cards/' + this.previousId)
-//         },
-//         swipeRightHandler(e) {
-//             if (this.previousId) this.$router.push('/cards/' + this.previousId)
-//         },
-//         swipeLeftHandler(e) {
-//             if (this.nextId) this.$router.push('/cards/' + this.nextId)
-//         }
-//     }
-// }
 </script>
 <style scoped>
 .BCard-img {

@@ -32,6 +32,10 @@
     onMounted(() => {
         getCards()
         getCard(id)
+        const isSinglePage = useSinglePage()
+        isSinglePage.value = true
+        const currentTheme = useCurrentTheme()
+        currentTheme.value = ""        
     })
 
     // use states

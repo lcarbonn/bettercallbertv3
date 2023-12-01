@@ -47,16 +47,23 @@
 </template>
 
 <script setup lang="ts">
+
+  // icons
   import Person from '~icons/bi/person'
   import X from '~icons/bi/x'
   import {vBColorMode} from 'bootstrap-vue-next'
+import { useSinglePage } from '~/composables/useStates';
 
+  // emits declaration
   const emit = defineEmits(['filterCards', 'searchCards'])
 
+  // global states
   const firebaseUser = useFirebaseUser()
   const themes = useThemes()
+  const isSinglePage = useSinglePage()
 
-  const currentTheme = ref()
+  // Local states
+  const currentTheme = useCurrentTheme()
 
   const textsearch = ref()
 
@@ -80,20 +87,22 @@
     return "border-" + getThemeColor(idTheme)
    }
 
-  const filterCards = (idTheme:string) => {
+  const filterCards = async (idTheme:string) => {
+    if(isSinglePage.value) await navigateTo('/')
     textsearch.value = null
     if (isCurrentTheme(idTheme)) {
       emit('filterCards')
-      currentTheme.value = null
+      currentTheme.value = ""
     } else {
       emit('filterCards', idTheme)
       currentTheme.value = idTheme
     }
   }
 
-  const searchCards = () => {
-    currentTheme.value = null
-     emit('searchCards', textsearch.value)
+  const searchCards = async () => {
+    if(isSinglePage.value) await navigateTo('/')
+    currentTheme.value = ""
+    emit('searchCards', textsearch.value)
   }
 
 </script>

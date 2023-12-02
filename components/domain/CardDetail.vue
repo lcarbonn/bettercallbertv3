@@ -10,8 +10,8 @@
         </template>
         <BCard-body>
             <BButton v-if="previousId"
-                      :href="'/cards/' + previousId"
-                      size="lg">
+                    @click="goToPrevious()"
+                    size="lg">
                 <ArrowLeftSquare variant="primary"/>
             </BButton>
             <BButton v-if="card.link"
@@ -19,8 +19,8 @@
                       target="_blank"
                       variant="primary">Jump to source</BButton>
             <BButton v-if="nextId"
-                      :href="'/cards/' + nextId"
-                      size="lg">
+                    @click="goToNext()"
+                    size="lg">
                 <ArrowRightSquare variant="primary"/>
             </BButton>
         </BCard-body>
@@ -42,6 +42,7 @@
     // icons
     import ArrowRightSquare from '~icons/bi/arrowRightSquare'
     import ArrowLeftSquare from '~icons/bi/arrowLeftSquare'
+
     //props
     const props = defineProps({
         card: {
@@ -66,20 +67,8 @@
         return getThemeColor(props.card.idTheme)
     })
 
-    //methods
-    const eventHandler = async (e:KeyboardEvent) => {
-            if (e.code == "ArrowLeft" && props.nextId) await navigateTo('/cards/' + props.nextId)
-            if (e.code == "ArrowRight" && props.previousId) await navigateTo('/cards/' + props.previousId)
-        }
-    const swipeRightHandler = async () => {
-            if (props.previousId) await navigateTo('/cards/' + props.previousId)
-        }
-    const swipeLeftHandler = async () => {
-            if (props.nextId) await navigateTo('/cards/' + props.nextId)
-        }
-
-    // nuxt cycle hooks
-    onMounted(() => {
+        // nuxt cycle hooks
+        onMounted(() => {
         // keyboard arrows
         document.addEventListener("keyup", eventHandler)
         // swiped-left
@@ -92,6 +81,26 @@
         document.removeEventListener('swiped-left', swipeLeftHandler)
         document.removeEventListener('swiped-right', swipeRightHandler)
     })
+
+    //methods
+    const eventHandler = async (e:KeyboardEvent) => {
+            if (e.code == "ArrowLeft" && props.nextId) await navigateTo('/cards/' + props.nextId)
+            if (e.code == "ArrowRight" && props.previousId) await navigateTo('/cards/' + props.previousId)
+        }
+    const swipeRightHandler = async () => {
+            if (props.previousId) await navigateTo('/cards/' + props.previousId)
+        }
+    const swipeLeftHandler = async () => {
+            if (props.nextId) await navigateTo('/cards/' + props.nextId)
+        }
+
+    const goToPrevious = async () => {
+        await navigateTo('/cards/' + props.previousId)
+    }
+
+    const goToNext = async () => {
+        await navigateTo('/cards/' + props.nextId)
+    }
 
 </script>
 <style scoped>

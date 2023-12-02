@@ -10,6 +10,9 @@
                    triggers="hover">Back</BTooltip>
 
         <DomainCardForm :card="card"
+            @save-card="saveCard"
+            @delete-card="deleteCard"
+            @reset-card="resetCard"
             >
                         <!-- :imageUrl="imageUrl"
                         :themes="themes"
@@ -40,5 +43,20 @@
 
     // use states
     const card = useCard()
+
+    const saveCard = () => {
+        console.log("saveCard=", card.value.id)
+        // serviceFilterCards(idTheme)
+    }
+
+    const deleteCard = () => {
+        console.log("deleteCard=", card.value.id)
+        // serviceFilterCards(idTheme)
+    }
+
+    const resetCard = () => {
+        console.log("resetCard=", card.value.id)
+        // serviceFilterCards(idTheme)
+    }
 
 </script>

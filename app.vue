@@ -14,14 +14,17 @@
 </template>
 <script setup lang="ts">
 
+  // imports
   import { version } from '~/package.json';
   console.debug("appVersion:",version)
 
+  // nuxt cycle hook
   onMounted(() => {
     getCards()
     getThemes()
   })
 
+  // methods
   const filterCards = (idTheme:string) => {
     console.log("filterCards=", idTheme)
     serviceFilterCards(idTheme)

@@ -54,8 +54,7 @@
   import Person from '~icons/bi/person'
   import X from '~icons/bi/x'
   import {vBColorMode} from 'bootstrap-vue-next'
-import { useSinglePage } from '~/composables/useStates';
-
+  
   // emits declaration
   const emit = defineEmits(['filterCards', 'searchCards'])
 

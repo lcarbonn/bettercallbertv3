@@ -20,6 +20,7 @@
                         @uploadImageFile="uploadImageFile"
                         @resetImagePath="resetImagePath" /> -->
         </DomainCardForm>
+        <DomainCardDetail :card="card"></DomainCardDetail>
     </BContainer>
 </template>
 

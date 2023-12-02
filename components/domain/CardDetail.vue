@@ -2,13 +2,14 @@
     <BCard v-if="card"
             bgVariant="secondary"
             text-variant="white"
-            :headerBgVariant="theme"
+            :headerBgVariant="themeColor"
             imgBottom
             align="center">
         <template #header>
             <small>{{ card.title }}</small>
         </template>
         <BCardBody>
+            <!-- a déplacer en page id -->
             <BButton v-if="previousId"
                     @click="goToPrevious()"
                     size="lg">
@@ -18,13 +19,14 @@
                       :href="card.link"
                       target="_blank"
                       variant="primary">Jump to source</BButton>
+            <!-- a déplacer en page id -->
             <BButton v-if="nextId"
                     @click="goToNext()"
                     size="lg">
                 <ArrowRightSquare variant="primary"/>
             </BButton>
         </BCardBody>
-
+         <!-- a déplacer en page id -->
         <BLink href="#" @click="show" v-if="card.img">
             <BCard-img :src="card.img"
                             :alt="card.title"
@@ -42,7 +44,6 @@
     // icons
     import ArrowRightSquare from '~icons/bi/arrowRightSquare'
     import ArrowLeftSquare from '~icons/bi/arrowLeftSquare'
-import type cardFormVue from './cardForm.vue';
 
     //props
     const props = defineProps({
@@ -64,7 +65,7 @@ import type cardFormVue from './cardForm.vue';
     const {show} = useModal('modal-card')
 
     //computed properties
-    const theme = computed(() => {
+    const themeColor = computed(() => {
         return getThemeColor(props.card.idTheme)
     })
 

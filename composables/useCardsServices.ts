@@ -4,7 +4,8 @@ import { type Firestore } from "firebase/firestore"
 export const getCards= () => {
     
     const { $db } = useNuxtApp()
-
+    const cards = useCards()
+    
     console.debug("start get Cards")
     const cardsRef = collection($db as Firestore, "cards")
     const list: CardType[] = [];
@@ -15,13 +16,15 @@ export const getCards= () => {
         querySnapshot.forEach(doc => {
             const card = new Card(doc)
             if (card.src.indexOf("http") == -1) {
-                setCardsImageSrc(card)
+                setCardImageSrc(card).then((url) => {
+                    const i = cards.value.indexOf(card)
+                    if(i>-1)cards.value[i].img = url as string
+                })
              } else {
                 card.img = card.src
             }
             list.push(card);
         });
-        const cards = useCards()
         cards.value = list
         const fullCards = useFullCards()
         fullCards.value = list
@@ -38,6 +41,7 @@ export const getCards= () => {
 export const getCard = (id:string) => {
     
     const { $db } = useNuxtApp()
+    const stateCard = useCard()
 
     console.debug("start get Card")
     const docRef = doc($db as Firestore, "cards", id)
@@ -45,14 +49,15 @@ export const getCard = (id:string) => {
     getDoc(docRef)
     .then((doc)=> {
         const card = new Card(doc)
-        if (card.src.indexOf("http") == -1) {
-            setCardImageSrc(card)
-         } else {
-            card.img = card.src
-        }
-
-        const stateCard = useCard()
         stateCard.value = card
+
+        if (card.src.indexOf("http") == -1) {
+            setCardImageSrc(card).then((url) => {
+                stateCard.value.img = url as string
+            })
+         } else {
+            stateCard.value.img = card.src
+        }
     })
     .catch((error) => {
         const snackBarMessage = useSnackBarMessage()

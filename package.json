@@ -1,6 +1,8 @@
 {
   "name": "nuxt-app",
   "version": "0.0.1",
+  "description": "Better Call Bert V3",
+  "author": "laurent",
   "private": true,
   "type": "module",
   "scripts": {

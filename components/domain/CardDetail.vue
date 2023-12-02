@@ -25,12 +25,12 @@
             </BButton>
         </BCard-body>
 
-        <BLink href="#" @click="show">
+        <BLink href="#" @click="show" v-if="card.img">
             <BCard-img :src="card.img"
                             :alt="card.title"
                             class="BCard-img"></BCard-img>
         </BLink>
-        <DomainCardModal :title="card.title"
+        <DomainCardModal v-if="card.img" :title="card.title"
                           :img="card.img"
                           :theme="theme">
         </DomainCardModal>
@@ -42,6 +42,7 @@
     // icons
     import ArrowRightSquare from '~icons/bi/arrowRightSquare'
     import ArrowLeftSquare from '~icons/bi/arrowLeftSquare'
+import type cardFormVue from './cardForm.vue';
 
     //props
     const props = defineProps({

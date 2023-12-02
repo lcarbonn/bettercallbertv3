@@ -4,7 +4,7 @@
              centered
              body-bg-variant="secondary"
              header-text-variant="white"
-             :headerBgVariant="theme"
+             :headerBgVariant="themeColor"
              size="xl"
              ok-only>
         <p class="text-center">
@@ -27,7 +27,7 @@
                 type: String,
                 default: undefined
             },
-            theme: {
+            themeColor: {
                 type: String,
                 default: undefined
             }

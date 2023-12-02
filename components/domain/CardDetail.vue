@@ -26,7 +26,6 @@
                 <ArrowRightSquare variant="primary"/>
             </BButton>
         </BCardBody>
-         <!-- a déplacer en page id -->
         <BLink href="#" @click="show" v-if="card.img">
             <BCard-img :src="card.img"
                             :alt="card.title"
@@ -34,7 +33,7 @@
         </BLink>
         <DomainCardModal v-if="card.img" :title="card.title"
                           :img="card.img"
-                          :theme="theme">
+                          :themeColor="themeColor">
         </DomainCardModal>
     </BCard>
 </template>

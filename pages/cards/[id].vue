@@ -1,13 +1,13 @@
 <template>
     <BContainer>
-        <!-- <BButton v-show="!isAnonymous"
+        <BButton v-show="!isAnonymous"
                   id="updateButton"
                   variant="secondary"
-                  :to='"/admin/" + id'>
+                  @click='goToAdmin()'>
                   <Gear/>
-        </BButton> -->
-        <!-- <BTooltip target="updateButton"
-                   triggers="hover">Update</BTooltip> -->
+        </BButton>
+        <BTooltip target="updateButton"
+                   triggers="hover">Update</BTooltip>
         <DomainCardDetail :card="card" 
                           :nextId="nextId"
                           :previousId="previousId"
@@ -16,7 +16,8 @@
 </template>
 
 <script setup lang="ts">
-    // import Gear from '~icons/bi/gear'
+    // icons
+    import Gear from '~icons/bi/gear'
 
     // const
     const id:string = useRoute().params.id as string
@@ -33,6 +34,7 @@
     // use states
     const card = useCard()
     const cards = useFullCards()
+    const firebaseUser = useFirebaseUser()
 
     //computed properties
     const previousId = computed(() => {
@@ -41,5 +43,13 @@
     const nextId = computed(() => {
         return getCardNextId(card.value, cards.value)
     })
+    const isAnonymous = computed(() => {
+        return firebaseUser.value?.isAnonymous
+    })
+
+    // methods
+    const goToAdmin = async () => {
+        await navigateTo("/admin/" + id)
+    }
 
 </script>

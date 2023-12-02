@@ -1,13 +1,13 @@
 <template>
     <BContainer>
-        <!-- <b-button v-if="!disableButton"
+        <BButton
                   id="backButton"
                   variant="secondary"
                   :to='"/cards/" + id'>
-            <b-icon icon="arrow-up-left-square"></b-icon>
-        </b-button>
-        <b-tooltip target="backButton"
-                   triggers="hover">Back</b-tooltip> -->
+            <ArrowUpLeftSquare/>
+        </BButton>
+        <BTooltip target="backButton"
+                   triggers="hover">Back</BTooltip>
 
         <DomainCardForm :card="card"
             >
@@ -25,8 +25,8 @@
 </template>
 
 <script setup lang="ts">
-// import { BIcon, BIconArrowUpLeftSquare } from 'bootstrap-vue'
-// import { getThemeColor } from '/commons/commons.js';
+    // icons
+    import ArrowUpLeftSquare from '~icons/bi/arrowUpLeftSquare'
 
     // const
     const id:string = useRoute().params.id as string

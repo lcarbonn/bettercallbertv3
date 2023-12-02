@@ -35,21 +35,21 @@
 
 <script setup>
 
-const form = reactive({
-    email: null,
-    password: null,
-})
+    const form = reactive({
+        email: null,
+        password: null,
+    })
 
-const onSubmit = async (event) => {
-    event.preventDefault()
-    const credentials = await signInUser(form.email, form.password)
-    console.log("signIn user=", credentials)
-    if(credentials) navigateTo('/')
-}
+    const onSubmit = async (event) => {
+        event.preventDefault()
+        const credentials = await signInUser(form.email, form.password)
+        console.log("signIn user=", credentials)
+        if(credentials) navigateTo('/')
+    }
 
-const onReset = (event) => {
-    event.preventDefault()
-    form.email = null
-    form.password = null
+    const onReset = (event) => {
+        event.preventDefault()
+        form.email = null
+        form.password = null
 }
 </script>

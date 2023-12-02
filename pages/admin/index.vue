@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p>Admin page</p>
+        <p>Admin page, you should not be there</p>
     </div>
 </template>
 

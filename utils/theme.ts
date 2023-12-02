@@ -33,7 +33,7 @@ export const getThemeColor = (idTheme:string) => {
 }
 
 export const genThemeOptions = (themes:ThemeType[]) => {
-    const opts = []
+    const opts:any[] = []
     if (themes) themes.forEach(theme => {
         opts.push(
             { value: theme.id, text: theme.title }

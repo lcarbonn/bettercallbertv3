@@ -1,6 +1,5 @@
 <template>
   <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
-    <!-- change to navigate-->
     <BNavbarBrand href="/">
       <BAvatar rounded
                   src="/icon.png"></BAvatar> BetterCallBert
@@ -76,9 +75,6 @@ import { useSinglePage } from '~/composables/useStates';
   })
 
   // methods
-  const goToHome = async () => {
-    await navigateTo('/')
-  }
   const signOut = async () => {
     await signOutUser();
     // navigateTo('/')

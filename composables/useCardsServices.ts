@@ -15,7 +15,7 @@ export const getCards = () => {
     .then((querySnapshot)=> {
         querySnapshot.forEach(doc => {
             const card = new Card(doc)
-            if (card.src.indexOf("http") == -1) {
+            if (card.src?.indexOf("http") == -1) {
                 setCardImageSrc(card).then((url) => {
                     const i = cards.value.indexOf(card)
                     if(i>-1)cards.value[i].img = url as string
@@ -51,7 +51,7 @@ export const getCard = (id:string) => {
         const card = new Card(doc)
         stateCard.value = card
 
-        if (card.src.indexOf("http") == -1) {
+        if (card.src?.indexOf("http") == -1) {
             setCardImageSrc(card).then((url) => {
                 stateCard.value.img = url as string
             })
@@ -67,6 +67,33 @@ export const getCard = (id:string) => {
         snackBarMessage.value = "Error getting card : "+errorMessage
     });
 };
+
+export const createCard = () :Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const { $db } = useNuxtApp()
+
+        console.debug("start create Card")
+
+        const newCard ={
+            "title": "New Card",
+            "idTheme": "DEFAULT"
+        }
+        const cardsRef = collection($db as Firestore, "cards")
+        addDoc(cardsRef, newCard)
+        .then((doc) => {
+            resolve(doc.id)
+        })
+        .catch((error) => {
+            const snackBarMessage = useSnackBarMessage()
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("error create Card", errorCode, errorMessage)
+            snackBarMessage.value = "Error create card : "+errorMessage
+            reject()
+        });
+    })
+};
+
 
 export const serviceFilterCards = (idTheme:string) => {
     const list: CardType[] = [];

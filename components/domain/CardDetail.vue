@@ -8,7 +8,7 @@
         <template #header>
             <small>{{ card.title }}</small>
         </template>
-        <BCard-body>
+        <BCardBody>
             <BButton v-if="previousId"
                     @click="goToPrevious()"
                     size="lg">
@@ -23,7 +23,7 @@
                     size="lg">
                 <ArrowRightSquare variant="primary"/>
             </BButton>
-        </BCard-body>
+        </BCardBody>
 
         <BLink href="#" @click="show" v-if="card.img">
             <BCard-img :src="card.img"

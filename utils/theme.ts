@@ -31,3 +31,13 @@ export const getThemeColor = (idTheme:string) => {
     });
     return color
 }
+
+export const genThemeOptions = (themes:ThemeType[]) => {
+    const opts = []
+    if (themes) themes.forEach(theme => {
+        opts.push(
+            { value: theme.id, text: theme.title }
+        )
+    })
+    return opts
+}

@@ -29,19 +29,21 @@
             </BInputGroupAppend>
         </BInputGroup>
       </BNavForm>
-      <BNavItemDropdown right>
+      <BNavItemDropdown text="Settings"
+                             v-show="!isAnonymous"
+                             v-b-color-mode="'light'">
+          <BDropdownItem @click="newCard()" variant="primary"
+                           >Add card</BDropdownItem>
+      </BNavItemDropdown>
+      <BNavItemDropdown right  v-b-color-mode="'light'">
           <!-- Using 'button-content' slot -->
           <template #button-content>
             <em><Person/></em>
           </template>
-          <BDropdownItem v-show="isAnonymous" href="/login">Sign In</BDropdownItem>
-          <BDropdownItem v-show="!isAnonymous" @click="signOut()">Sign Out</BDropdownItem>
+          <BDropdownItem v-show="isAnonymous" href="/login" variant="primary">Sign In</BDropdownItem>
+          <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
         </BNavItemDropdown>
       </BNavbarNav>
-      <!-- <BNavForm class="d-flex">
-        <BFormInput class="me-2" placeholder="Search" v-b-color-mode="'light'" />
-        <BButton type="submit">Search</BButton>
-      </BNavForm> -->
     </BCollapse>
   </BNavbar>
 </template>
@@ -88,7 +90,6 @@ import { useSinglePage } from '~/composables/useStates';
    }
 
   const filterCards = async (idTheme:string) => {
-    if(isSinglePage.value) await navigateTo('/')
     textsearch.value = null
     if (isCurrentTheme(idTheme)) {
       emit('filterCards')
@@ -97,12 +98,20 @@ import { useSinglePage } from '~/composables/useStates';
       emit('filterCards', idTheme)
       currentTheme.value = idTheme
     }
+    if(isSinglePage.value) await navigateTo('/')
   }
 
   const searchCards = async () => {
-    if(isSinglePage.value) await navigateTo('/')
     currentTheme.value = ""
     emit('searchCards', textsearch.value)
+    if(isSinglePage.value) await navigateTo('/')
+  }
+
+  const newCard = () => {
+      filterCards("")
+      createCard().then((id) => {
+        navigateTo('/admin/' + id)
+      })
   }
 
 </script>

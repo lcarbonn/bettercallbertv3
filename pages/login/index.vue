@@ -13,7 +13,6 @@
                         v-model="form.email"
                         type="email"
                         placeholder="Enter email"
-                        required
                     />
                 </BFormGroup>
                 <BFormGroup
@@ -26,7 +25,6 @@
                         v-model="form.password"
                         type="password"
                         placeholder="Enter password"
-                        required
                     />
                 </BFormGroup>
                 <BButton type="submit" variant="primary">Connexion</BButton>

@@ -50,11 +50,11 @@
         </BCardBody>
         <BButton @click="saveCard"
                     :disabled="!Boolean(srcState && titleState)"
-                    title="Save"><Save/></BButton>
+                    title="Save" variant="primary"><Save/></BButton>
         <BButton @click="deleteCard"
-                    title="Delete"><Trash/></BButton>
+                    title="Delete" variant="primary"><Trash/></BButton>
         <BButton @click="resetCard"
-                    title="Reset"><Reset/></BButton>
+                    title="Reset" variant="primary"><Reset/></BButton>
     </BCard>
 </template>
 

@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 
+    //props
     const props = defineProps({
             title: {
                 type: String,
@@ -33,6 +34,7 @@
             }
     })
 
+    // local refs
     const programmaticModal = ref(false)
 
 </script>

@@ -15,12 +15,15 @@
 </template>
 
 <script setup lang="ts">
+    //props
     const props = defineProps({
         card: {
             type:Card,
             default:undefined
         }
     })
+
+    // computed props
     const theme = computed(() => {
         if(props.card) return getThemeColor(props.card.idTheme)
     })

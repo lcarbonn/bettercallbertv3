@@ -21,7 +21,8 @@
                     <BFormInput id="link"
                         v-model="card.link"
                         trim
-                        placeholder="Set the card url link"></BFormInput>
+                        :state="linkState"
+                        placeholder="Set the card url link, must start by 'http'"></BFormInput>
                 </BFormGroup>
                 <BFormGroup 
                     id="theme-group"
@@ -46,15 +47,54 @@
                         :state="srcState"
                         placeholder="Set the card image src"></BFormInput>
                 </BFormGroup>
+                <BFormGroup 
+                    id="loda-group"
+                    label="Image file"
+                    label-for="imageFile">
+                    <BInputGroup class="mb-0">
+                        <BFormFile id="imageFile"
+                                        v-model="imageFile"
+                                        accept="image/*"></BFormFile>
+                        <BInputGroupAppend>
+                            <BButton id="uploadButton"
+                                variant="primary"
+                                :disabled="!Boolean(imageFile)"
+                                @click="uploadImageFile">
+                                <Upload/>
+                            </BButton>
+                            <BTooltip target="uploadButton"
+                                triggers="hover">Upload file</BTooltip>
+                        </BInputGroupAppend>
+                    </BInputGroup>
+                </BFormGroup>
+
             </BForm>
         </BCardBody>
-        <BButton @click="saveCard"
-                    :disabled="!Boolean(srcState && titleState)"
-                    title="Save" variant="primary"><Save/></BButton>
-        <BButton @click="deleteCard"
-                    title="Delete" variant="primary"><Trash/></BButton>
-        <BButton @click="resetCard"
-                    title="Reset" variant="primary"><Reset/></BButton>
+        <BButton id="saveButton" 
+            @click="saveCard"
+            :disabled="!Boolean(srcState && titleState)"
+            variant="primary">
+            <Save/>
+            <BTooltip target="saveButton"
+                triggers="hover">Save</BTooltip>
+        </BButton>
+        <BButton 
+            id="deleteButton"
+            @click="modal = !modal"
+            variant="primary">
+            <Trash/>
+            <BTooltip target="deleteButton"
+                triggers="hover">Delete</BTooltip>
+        </BButton>
+        <BModal v-model="modal" title="Delete Card" @ok="deleteCard"> Really ? </BModal>
+        <BButton 
+            id="resetButton"
+            @click="resetCard"
+            variant="primary">
+            <Reset/>
+            <BTooltip target="resetButton"
+                triggers="hover">Reset</BTooltip>
+        </BButton>
     </BCard>
 </template>
 
@@ -75,11 +115,14 @@
     })
 
     // emits declaration
-    const emit = defineEmits(['saveCard', 'deleteCard', 'resetCard'])
+    const emit = defineEmits(['saveCard', 'deleteCard', 'resetCard', 'uploadImageFile'])
 
     // states properties
     const themes = useThemes()
-    
+
+    // local ref props
+    const imageFile = ref<null | File>(null)
+    const modal = ref(false)
 
     //computed properties
     const titleState = computed(() => {
@@ -87,6 +130,10 @@
     })
     const srcState = computed(() => {
         return (props.card.src != null && props.card.src != "") ? true : false
+    })
+    const linkState = computed(() => {
+        if(props.card.link==null || props.card.link=="") return true
+        return (props.card.link.indexOf('http')>-1) ? true : false
     })
     const themeOptions = computed(() => {
         return genThemeOptions(themes.value)
@@ -101,6 +148,9 @@
     }
     const resetCard = () => {
         emit('resetCard')
+    }
+    const uploadImageFile = () => {
+        emit('uploadImageFile', imageFile.value)
     }
 
 </script>

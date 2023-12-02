@@ -3,10 +3,11 @@ import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { type FirebaseStorage } from "firebase/storage"
 
 
-export const setCardImageSrc = (card:Card) :Promise<string> => {
-    const { $storage } = useNuxtApp()
-    const storageRef = ref($storage as FirebaseStorage, card.src)
+export const setCardImageSrc = (card:Card) :Promise<string|void> => {
     return new Promise((resolve, reject) => {
+        const { $storage } = useNuxtApp()
+        const storageRef = ref($storage as FirebaseStorage, card.src)
+        if(!card.src || card.src == "") resolve()
         getDownloadURL(storageRef).then((url) => {
             resolve(url)
         }).catch((error) => {

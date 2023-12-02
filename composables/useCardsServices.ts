@@ -94,6 +94,54 @@ export const createCard = () :Promise<string> => {
     })
 };
 
+export const saveCard = (card:CardType) :Promise<void> => {
+    return new Promise((resolve, reject) => {
+        const { $db } = useNuxtApp()
+
+        console.debug("start save Card")
+
+        const docRef = doc($db as Firestore, "cards", card.id)
+        updateDoc(docRef, {
+            title: card.title,
+            link: card.link ? card.link : "",
+            src: card.src,
+            idTheme: card.idTheme
+        })
+        .then(() => {
+            resolve()
+        })
+        .catch((error) => {
+            const snackBarMessage = useSnackBarMessage()
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("error save Card", errorCode, errorMessage)
+            snackBarMessage.value = "Error save card : "+errorMessage
+            reject()
+        });
+    })
+};
+
+export const deleteCard = (card:CardType) :Promise<void> => {
+    return new Promise((resolve, reject) => {
+        const { $db } = useNuxtApp()
+
+        console.debug("start delete Card")
+
+        const docRef = doc($db as Firestore, "cards", card.id)
+        deleteDoc(docRef)
+        .then(() => {
+            resolve()
+        })
+        .catch((error) => {
+            const snackBarMessage = useSnackBarMessage()
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("error delete Card", errorCode, errorMessage)
+            snackBarMessage.value = "Error delete card : "+errorMessage
+            reject()
+        });
+    })
+};
 
 export const serviceFilterCards = (idTheme:string) => {
     const list: CardType[] = [];

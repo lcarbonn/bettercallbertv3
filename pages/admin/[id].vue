@@ -10,9 +10,10 @@
                    triggers="hover">Back</BTooltip>
 
         <DomainCardForm :card="card"
-            @save-card="saveCard"
-            @delete-card="deleteCard"
-            @reset-card="resetCard"
+            @save-card="saveCardForm"
+            @delete-card="deleteCardForm"
+            @reset-card="resetCardForm"
+            @upload-image-file="uploadImageFileForm"
             >
                         <!-- :imageUrl="imageUrl"
                         :themes="themes"
@@ -34,28 +35,35 @@
     // const
     const id:string = useRoute().params.id as string
     
+    // use states
+    const card = useCard()
+    const isSinglePage = useSinglePage()
+
     // nuxt cycle hooks
     onMounted(() => {
         getCard(id)
-        const isSinglePage = useSinglePage()
         isSinglePage.value = true
     })
 
-    // use states
-    const card = useCard()
-
-    const saveCard = () => {
+    // methods
+    const saveCardForm = () => {
         console.log("saveCard=", card.value.id)
-        // serviceFilterCards(idTheme)
+        saveCard(card.value)
     }
 
-    const deleteCard = () => {
+    const deleteCardForm = async () => {
         console.log("deleteCard=", card.value.id)
-        // serviceFilterCards(idTheme)
+        await deleteCard(card.value)
+        await navigateTo('/')
     }
 
-    const resetCard = () => {
+    const resetCardForm = () => {
         console.log("resetCard=", card.value.id)
+        getCard(id)
+    }
+
+    const uploadImageFileForm = (file:File) => {
+        console.log("uploadImageFile=", file)
         // serviceFilterCards(idTheme)
     }
 

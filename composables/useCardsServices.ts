@@ -1,12 +1,12 @@
 import { collection, query, orderBy, getDocs, getDoc, doc, startAfter, limit, endBefore, updateDoc, deleteDoc, addDoc, type DocumentData } from "firebase/firestore"
 import { type Firestore } from "firebase/firestore"
 
-export const getCards= () => {
+export const getCards = () => {
     
     const { $db } = useNuxtApp()
     const cards = useCards()
     
-    console.debug("start get Cards")
+    console.debug("start get Cards with img ")
     const cardsRef = collection($db as Firestore, "cards")
     const list: CardType[] = [];
 

@@ -8,11 +8,6 @@ export const setCardImageSrc = (card:Card) => {
     const storageRef = ref($storage as FirebaseStorage, card.src)
     return new Promise((resolve, reject) => {
         getDownloadURL(storageRef).then((url) => {
-            // console.debug("url:" + url);
-            // const cards = useCards()
-            // const i = cards.value.indexOf(card)
-            // if(i>-1)cards.value[i].img = url
-            // card.img = url
             resolve(url)
         }).catch((error) => {
             const snackBarMessage = useSnackBarMessage()

@@ -23,7 +23,6 @@
 
     // nuxt cycle hooks
     onMounted(() => {
-        getCards()
         getCard(id)
         const isSinglePage = useSinglePage()
         isSinglePage.value = true
@@ -33,7 +32,7 @@
 
     // use states
     const card = useCard()
-    const cards = useCards()
+    const cards = useFullCards()
 
     //computed properties
     const previousId = computed(() => {

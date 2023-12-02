@@ -17,12 +17,11 @@
   import { version } from '~/package.json';
   console.debug("appVersion:",version)
 
-  
   onMounted(() => {
     getCards()
     getThemes()
   })
-  
+
   const filterCards = (idTheme:string) => {
     console.log("filterCards=", idTheme)
     serviceFilterCards(idTheme)

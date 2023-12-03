@@ -18,7 +18,8 @@
                       :href="card.link"
                       target="_blank"
                       variant="primary">Jump to source</BButton>
-            <!-- a déplacer en page id -->
+            <BButton v-else disabled
+                variant="primary">No source</BButton>
             <BButton v-if="nextId"
                     @click="goToNext()"
                     size="lg">
@@ -68,8 +69,8 @@
         return getThemeColor(props.card.idTheme)
     })
 
-        // nuxt cycle hooks
-        onMounted(() => {
+    // nuxt cycle hooks
+    onMounted(() => {
         // keyboard arrows
         document.addEventListener("keyup", eventHandler)
         // swiped-left

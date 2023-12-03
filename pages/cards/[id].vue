@@ -22,19 +22,21 @@
     // const
     const id:string = useRoute().params.id as string
 
+    // use states
+    const card = useCard()
+    const cards = useFullCards()
+    const firebaseUser = useFirebaseUser()
+
     // nuxt cycle hooks
     onMounted(() => {
-        getCard(id)
+        getCard(id).then(() => {
+            setCardImageSrc(card.value)
+        })
         const isSinglePage = useSinglePage()
         isSinglePage.value = true
         const currentTheme = useCurrentTheme()
         currentTheme.value = ""        
     })
-
-    // use states
-    const card = useCard()
-    const cards = useFullCards()
-    const firebaseUser = useFirebaseUser()
 
     //computed properties
     const previousId = computed(() => {

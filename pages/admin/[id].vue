@@ -41,7 +41,9 @@
 
     // nuxt cycle hooks
     onMounted(() => {
-        getCard(id)
+        getCard(id).then(() => {
+            setCardImageSrc(card.value)
+        })
         isSinglePage.value = true
     })
 
@@ -54,6 +56,8 @@
     const deleteCardForm = async () => {
         console.log("deleteCard=", card.value.id)
         await deleteCard(card.value)
+        //refresh full cards list
+        getCardsWithImage()
         await navigateTo('/')
     }
 
@@ -64,7 +68,10 @@
 
     const uploadImageFileForm = (file:File) => {
         console.log("uploadImageFile=", file)
-        // serviceFilterCards(idTheme)
+        uploadImageFile(file).then((paths) => {
+            card.value.src = paths.imagePath
+            card.value.img = paths.imageUrl
+        })
     }
 
 </script>

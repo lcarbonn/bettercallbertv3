@@ -1,71 +1,81 @@
-import { collection, query, orderBy, getDocs, getDoc, doc, startAfter, limit, endBefore, updateDoc, deleteDoc, addDoc, type DocumentData } from "firebase/firestore"
+import { collection, query, orderBy, getDocs, getDoc, doc, updateDoc, deleteDoc, addDoc } from "firebase/firestore"
 import { type Firestore } from "firebase/firestore"
 
-export const getCards = () => {
-    
-    const { $db } = useNuxtApp()
+export const getCardsWithImage = () => {
     const cards = useCards()
-    
-    console.debug("start get Cards with img ")
-    const cardsRef = collection($db as Firestore, "cards")
-    const list: CardType[] = [];
-
-    const q = query(cardsRef, orderBy("idTheme"));
-    getDocs(q)
-    .then((querySnapshot)=> {
-        querySnapshot.forEach(doc => {
-            const card = new Card(doc)
-            if (card.src?.indexOf("http") == -1) {
-                setCardImageSrc(card).then((url) => {
-                    const i = cards.value.indexOf(card)
-                    if(i>-1)cards.value[i].img = url as string
-                })
-             } else {
-                card.img = card.src
-            }
-            list.push(card);
-        });
-        cards.value = list
-        const fullCards = useFullCards()
-        fullCards.value = list
+    getCards().then(() => {
+        setCardsImageSrc(cards.value)
     })
-    .catch((error) => {
-        const snackBarMessage = useSnackBarMessage()
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("error get Cards", errorCode, errorMessage)
-        snackBarMessage.value = "Error getting cards : "+errorMessage
-    });
+}
+export const getCards = () :Promise<void> => {
+    return new Promise((resolve, reject) => {
+        const { $db } = useNuxtApp()
+        const cards = useCards()
+        
+        console.debug("start get Cards")
+        const cardsRef = collection($db as Firestore, "cards")
+        const list: CardType[] = [];
+    
+        const q = query(cardsRef, orderBy("idTheme"));
+        getDocs(q)
+        .then((querySnapshot)=> {
+            querySnapshot.forEach(doc => {
+                const card = new Card(doc)
+                if (card.src?.indexOf("http") != -1) {
+                    card.img = card.src
+                }
+                list.push(card);
+            });
+            cards.value = list
+            const fullCards = useFullCards()
+            fullCards.value = list
+            resolve()
+        })
+        .catch((error) => {
+            const snackBarMessage = useSnackBarMessage()
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("error get Cards", errorCode, errorMessage)
+            snackBarMessage.value = "Error getting cards : "+errorMessage
+            reject()
+        });    
+    })
 };
 
-export const getCard = (id:string) => {
+export const getCard = (id:string) :Promise<void> => {
+    return new Promise((resolve, reject) => {
+        const { $db } = useNuxtApp()
+        const stateCard = useCard()
     
-    const { $db } = useNuxtApp()
-    const stateCard = useCard()
-
-    console.debug("start get Card")
-    const docRef = doc($db as Firestore, "cards", id)
-
-    getDoc(docRef)
-    .then((doc)=> {
-        const card = new Card(doc)
-        stateCard.value = card
-
-        if (card.src?.indexOf("http") == -1) {
-            setCardImageSrc(card).then((url) => {
-                stateCard.value.img = url as string
-            })
-         } else {
-            stateCard.value.img = card.src
-        }
+        console.debug("start get Card")
+        const docRef = doc($db as Firestore, "cards", id)
+    
+        getDoc(docRef)
+        .then((doc)=> {
+            const card = new Card(doc)
+            stateCard.value = card
+            if (card.src?.indexOf("http") != -1) {
+                stateCard.value.img = card.src
+            }
+    
+            // if (card.src?.indexOf("http") == -1) {
+            //     setCardImageSrc(card).then((url) => {
+            //         stateCard.value.img = url as string
+            //     })
+            //  } else {
+            //     stateCard.value.img = card.src
+            // }
+            resolve()
+        })
+        .catch((error) => {
+            const snackBarMessage = useSnackBarMessage()
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("error get Card", errorCode, errorMessage)
+            snackBarMessage.value = "Error getting card : "+errorMessage
+            reject()
+        });
     })
-    .catch((error) => {
-        const snackBarMessage = useSnackBarMessage()
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("error get Card", errorCode, errorMessage)
-        snackBarMessage.value = "Error getting card : "+errorMessage
-    });
 };
 
 export const createCard = () :Promise<string> => {

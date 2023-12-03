@@ -16,11 +16,13 @@
 
   // imports
   import { version } from '~/package.json';
+import { getCardsWithImage } from './composables/useCardsServices';
   console.debug("appVersion:",version)
 
+  const cards = useFullCards()
   // nuxt cycle hook
   onMounted(() => {
-    getCards()
+    getCardsWithImage()
     getThemes()
   })
 

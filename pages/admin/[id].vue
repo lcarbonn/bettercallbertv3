@@ -59,12 +59,12 @@
 
     const saveCardForm = () => {
         console.log("saveCard=", card.value.id)
-        saveCard(card.value)
+        saveDbCard(card.value)
     }
 
     const deleteCardForm = async () => {
         console.log("deleteCard=", card.value.id)
-        await deleteCard(card.value)
+        await deleteDbCard(card.value)
         //refresh full cards list
         getCardsWithImage()
         await navigateTo('/')
@@ -72,12 +72,12 @@
 
     const resetCardForm = () => {
         console.log("resetCard=", card.value.id)
-        getCard(id)
+        getDbCard(id)
     }
 
     const uploadImageFileForm = (file:File) => {
         console.log("uploadImageFile=", file)
-        uploadImageFile(file).then((paths) => {
+        uploadStorageImageFile(file).then((paths) => {
             card.value.src = paths.imagePath
             card.value.img = paths.imageUrl
         })

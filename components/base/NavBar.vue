@@ -108,7 +108,7 @@
 
   const newCard = () => {
       filterCards("")
-      createCard().then((id) => {
+      createDbCard().then((id) => {
         navigateTo('/admin/' + id)
       })
   }

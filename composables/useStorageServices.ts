@@ -34,7 +34,7 @@ export const setCardImageSrc = (card:CardType) :Promise<void> => {
     })
 }
 
-export const uploadImageFile = (file:File) :Promise<any|void> => {
+export const uploadStorageImageFile = (file:File) :Promise<any|void> => {
     return new Promise((resolve, reject) => {
         const { $storage } = useNuxtApp()
         const storageRef = ref($storage as FirebaseStorage, "cards/" + file.name)

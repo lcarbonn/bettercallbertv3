@@ -1,24 +1,9 @@
 import { collection, query, orderBy, getDocs, getDoc, doc, updateDoc, deleteDoc, addDoc } from "firebase/firestore"
 import { type Firestore } from "firebase/firestore"
 
-export const getCardsWithImage = () => {
-    const cards = useCards()
-    getCards().then(() => {
-        setCardsImageSrc(cards.value)
-    })
-}
-
-export const getCardWithImage = (id:string) => {
-    const card = useCard()
-    getCard(id).then(() => {
-        setCardImageSrc(card.value)
-    })
-}
-
-export const getCards = () :Promise<void> => {
+export const getDbCards = () :Promise<CardType[]> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
-        const cards = useCards()
         
         console.debug("start get Cards")
         const cardsRef = collection($db as Firestore, "cards")
@@ -34,10 +19,7 @@ export const getCards = () :Promise<void> => {
                 }
                 list.push(card);
             });
-            cards.value = list
-            const fullCards = useFullCards()
-            fullCards.value = list
-            resolve()
+            resolve(list)
         })
         .catch((error) => {
             const snackBarMessage = useSnackBarMessage()
@@ -50,10 +32,9 @@ export const getCards = () :Promise<void> => {
     })
 };
 
-export const getCard = (id:string) :Promise<void> => {
+export const getDbCard = (id:string) :Promise<CardType> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
-        const stateCard = useCard()
     
         console.debug("start get Card")
         const docRef = doc($db as Firestore, "cards", id)
@@ -61,11 +42,7 @@ export const getCard = (id:string) :Promise<void> => {
         getDoc(docRef)
         .then((doc)=> {
             const card = new Card(doc)
-            stateCard.value = card
-            if (card.src?.indexOf("http") != -1) {
-                stateCard.value.img = card.src
-            }
-            resolve()
+            resolve(card)
         })
         .catch((error) => {
             const snackBarMessage = useSnackBarMessage()
@@ -78,7 +55,7 @@ export const getCard = (id:string) :Promise<void> => {
     })
 };
 
-export const createCard = () :Promise<string> => {
+export const createDbCard = () :Promise<string> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
@@ -104,7 +81,7 @@ export const createCard = () :Promise<string> => {
     })
 };
 
-export const saveCard = (card:CardType) :Promise<void> => {
+export const saveDbCard = (card:CardType) :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
@@ -118,6 +95,8 @@ export const saveCard = (card:CardType) :Promise<void> => {
             idTheme: card.idTheme
         })
         .then(() => {
+            const snackBarMessage = useSnackBarMessage()
+            snackBarMessage.value = "Card saved"
             resolve()
         })
         .catch((error) => {
@@ -131,7 +110,7 @@ export const saveCard = (card:CardType) :Promise<void> => {
     })
 };
 
-export const deleteCard = (card:CardType) :Promise<void> => {
+export const deleteDbCard = (card:CardType) :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
@@ -140,6 +119,8 @@ export const deleteCard = (card:CardType) :Promise<void> => {
         const docRef = doc($db as Firestore, "cards", card.id)
         deleteDoc(docRef)
         .then(() => {
+            const snackBarMessage = useSnackBarMessage()
+            snackBarMessage.value = "Card deleted"
             resolve()
         })
         .catch((error) => {
@@ -152,36 +133,3 @@ export const deleteCard = (card:CardType) :Promise<void> => {
         });
     })
 };
-
-export const serviceFilterCards = (idTheme:string) => {
-    const list: CardType[] = [];
-    const cards = useCards()
-    const fullCards = useFullCards()
-    if (idTheme == null) {
-        cards.value = fullCards.value
-    } else {
-        fullCards.value.forEach((card) => {
-            if (card.idTheme == idTheme) {
-                list.push(card);
-            }
-        })
-        cards.value = list
-    }
-}
-
-export const serviceSearchCards = (textsearch:string) => {
-    const list: CardType[] = [];
-    const cards = useCards()
-    const fullCards = useFullCards()
-    const st = textsearch ? textsearch.trim() : textsearch
-    if (!st) {
-        cards.value = fullCards.value
-    } else {
-        fullCards.value.forEach((card) => {
-            if (card.title.toLowerCase().includes(st.toLowerCase())) {
-                list.push(card);
-            }
-        })
-        cards.value = list
-    }   
-}

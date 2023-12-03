@@ -16,7 +16,7 @@
 
   // imports
   import { version } from '~/package.json';
-import { getCardsWithImage } from './composables/useCardsServices';
+
   console.debug("appVersion:",version)
 
   const cards = useFullCards()

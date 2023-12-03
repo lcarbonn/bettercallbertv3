@@ -25,11 +25,12 @@
                 <ArrowRightSquare variant="primary"/>
             </BButton>
         </BCardBody>
-        <BLink href="#" @click="show" v-if="card.img">
-            <BCard-img :src="card.img"
+        <BLink v-if="card.img" href="#" @click="show">
+            <BCardImg :src="card.img"
                             :alt="card.title"
-                            class="BCard-img"></BCard-img>
+                            class="BCard-img"></BCardImg>
         </BLink>
+        <BSpinner v-else label="Loading..."></BSpinner>
         <DomainCardModal v-if="card.img" :title="card.title"
                           :img="card.img"
                           :themeColor="themeColor">

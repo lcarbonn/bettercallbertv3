@@ -29,6 +29,10 @@
 </template>
 
 <script setup lang="ts">
+    // // auth middle ware
+    // definePageMeta({
+    //     middleware: ["auth"],
+    // });
     // icons
     import ArrowUpLeftSquare from '~icons/bi/arrowUpLeftSquare'
 

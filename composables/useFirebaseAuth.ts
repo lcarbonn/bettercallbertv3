@@ -3,15 +3,16 @@ import {
     signInAnonymously,
     onAuthStateChanged,
     type Auth,
+    getAuth,
   } from "firebase/auth";
 
   export const signInUser = async (email:string, password:string) => {
     //check 
-    const { $auth } = useNuxtApp()
+    const auth = getAuth()
     const snackBarMessage = useSnackBarMessage()
 
     const credentials = await signInWithEmailAndPassword(
-      $auth as Auth,
+      auth,
       email,
       password
     ).catch((error) => {
@@ -20,15 +21,16 @@ import {
       console.log("signInUser", errorCode, errorMessage)
       snackBarMessage.value = "Error on login"+errorMessage
     });
+    //refacto with then
     if(credentials) snackBarMessage.value = "Hello " + credentials.user.email
     return credentials;
   };
 
   export const signInAnonymous = async () => {
-    const { $auth } = useNuxtApp()
+    const auth = getAuth()
     const snackBarMessage = useSnackBarMessage()
     const credentials = await signInAnonymously(
-      $auth as Auth
+      auth
     ).catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -41,25 +43,28 @@ import {
   };
 
   export const signOutUser = async () => {
-    const { $auth } = useNuxtApp()
+    const auth = getAuth()
     const snackBarMessage = useSnackBarMessage()
-    const result = await ($auth as Auth).signOut();
+    const result = await (auth as Auth).signOut();
     snackBarMessage.value = "SignOut"
     return result;
   };
 
   export const initUser = async () => {
-    const { $auth } = useNuxtApp()
+    const auth = getAuth()
     const firebaseUser = useFirebaseUser();
 
-    onAuthStateChanged($auth as Auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
         firebaseUser.value = user;
+        const currentRoute = useRouter().currentRoute
+        if(user.isAnonymous && currentRoute?.value?.fullPath.indexOf('/admin') != -1) {
+          await navigateTo('/')
+        }
     } else {
-        //if signed out
-        signInAnonymous()
+        //if signed out sing in anonymous
+        const credentials = await signInAnonymous()
+        if(credentials) firebaseUser.value = credentials.user
       }
     });
   };

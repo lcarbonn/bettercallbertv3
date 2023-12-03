@@ -1,13 +1,13 @@
 <template>
-    <BCard :imgSrc="card?.img"
-            :img-alt="card?.title"
+    <BCard 
             class="h-100"
             bg-variant="secondary"
             text-variant="white"
             :headerBgVariant="theme"
             header-tag="header"
-            overlay
-            img-bottom>
+            >
+        <BCardBody v-if="!card?.img"><BSpinner label="Loading..."></BSpinner></BCardBody>
+        <BCardImg v-else bottom :src="card?.img" :alt="card?.title" overlay></BCardImg>
         <template #header>
             <small>{{ card?.title }}</small>
         </template>

@@ -16,7 +16,7 @@
             @upload-image-file="uploadImageFileForm">
         </DomainCardForm>
         <DomainCardDetail :card="card"></DomainCardDetail>
-        <!-- <BModal v-model="modal" title="Without saving" @ok="keepNavigate"> Really ? </BModal> -->
+        <BModal v-model="modal" title="Without saving" @ok="keepNavigate"> Really ? </BModal>
     </BContainer>
 </template>
 
@@ -43,19 +43,26 @@
         isSinglePage.value = true
     })
 
-    // onBeforeRouteLeave((leaveGuard) => {
-    //     console.log("route leaving :", leaveGuard)
-    //     modal.value = true
-    //     nextPath.value = leaveGuard.fullPath
-    //     if(!forceNext.value) abortNavigation()
-    // })
+    onBeforeRouteLeave(async (leaveGuard) => {
+        console.log("route leaving :", leaveGuard)
 
-    // // methods
-    // const keepNavigate = async () => {
-    //     console.log("keepNavigate:", nextPath.value)
-    //     forceNext.value = true
-    //     await navigateTo(nextPath.value)
-    // }
+        const user = useFirebaseUser()
+        if(user.value.isAnonymous) {
+            forceNext.value = true
+            modal.value = false
+        } else {
+            modal.value = true
+            nextPath.value = leaveGuard.fullPath
+        }
+        if(!forceNext.value) abortNavigation()
+    })
+
+    // methods
+    const keepNavigate = async () => {
+        console.log("keepNavigate:", nextPath.value)
+        forceNext.value = true
+        await navigateTo(nextPath.value)
+    }
 
     const saveCardForm = () => {
         console.log("saveCard=", card.value.id)

@@ -1,3 +1,7 @@
+export const resetCards = () => {
+    useCards().value = useFullCards().value
+}
+
 export const getCardsWithImage = () => {
     getDbCards().then((list:CardType[]) => {
         const cards = useCards()

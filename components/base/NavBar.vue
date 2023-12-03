@@ -1,8 +1,10 @@
 <template>
   <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
-    <BNavbarBrand href="/">
+    <BNavbarBrand>
+      <BLink @click="goHome" class="navbar-brand">
       <BAvatar rounded
                   src="/icon.png"></BAvatar> BetterCallBert
+                </BLink>
     </BNavbarBrand>
     <BNavbarToggle target="nav-collapse" />
     <BCollapse id="nav-collapse" is-nav>
@@ -12,7 +14,7 @@
             :id="theme.id"
             :active="isCurrentTheme(theme.id)"
             @click="filterCards(theme.id)"
-            href="#">
+            >
           <span style="border-bottom-style: solid;" :class="themeColor(theme.id)">{{ theme.title.toUpperCase() }}</span>
         </BNavItem>
       </BNavbarNav>      
@@ -74,10 +76,17 @@
   })
 
   // methods
+  const goHome = async () => {
+    textsearch.value = null
+    currentTheme.value = ""
+    resetCards()
+    await navigateTo('/')
+  }
+
   const signOut = async () => {
     await signOutUser();
     // navigateTo('/')
-  };
+  }
 
   const isCurrentTheme = (idTheme:string) => {
     if(currentTheme) return idTheme == currentTheme.value
@@ -115,3 +124,8 @@
 
 </script>
 
+<style scoped>
+.nodecoLink {
+  text-decoration: none !important;
+}
+</style>

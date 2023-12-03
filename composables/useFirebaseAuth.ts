@@ -57,8 +57,8 @@ import {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         firebaseUser.value = user;
-        const currentRoute = useRouter().currentRoute
-        if(user.isAnonymous && currentRoute?.value?.fullPath.indexOf('/admin') != -1) {
+        const currentRoute = useRoute().fullPath
+        if(user.isAnonymous && currentRoute?.indexOf('/admin') != -1) {
           await navigateTo('/')
         }
     } else {

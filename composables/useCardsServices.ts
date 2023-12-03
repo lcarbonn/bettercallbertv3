@@ -7,6 +7,14 @@ export const getCardsWithImage = () => {
         setCardsImageSrc(cards.value)
     })
 }
+
+export const getCardWithImage = (id:string) => {
+    const card = useCard()
+    getCard(id).then(() => {
+        setCardImageSrc(card.value)
+    })
+}
+
 export const getCards = () :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
@@ -57,14 +65,6 @@ export const getCard = (id:string) :Promise<void> => {
             if (card.src?.indexOf("http") != -1) {
                 stateCard.value.img = card.src
             }
-    
-            // if (card.src?.indexOf("http") == -1) {
-            //     setCardImageSrc(card).then((url) => {
-            //         stateCard.value.img = url as string
-            //     })
-            //  } else {
-            //     stateCard.value.img = card.src
-            // }
             resolve()
         })
         .catch((error) => {

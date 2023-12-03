@@ -16,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+
     // icons
     import Gear from '~icons/bi/gear'
 
@@ -29,9 +30,7 @@
 
     // nuxt cycle hooks
     onMounted(() => {
-        getCard(id).then(() => {
-            setCardImageSrc(card.value)
-        })
+        getCardWithImage(id)
         const isSinglePage = useSinglePage()
         isSinglePage.value = true
         const currentTheme = useCurrentTheme()

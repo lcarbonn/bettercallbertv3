@@ -13,26 +13,15 @@
             @save-card="saveCardForm"
             @delete-card="deleteCardForm"
             @reset-card="resetCardForm"
-            @upload-image-file="uploadImageFileForm"
-            >
-                        <!-- :imageUrl="imageUrl"
-                        :themes="themes"
-                        :imagePath="imagePath"
-                        :theme="getVariantTheme(card)"
-                        @saveCard="saveCard"
-                        @deleteCard="deleteCard"
-                        @uploadImageFile="uploadImageFile"
-                        @resetImagePath="resetImagePath" /> -->
+            @upload-image-file="uploadImageFileForm">
         </DomainCardForm>
         <DomainCardDetail :card="card"></DomainCardDetail>
+        <!-- <BModal v-model="modal" title="Without saving" @ok="keepNavigate"> Really ? </BModal> -->
     </BContainer>
 </template>
 
 <script setup lang="ts">
-    // // auth middle ware
-    // definePageMeta({
-    //     middleware: ["auth"],
-    // });
+
     // icons
     import ArrowUpLeftSquare from '~icons/bi/arrowUpLeftSquare'
 
@@ -43,15 +32,31 @@
     const card = useCard()
     const isSinglePage = useSinglePage()
 
+    // local ref
+    const modal = ref(false)
+    const nextPath = ref()
+    const forceNext = ref(false)
+
     // nuxt cycle hooks
     onMounted(() => {
-        getCard(id).then(() => {
-            setCardImageSrc(card.value)
-        })
+        getCardWithImage(id)
         isSinglePage.value = true
     })
 
-    // methods
+    // onBeforeRouteLeave((leaveGuard) => {
+    //     console.log("route leaving :", leaveGuard)
+    //     modal.value = true
+    //     nextPath.value = leaveGuard.fullPath
+    //     if(!forceNext.value) abortNavigation()
+    // })
+
+    // // methods
+    // const keepNavigate = async () => {
+    //     console.log("keepNavigate:", nextPath.value)
+    //     forceNext.value = true
+    //     await navigateTo(nextPath.value)
+    // }
+
     const saveCardForm = () => {
         console.log("saveCard=", card.value.id)
         saveCard(card.value)

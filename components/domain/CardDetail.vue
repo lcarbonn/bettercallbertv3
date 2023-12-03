@@ -9,7 +9,6 @@
             <small>{{ card.title }}</small>
         </template>
         <BCardBody>
-            <!-- a déplacer en page id -->
             <BButton v-if="previousId"
                     @click="goToPrevious()"
                     size="lg">
@@ -85,8 +84,8 @@
 
     //methods
     const eventHandler = async (e:KeyboardEvent) => {
-            if (e.code == "ArrowLeft" && props.nextId) await navigateTo('/cards/' + props.nextId)
-            if (e.code == "ArrowRight" && props.previousId) await navigateTo('/cards/' + props.previousId)
+            if (e.code == "ArrowLeft" && props.previousId) await navigateTo('/cards/' + props.previousId)
+            if (e.code == "ArrowRight" && props.nextId) await navigateTo('/cards/' + props.nextId)
         }
     const swipeRightHandler = async () => {
             if (props.previousId) await navigateTo('/cards/' + props.previousId)

@@ -42,6 +42,9 @@ export const getDbCard = (id:string) :Promise<CardType> => {
         getDoc(docRef)
         .then((doc)=> {
             const card = new Card(doc)
+            if (card.src?.indexOf("http") != -1) {
+                card.img = card.src
+            }
             resolve(card)
         })
         .catch((error) => {

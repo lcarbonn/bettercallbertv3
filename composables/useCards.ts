@@ -16,7 +16,9 @@ export const getCardWithImage = (id:string) => {
     getDbCard(id).then((card:CardType) => {
         const stateCard = useCard()
         stateCard.value = card
-        setCardImageSrc(stateCard.value)
+        if (card.src?.indexOf("http") == -1) {
+            setCardImageSrc(stateCard.value)
+        }
     })
 }
 

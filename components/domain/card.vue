@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+
     //props
     const props = defineProps({
         card: {

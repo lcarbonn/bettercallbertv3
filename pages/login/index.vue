@@ -35,11 +35,13 @@
 
 <script setup>
 
+    // local ref
     const form = reactive({
         email: null,
         password: null,
     })
 
+    // nuxt cycle hook
     const onSubmit = (event) => {
         event.preventDefault()
         signInUser(form.email, form.password)
@@ -50,6 +52,7 @@
         })
     }
 
+    // methods
     const onReset = (event) => {
         event.preventDefault()
         form.email = null

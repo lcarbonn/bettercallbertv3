@@ -1,75 +1,27 @@
-# Nuxt 3 Minimal Starter
+# Better Call Bert
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+> Agile cards for coach memory failure
 
-## Setup
+See webapp : https://bettercallbert.web.app/
 
-Make sure to install the dependencies:
+## Build Setup
 
-```bash
-# npm
-npm install
+``` bash
+# install dependencies
+$ npm install
 
-# pnpm
-pnpm install
+# serve with hot reload at 'your local ip address':3000 for access from mobile
+$ npm run dev -- --hostname=0.0.0.0
 
-# yarn
-yarn install
+# build for production and launch server
+$ npm run build
+$ npm run preview
 
-# bun
-bun install
+# generate static project
+$ npm run generate
+
+# deploy on firebase
+$ firebase deploy (this will call npm run build before deployement)
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxt.com/).

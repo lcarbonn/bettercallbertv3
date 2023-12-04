@@ -66,7 +66,15 @@
 
     const saveCardForm = () => {
         console.log("saveCard=", card.value.id)
-        saveDbCard(card.value)
+        saveDbCard(card.value).then(() => {
+            if (card.value?.src?.indexOf("http") == -1) {
+                setCardImageSrc(card.value)
+                .catch((e) => {
+                    const snackBarMessage = useSnackBarMessage()
+                    snackBarMessage.value = "Image Source non disponible dans le store"
+                })
+            }
+        })
     }
 
     const deleteCardForm = async () => {

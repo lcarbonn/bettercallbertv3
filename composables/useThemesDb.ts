@@ -19,11 +19,8 @@ export const getDbThemes= () :Promise<ThemeType[]> => {
             resolve(list)
         })
         .catch((error) => {
-            const snackBarMessage = useSnackBarMessage()
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("error get Themes", errorCode, errorMessage)
-            snackBarMessage.value = "Error getting Themes : "+errorMessage
+            errorToSnack(error, "Error getting Themes")
+            reject()
         });
     })
 };

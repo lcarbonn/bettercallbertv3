@@ -22,11 +22,7 @@ export const getDbCards = () :Promise<CardType[]> => {
             resolve(list)
         })
         .catch((error) => {
-            const snackBarMessage = useSnackBarMessage()
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("error get Cards", errorCode, errorMessage)
-            snackBarMessage.value = "Error getting cards : "+errorMessage
+            errorToSnack(error, "Error getting cards")
             reject()
         });    
     })
@@ -48,11 +44,7 @@ export const getDbCard = (id:string) :Promise<CardType> => {
             resolve(card)
         })
         .catch((error) => {
-            const snackBarMessage = useSnackBarMessage()
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("error get Card", errorCode, errorMessage)
-            snackBarMessage.value = "Error getting card : "+errorMessage
+            errorToSnack(error, "Error getting card")
             reject()
         });
     })
@@ -74,11 +66,7 @@ export const createDbCard = () :Promise<string> => {
             resolve(doc.id)
         })
         .catch((error) => {
-            const snackBarMessage = useSnackBarMessage()
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("error create Card", errorCode, errorMessage)
-            snackBarMessage.value = "Error create card : "+errorMessage
+            errorToSnack(error, "Error creating card")
             reject()
         });
     })
@@ -98,16 +86,11 @@ export const saveDbCard = (card:CardType) :Promise<void> => {
             idTheme: card.idTheme
         })
         .then(() => {
-            const snackBarMessage = useSnackBarMessage()
-            snackBarMessage.value = "Card saved"
+            messageToSnack("Card saved")
             resolve()
         })
         .catch((error) => {
-            const snackBarMessage = useSnackBarMessage()
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("error save Card", errorCode, errorMessage)
-            snackBarMessage.value = "Error save card : "+errorMessage
+            errorToSnack(error, "Error saving card")
             reject()
         });
     })
@@ -122,16 +105,11 @@ export const deleteDbCard = (card:CardType) :Promise<void> => {
         const docRef = doc($db as Firestore, "cards", card.id)
         deleteDoc(docRef)
         .then(() => {
-            const snackBarMessage = useSnackBarMessage()
-            snackBarMessage.value = "Card deleted"
+            messageToSnack("Card deleted")
             resolve()
         })
         .catch((error) => {
-            const snackBarMessage = useSnackBarMessage()
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("error delete Card", errorCode, errorMessage)
-            snackBarMessage.value = "Error delete card : "+errorMessage
+            errorToSnack(error, "Error deleting card")
             reject()
         });
     })

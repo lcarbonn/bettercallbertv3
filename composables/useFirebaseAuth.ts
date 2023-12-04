@@ -10,18 +10,14 @@ import {
   export const signInUser = async (email:string, password:string) :Promise<UserCredential> => {
     return new Promise((resolve, reject) => {
       const auth = getAuth()
-      const snackBarMessage = useSnackBarMessage()
   
       signInWithEmailAndPassword(auth,email,password)
       .then((credentials) => {
-        if(credentials) snackBarMessage.value = "Hello " + credentials.user.email
+        if(credentials) messageToSnack("Hello " + credentials.user.email)
         resolve(credentials)
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("signInUser", errorCode, errorMessage)
-        snackBarMessage.value = "Error on login"+errorMessage
+        errorToSnack(error, "Error on login")
         reject()
       })
     })
@@ -36,10 +32,7 @@ import {
         resolve(credentials)        
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("signInAnonymous", errorCode, errorMessage)
-        snackBarMessage.value = "Error on login"+errorMessage
+        errorToSnack(error, "Error on login")
         reject()
       })
     })
@@ -47,10 +40,10 @@ import {
 
   export const signOutUser = async () :Promise<void> => {
     return new Promise((resolve, reject) => {
-      const snackBarMessage = useSnackBarMessage()
+
       getAuth().signOut()
       .then(() => {
-        snackBarMessage.value = "SignOut"
+        messageToSnack("SignOut")
         resolve
       })
     })

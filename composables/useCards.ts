@@ -1,7 +1,9 @@
+// reset card to full cards
 export const resetCards = () => {
     useCards().value = useFullCards().value
 }
 
+// get all card then get their image
 export const getCardsWithImage = () => {
     getDbCards().then((list:CardType[]) => {
         const cards = useCards()
@@ -12,6 +14,7 @@ export const getCardsWithImage = () => {
     })
 }
 
+// get a card then get its image
 export const getCardWithImage = (id:string) => {
     getDbCard(id).then((card:CardType) => {
         const stateCard = useCard()
@@ -22,6 +25,7 @@ export const getCardWithImage = (id:string) => {
     })
 }
 
+// fitering cards on theme
 export const serviceFilterCards = (idTheme:string) => {
     const list: CardType[] = [];
     const cards = useCards()
@@ -38,6 +42,7 @@ export const serviceFilterCards = (idTheme:string) => {
     }
 }
 
+// searching cards on title
 export const serviceSearchCards = (textsearch:string) => {
     const list: CardType[] = [];
     const cards = useCards()

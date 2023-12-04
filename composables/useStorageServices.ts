@@ -24,11 +24,7 @@ export const setCardImageSrc = (card:CardType) :Promise<void> => {
             card.img = url
             resolve()
         }).catch((error) => {
-            const snackBarMessage = useSnackBarMessage()
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("error set cardsImageSrc", errorCode, errorMessage)
-            snackBarMessage.value = "Error setting image src on cards : " + errorMessage
+            errorToSnack(error, "Error setting image src on cards")
             reject()
         })
     })
@@ -48,15 +44,12 @@ export const uploadStorageImageFile = (file:File) :Promise<any|void> => {
                     imagePath: storageRef.fullPath,
                     imageUrl: url
                 }
+                messageToSnack("Image uploaded")
                 console.debug("storage path=" + paths.imagePath + ', url=' + paths.imageUrl)
                 resolve(paths)
             })
         }).catch((error) => {
-            const snackBarMessage = useSnackBarMessage()
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("error upload image file", errorCode, errorMessage)
-            snackBarMessage.value = "error upload image file : " + errorMessage
+            errorToSnack(error, "Error on uploading image file")
             reject()
         })
     })

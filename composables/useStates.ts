@@ -1,6 +1,6 @@
 import type { User } from "firebase/auth";
 export const useFirebaseUser = () => useState<User>("firebaseUser");
-export const useSnackBarMessage = () => useState<String>("snackBarMessage");
+export const useSnackBarMessage = () => useState<String>("snackBarMessage", () => "");
 export const useCards = () => useState<CardType[]>("cards");
 export const useCard = () => useState<CardType>("card");
 export const useFullCards = () => useState<CardType[]>("fullCards");

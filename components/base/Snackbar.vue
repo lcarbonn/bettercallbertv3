@@ -24,14 +24,17 @@
   const snackbarMessage = useSnackBarMessage()
 
   const message = computed(() => {
-    if(snackbarMessage.value !=null) {
+    const mess = snackbarMessage.value
+    if(snackbarMessage.value !="") {
       dismissCountDown.value = 4000
       myAlert.value?.restart()
     } else {
       dismissCountDown.value = 0
       myAlert.value?.stop()
-    }
-    return snackbarMessage.value
+    }// reset snackbar state
+    snackbarMessage.value = ""
+    // return commited message to componats
+    return mess
   })
 
 </script>

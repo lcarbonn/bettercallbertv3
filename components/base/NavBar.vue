@@ -83,9 +83,10 @@
     await navigateTo('/')
   }
 
-  const signOut = async () => {
-    await signOutUser();
-    // navigateTo('/')
+  const signOut = () => {
+    signOutUser().then(async () => {
+      await navigateTo('/')
+    })
   }
 
   const isCurrentTheme = (idTheme:string) => {

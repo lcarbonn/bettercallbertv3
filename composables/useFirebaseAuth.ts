@@ -4,51 +4,57 @@ import {
     onAuthStateChanged,
     type Auth,
     getAuth,
+    type UserCredential,
   } from "firebase/auth";
 
-  export const signInUser = async (email:string, password:string) => {
-    //check 
-    const auth = getAuth()
-    const snackBarMessage = useSnackBarMessage()
+  export const signInUser = async (email:string, password:string) :Promise<UserCredential> => {
+    return new Promise((resolve, reject) => {
+      const auth = getAuth()
+      const snackBarMessage = useSnackBarMessage()
+  
+      signInWithEmailAndPassword(auth,email,password)
+      .then((credentials) => {
+        if(credentials) snackBarMessage.value = "Hello " + credentials.user.email
+        resolve(credentials)
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("signInUser", errorCode, errorMessage)
+        snackBarMessage.value = "Error on login"+errorMessage
+        reject()
+      })
+    })
+  }
 
-    const credentials = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    ).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log("signInUser", errorCode, errorMessage)
-      snackBarMessage.value = "Error on login"+errorMessage
-    });
-    //refacto with then
-    if(credentials) snackBarMessage.value = "Hello " + credentials.user.email
-    return credentials;
-  };
+  export const signInAnonymous = () :Promise<UserCredential> => {
+    return new Promise((resolve, reject) => {
+      const auth = getAuth()
+      const snackBarMessage = useSnackBarMessage()
+      signInAnonymously(auth)
+      .then((credentials) => {
+        resolve(credentials)        
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("signInAnonymous", errorCode, errorMessage)
+        snackBarMessage.value = "Error on login"+errorMessage
+        reject()
+      })
+    })
+  }
 
-  export const signInAnonymous = async () => {
-    const auth = getAuth()
-    const snackBarMessage = useSnackBarMessage()
-    const credentials = await signInAnonymously(
-      auth
-    ).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log("signInAnonymous", errorCode, errorMessage)
-      snackBarMessage.value = "Error on login"+errorMessage
-    });
-    const firebaseUser = useFirebaseUser();
-    if(credentials) firebaseUser.value = credentials.user
-    return credentials;
-  };
-
-  export const signOutUser = async () => {
-    const auth = getAuth()
-    const snackBarMessage = useSnackBarMessage()
-    const result = await (auth as Auth).signOut();
-    snackBarMessage.value = "SignOut"
-    return result;
-  };
+  export const signOutUser = async () :Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const snackBarMessage = useSnackBarMessage()
+      getAuth().signOut()
+      .then(() => {
+        snackBarMessage.value = "SignOut"
+        resolve
+      })
+    })
+  }
 
   export const initUser = async () => {
     const auth = getAuth()
@@ -63,9 +69,9 @@ import {
         }
     } else {
         //if signed out sing in anonymous
-        const credentials = await signInAnonymous()
-        if(credentials) firebaseUser.value = credentials.user
+        signInAnonymous().then((credentials)=>{
+          if(credentials) firebaseUser.value = credentials.user
+        })
       }
-    });
-  };
-  
+    })
+  }

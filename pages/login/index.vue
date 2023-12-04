@@ -40,11 +40,14 @@
         password: null,
     })
 
-    const onSubmit = async (event) => {
+    const onSubmit = (event) => {
         event.preventDefault()
-        const credentials = await signInUser(form.email, form.password)
-        console.log("signIn user=", credentials)
+        signInUser(form.email, form.password)
+        .then((credentials) => {
+            console.log("signIn user=", credentials)
         if(credentials) navigateTo('/')
+
+        })
     }
 
     const onReset = (event) => {

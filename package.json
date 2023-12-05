@@ -27,6 +27,7 @@
     "@vite-pwa/nuxt": "^0.2.1",
     "firebase": "^10.6.0",
     "unplugin-icons": "^0.17.4",
-    "unplugin-vue-components": "^0.25.2"
+    "unplugin-vue-components": "^0.25.2",
+    "vue3-touch-events": "^4.1.8"
   }
 }

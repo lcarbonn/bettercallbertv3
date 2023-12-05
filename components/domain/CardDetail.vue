@@ -4,7 +4,9 @@
             text-variant="white"
             :headerBgVariant="themeColor"
             imgBottom
-            align="center">
+            align="center"
+            v-touch:swipe.right="swipeRightHandler"
+            v-touch:swipe.left="swipeLeftHandler">
         <template #header>
             <small>{{ card.title }}</small>
         </template>
@@ -73,15 +75,15 @@
     onMounted(() => {
         // keyboard arrows
         document.addEventListener("keyup", eventHandler)
-        // swiped-left
-        document.addEventListener('swiped-left', swipeLeftHandler)
-        // swiped-right
-        document.addEventListener('swiped-right', swipeRightHandler)
+        // // swiped-left
+        // document.addEventListener('swiped-left', swipeLeftHandler)
+        // // swiped-right
+        // document.addEventListener('swiped-right', swipeRightHandler)
     })
     onBeforeUnmount(() => {
         document.removeEventListener("keyup", eventHandler)
-        document.removeEventListener('swiped-left', swipeLeftHandler)
-        document.removeEventListener('swiped-right', swipeRightHandler)
+        // document.removeEventListener('swiped-left', swipeLeftHandler)
+        // document.removeEventListener('swiped-right', swipeRightHandler)
     })
 
     //methods
@@ -89,10 +91,10 @@
             if (e.code == "ArrowLeft" && props.previousId) await navigateTo('/cards/' + props.previousId)
             if (e.code == "ArrowRight" && props.nextId) await navigateTo('/cards/' + props.nextId)
         }
-    const swipeRightHandler = async () => {
+    const swipeLeftHandler = async () => {
             if (props.previousId) await navigateTo('/cards/' + props.previousId)
         }
-    const swipeLeftHandler = async () => {
+    const swipeRightHandler = async () => {
             if (props.nextId) await navigateTo('/cards/' + props.nextId)
         }
 

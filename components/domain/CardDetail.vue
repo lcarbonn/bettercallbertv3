@@ -33,11 +33,27 @@
                             :alt="card.title"
                             class="BCard-img"></BCardImg>
         </BLink>
-        <BSpinner v-else label="Loading..."></BSpinner>
+        <!-- <BSpinner v-else label="Loading..."></BSpinner>
         <DomainCardModal v-if="card.img" :title="card.title"
                           :img="card.img"
                           :themeColor="themeColor">
-        </DomainCardModal>
+        </DomainCardModal> -->
+        <!-- <BModal v-model="show" id ="modal-card"
+             title="title"
+             centered
+             body-bg-variant="secondary"
+             header-text-variant="white"
+             :headerBgVariant="themeColor"
+             size="xl"
+             ok-only>
+            <p class="text-center">
+                <img v-if="card.img"
+                    :title="card.title"
+                    :alt="card.title"
+                    :src="card.img" 
+                    class="Modal-img">
+            </p>
+        </BModal> -->
     </BCard>
 </template>
 
@@ -75,27 +91,21 @@
     onMounted(() => {
         // keyboard arrows
         document.addEventListener("keyup", eventHandler)
-        // // swiped-left
-        // document.addEventListener('swiped-left', swipeLeftHandler)
-        // // swiped-right
-        // document.addEventListener('swiped-right', swipeRightHandler)
     })
     onBeforeUnmount(() => {
         document.removeEventListener("keyup", eventHandler)
-        // document.removeEventListener('swiped-left', swipeLeftHandler)
-        // document.removeEventListener('swiped-right', swipeRightHandler)
     })
 
     //methods
-    const eventHandler = async (e:KeyboardEvent) => {
-            if (e.code == "ArrowLeft" && props.previousId) await navigateTo('/cards/' + props.previousId)
-            if (e.code == "ArrowRight" && props.nextId) await navigateTo('/cards/' + props.nextId)
+    const eventHandler = (e:KeyboardEvent) => {
+            if (e.code == "ArrowLeft" && props.previousId) goToPrevious()
+            if (e.code == "ArrowRight" && props.nextId) goToNext()
         }
-    const swipeLeftHandler = async () => {
-            if (props.previousId) await navigateTo('/cards/' + props.previousId)
+    const swipeLeftHandler = () => {
+            if (props.previousId) goToPrevious()
         }
-    const swipeRightHandler = async () => {
-            if (props.nextId) await navigateTo('/cards/' + props.nextId)
+    const swipeRightHandler = () => {
+            if (props.nextId) goToNext()
         }
 
     const goToPrevious = async () => {

@@ -1,6 +1,11 @@
 import { collection, query, orderBy, getDocs, getDoc, doc, updateDoc, deleteDoc, addDoc } from "firebase/firestore"
 import { type Firestore } from "firebase/firestore"
 
+/**
+ * Get all cards from firebase db
+ * @returns A Promise that resolve a list of CardType
+ * @throws Throws the firebase error
+ */
 export const getDbCards = () :Promise<CardType[]> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
@@ -23,11 +28,17 @@ export const getDbCards = () :Promise<CardType[]> => {
         })
         .catch((error) => {
             errorToSnack(error, "Error getting cards")
-            reject()
+            reject(error)
         });    
     })
 };
 
+/**
+ * Get a card from firebase db
+ * @param id - the card id
+ * @returns A Promise that resolve the card
+ * @throws Throws the firebase error
+ */
 export const getDbCard = (id:string) :Promise<CardType> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
@@ -45,11 +56,16 @@ export const getDbCard = (id:string) :Promise<CardType> => {
         })
         .catch((error) => {
             errorToSnack(error, "Error getting card")
-            reject()
+            reject(error)
         });
     })
 };
 
+/**
+ * Create a default card in firebase db
+ * @returns A Promise that resolve the id of the created card
+ * @throws Throws the firebase error
+ */
 export const createDbCard = () :Promise<string> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
@@ -67,11 +83,15 @@ export const createDbCard = () :Promise<string> => {
         })
         .catch((error) => {
             errorToSnack(error, "Error creating card")
-            reject()
+            reject(error)
         });
     })
 };
 
+/**
+ * Save a card in firebase db
+ * @throws Throws the firebase error
+ */
 export const saveDbCard = (card:CardType) :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
@@ -91,18 +111,23 @@ export const saveDbCard = (card:CardType) :Promise<void> => {
         })
         .catch((error) => {
             errorToSnack(error, "Error saving card")
-            reject()
+            reject(error)
         });
     })
 };
 
-export const deleteDbCard = (card:CardType) :Promise<void> => {
+/**
+ * Delete a card in firebase db
+ * @param id - the card id
+ * @throws Throws the firebase error
+ */
+export const deleteDbCard = (id:string) :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
         console.debug("start delete Card")
 
-        const docRef = doc($db as Firestore, "cards", card.id)
+        const docRef = doc($db as Firestore, "cards", id)
         deleteDoc(docRef)
         .then(() => {
             messageToSnack("Card deleted")
@@ -110,7 +135,7 @@ export const deleteDbCard = (card:CardType) :Promise<void> => {
         })
         .catch((error) => {
             errorToSnack(error, "Error deleting card")
-            reject()
+            reject(error)
         });
     })
 };

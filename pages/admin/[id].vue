@@ -86,7 +86,7 @@
 
     const deleteCardForm = async () => {
         console.log("deleteCard=", card.value.id)
-        await deleteDbCard(card.value)
+        await deleteDbCard(card.value.id)
         //refresh full cards list
         getCardsWithImage()
         await navigateTo('/')

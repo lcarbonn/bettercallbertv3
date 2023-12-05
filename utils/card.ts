@@ -7,6 +7,7 @@ export interface CardType {
     link: string|undefined,
     src: string,
     img:string|undefined,
+    equals: (card:CardType) => boolean
 }
 
 export class Card implements CardType {
@@ -23,6 +24,9 @@ export class Card implements CardType {
         this.link = doc.data().link
         this.src = doc.data().src
         this.img = ""
+    }
+    public equals(card:CardType) : boolean {
+        return (this.id == card.id && this.title == card.title && this.idTheme == card.idTheme && this.link == card.link && this.src == card.src && this.img == card.img)
     }
 }
 

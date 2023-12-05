@@ -16,7 +16,7 @@
             @upload-image-file="uploadImageFileForm">
         </DomainCardForm>
         <DomainCardDetail :card="card"></DomainCardDetail>
-        <BModal v-model="modal" title="Without saving" @ok="keepNavigate"> Really ? </BModal>
+        <BModal v-model="modal" title="Without saving" @ok="keepNavigate"> You have unsaved information on your card, do you really want to leave ? </BModal>
     </BContainer>
 </template>
 
@@ -27,6 +27,7 @@
 
     // const
     const id:string = useRoute().params.id as string
+    let initialCard:CardType
     
     // use states
     const card = useCard()
@@ -40,6 +41,7 @@
     // nuxt cycle hooks
     onMounted(() => {
         getCardWithImage(id)
+        initialCard = card.value
         isSinglePage.value = true
     })
 
@@ -47,6 +49,9 @@
         console.log("before unmount :")
     })
     onBeforeRouteLeave(async (leaveGuard) => {
+        //if nothing change, keep on leabing
+        if(initialCard.equals(card.value)) return true
+        // else ask for
         const user = useFirebaseUser()
         if(user.value.isAnonymous) {
             forceNext.value = true
@@ -88,7 +93,7 @@
 
     const resetCardForm = () => {
         console.log("resetCard=", card.value.id)
-        getDbCard(id)
+        getCardWithImage(id)
     }
 
     const uploadImageFileForm = (file:File) => {

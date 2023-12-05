@@ -80,6 +80,7 @@
                     snackBarMessage.value = "Image Source non disponible dans le store"
                 })
             }
+            initialCard = card.value
         })
     }
 

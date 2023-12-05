@@ -43,9 +43,10 @@
         isSinglePage.value = true
     })
 
+    onBeforeUnmount(() => {
+        console.log("before unmount :")
+    })
     onBeforeRouteLeave(async (leaveGuard) => {
-        console.log("route leaving :", leaveGuard)
-
         const user = useFirebaseUser()
         if(user.value.isAnonymous) {
             forceNext.value = true
@@ -54,12 +55,12 @@
             modal.value = true
             nextPath.value = leaveGuard.fullPath
         }
-        if(!forceNext.value) abortNavigation()
+        if(!forceNext.value) return false
+        return true
     })
 
     // methods
     const keepNavigate = async () => {
-        console.log("keepNavigate:", nextPath.value)
         forceNext.value = true
         await navigateTo(nextPath.value)
     }

@@ -4,9 +4,7 @@
             text-variant="white"
             :headerBgVariant="themeColor"
             imgBottom
-            align="center"
-            v-touch:swipe.right="swipeRightHandler"
-            v-touch:swipe.left="swipeLeftHandler">
+            align="center">
         <template #header>
             <small>{{ card.title }}</small>
         </template>
@@ -86,24 +84,15 @@
 
     //methods
     const eventHandler = (e:KeyboardEvent) => {
-            if (e.code == "ArrowLeft" && props.previousId) goToPrevious()
-            if (e.code == "ArrowRight" && props.nextId) goToNext()
-        }
-    const swipeLeftHandler = () => {
-        console.log("swipe left")
-            if (props.previousId) goToPrevious()
-        }
-    const swipeRightHandler = () => {
-        console.log("swipe right")
-            if (props.nextId) goToNext()
-        }
-
-    const goToPrevious = async () => {
-        await navigateTo('/cards/' + props.previousId)
+        if (e.code == "ArrowLeft" && props.previousId) goToCardPage(props.previousId)
+        if (e.code == "ArrowRight" && props.nextId) goToCardPage(props.nextId)
     }
 
-    const goToNext = async () => {
-        await navigateTo('/cards/' + props.nextId)
+    const goToPrevious = () => {
+        goToCardPage(props.previousId)
+    }
+    const goToNext = () => {
+        goToCardPage(props.nextId)
     }
 
 </script>
@@ -113,12 +102,6 @@
     max-height: 100vh;
     max-width: 100%;
 }
-
-.BModal-img {
-    height: 72vh;
-    max-width: 100%;
-}
-
 @media (max-width: 400px) {
     .BCard-img {
         width: unset;

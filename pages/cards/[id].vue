@@ -1,5 +1,7 @@
 <template>
-    <BContainer>
+    <BContainer 
+        v-touch:swipe.right="swipeRightHandler"
+        v-touch:swipe.left="swipeLeftHandler">
         <BButton v-show="!isAnonymous"
                   id="updateButton"
                   variant="secondary"
@@ -47,6 +49,15 @@
     const isAnonymous = computed(() => {
         return firebaseUser.value?.isAnonymous
     })
+
+    const swipeRightHandler = () => {
+        console.log("swipe right")
+            if (previousId) goToCardPage(previousId.value)
+        }
+    const swipeLeftHandler = () => {
+        console.log("swipe left")
+            if (nextId) goToCardPage(nextId.value)
+        }
 
     // methods
     const goToAdmin = async () => {

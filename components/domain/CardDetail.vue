@@ -28,11 +28,11 @@
                 <ArrowRightSquare variant="primary"/>
             </BButton>
         </BCardBody>
-        <BLink v-if="card.img" href="#" @click="show">
+        <BButton v-if="card.img" @click="show">
             <BCardImg :src="card.img"
                             :alt="card.title"
                             class="BCard-img"></BCardImg>
-        </BLink>
+        </BButton>
         <DomainCardModal :title="card.title"
                           :img="card.img"
                           :themeColor="themeColor"
@@ -90,9 +90,11 @@
             if (e.code == "ArrowRight" && props.nextId) goToNext()
         }
     const swipeLeftHandler = () => {
+        console.log("swipe left")
             if (props.previousId) goToPrevious()
         }
     const swipeRightHandler = () => {
+        console.log("swipe right")
             if (props.nextId) goToNext()
         }
 

@@ -29,12 +29,12 @@
   // methods
   const filterCards = (idTheme:string) => {
     console.log("filterCards=", idTheme)
-    serviceFilterCards(idTheme)
+    filterCardsOnTheme(idTheme)
   }
 
   const searchCards = (textsearch:string) => {
     console.log("searchCards=", textsearch)
-    serviceSearchCards(textsearch)
+    searchCardsOnTitle(textsearch)
   }
 
 </script>

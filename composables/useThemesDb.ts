@@ -1,6 +1,11 @@
-import { collection, query, orderBy, getDocs, getDoc, doc, startAfter, limit, endBefore, updateDoc, deleteDoc, addDoc, type DocumentData } from "firebase/firestore"
+import { collection, query, orderBy, getDocs} from "firebase/firestore"
 import { type Firestore } from "firebase/firestore"
 
+/**
+ * Get the themes from firestore
+ * @returns Promise - the themes list
+ * @returns Reject the error
+ */
 export const getDbThemes= () :Promise<ThemeType[]> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
@@ -20,7 +25,7 @@ export const getDbThemes= () :Promise<ThemeType[]> => {
         })
         .catch((error) => {
             errorToSnack(error, "Error getting Themes")
-            reject()
+            reject(error)
         });
     })
 };

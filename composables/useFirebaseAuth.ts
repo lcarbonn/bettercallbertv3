@@ -2,7 +2,6 @@ import {
     signInWithEmailAndPassword,
     signInAnonymously,
     onAuthStateChanged,
-    type Auth,
     getAuth,
     type UserCredential,
   } from "firebase/auth";
@@ -38,7 +37,6 @@ export const signInUser = async (email:string, password:string) :Promise<UserCre
 export const signInAnonymous = () :Promise<UserCredential> => {
     return new Promise((resolve, reject) => {
       const auth = getAuth()
-      const snackBarMessage = useSnackBarMessage()
       signInAnonymously(auth)
       .then((credentials) => {
         resolve(credentials)        

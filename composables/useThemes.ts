@@ -1,4 +1,6 @@
-// get themes form firebase and manage state
+/**
+ * Get themes form firebase and manage state
+ */
 export const getThemes = () => {
     getDbThemes().then((list) => {
         const themes = useThemes()
@@ -6,7 +8,11 @@ export const getThemes = () => {
       })
 }
 
-// get theme color
-export const getTheme = (idTheme:string) => {
+/**
+ * Get the theme color
+ * @param idTheme - the theme id
+ * @returns the found color
+ */
+export const getTheme = (idTheme:string) :string => {
     return getThemeColor(idTheme)
 }

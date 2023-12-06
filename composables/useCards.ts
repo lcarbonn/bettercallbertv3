@@ -33,10 +33,10 @@ export const getCardWithImage = (id:string) => {
 }
 
 /**
- * Filtering card on theme
+ * Filtering cards on theme
  * @param idTheme - the theme id
  */
-export const serviceFilterCards = (idTheme:string) => {
+export const filterCardsOnTheme = (idTheme:string) => {
     const list: CardType[] = [];
     const cards = useCards()
     const fullCards = useFullCards()
@@ -56,7 +56,7 @@ export const serviceFilterCards = (idTheme:string) => {
  * Searching cards on title
  * @param textsearch - the text to search in title
  */
-export const serviceSearchCards = (textsearch:string) => {
+export const searchCardsOnTitle = (textsearch:string) => {
     const list: CardType[] = [];
     const cards = useCards()
     const fullCards = useFullCards()

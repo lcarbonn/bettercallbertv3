@@ -1,6 +1,11 @@
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { type FirebaseStorage } from "firebase/storage"
 
+/**
+ * Retrieve and set image of each card in the cards list from firebase storage
+ * @param cards - the cards list
+ * @returns Promise - when resolved
+ */
 export const setCardsImageSrc = (cards:CardType[]) :Promise<void> => {
     return new Promise((resolve) => {
         // console.log("set cards image :", cards)
@@ -14,6 +19,11 @@ export const setCardsImageSrc = (cards:CardType[]) :Promise<void> => {
     })
 }
 
+/**
+ * Retrieve and set image of the card from firebase storage 
+ * @param card - the card
+ * @returns Promise - when resolved
+ */
 export const setCardImageSrc = (card:CardType) :Promise<void> => {
     return new Promise((resolve, reject) => {
         // console.log("set card image :", card)
@@ -30,6 +40,11 @@ export const setCardImageSrc = (card:CardType) :Promise<void> => {
     })
 }
 
+/**
+ * Upload the given image file into firebase storage
+ * @param file - the image file
+ * @returns Promise - with paths (url and path) to the image
+ */
 export const uploadStorageImageFile = (file:File) :Promise<any|void> => {
     return new Promise((resolve, reject) => {
         const { $storage } = useNuxtApp()
@@ -50,7 +65,7 @@ export const uploadStorageImageFile = (file:File) :Promise<any|void> => {
             })
         }).catch((error) => {
             errorToSnack(error, "Error on uploading image file")
-            reject()
+            reject(error)
         })
     })
 }

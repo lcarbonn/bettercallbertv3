@@ -33,27 +33,11 @@
                             :alt="card.title"
                             class="BCard-img"></BCardImg>
         </BLink>
-        <!-- <BSpinner v-else label="Loading..."></BSpinner>
-        <DomainCardModal v-if="card.img" :title="card.title"
+        <DomainCardModal :title="card.title"
                           :img="card.img"
-                          :themeColor="themeColor">
-        </DomainCardModal> -->
-        <!-- <BModal v-model="show" id ="modal-card"
-             title="title"
-             centered
-             body-bg-variant="secondary"
-             header-text-variant="white"
-             :headerBgVariant="themeColor"
-             size="xl"
-             ok-only>
-            <p class="text-center">
-                <img v-if="card.img"
-                    :title="card.title"
-                    :alt="card.title"
-                    :src="card.img" 
-                    class="Modal-img">
-            </p>
-        </BModal> -->
+                          :themeColor="themeColor"
+                          :propShow="propShow">
+        </DomainCardModal>
     </BCard>
 </template>
 
@@ -79,8 +63,12 @@
         },
     })
 
-    // refs
-    const {show} = useModal('modal-card')
+    // refs and method for modal since useModal doesn't work in sub componenent
+    const propShow = ref({show:false})
+
+    const show = () => {
+        propShow.value.show = !propShow.value.show
+    }
 
     //computed properties
     const themeColor = computed(() => {
@@ -121,6 +109,11 @@
 .BCard-img {
     width: unset;
     max-height: 100vh;
+    max-width: 100%;
+}
+
+.BModal-img {
+    height: 72vh;
     max-width: 100%;
 }
 

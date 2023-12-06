@@ -1,5 +1,5 @@
 <template>
-    <BModal v-model="programmaticModal" id ="modal-card"
+    <BModal v-model="propShow.show" id ="modal-card"
              :title="title"
              centered
              body-bg-variant="secondary"
@@ -31,11 +31,9 @@
             themeColor: {
                 type: String,
                 default: undefined
-            }
+            },
+            propShow:Object
     })
-
-    // local refs
-    const programmaticModal = ref(false)
 
 </script>
 

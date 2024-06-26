@@ -7,7 +7,7 @@
                 </BLink>
     </BNavbarBrand>
     <BNavbarToggle target="nav-collapse" />
-    <BCollapse id="nav-collapse" is-nav>
+    <BCollapse id="nav-collapse" isNav>
       <BNavbarNav small fill v-if="themes">
           <BNavItem v-for="theme in themes"
             :key="theme.id"
@@ -19,31 +19,31 @@
         </BNavItem>
       </BNavbarNav>      
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
-      <BNavForm class="d-flex">
-        <BInputGroup>
-          <BFormInput placeholder="Search" 
-              v-b-color-mode="'light'"
-              v-model="textsearch"
-              @keyup="searchCards()"/>
-          <BInputGroupAppend>
-              <BButton :disabled="!textsearch"
-                        @click="textsearch = null; searchCards()"><X/></BButton>
-            </BInputGroupAppend>
-        </BInputGroup>
-      </BNavForm>
-      <BNavItemDropdown text="Settings"
-                             v-show="!isAnonymous"
-                             v-b-color-mode="'light'">
-          <BDropdownItem @click="newCard()" variant="primary"
-                           >Add card</BDropdownItem>
-      </BNavItemDropdown>
-      <BNavItemDropdown right  v-b-color-mode="'light'">
-          <!-- Using 'button-content' slot -->
-          <template #button-content>
-            <em><Person/></em>
-          </template>
-          <BDropdownItem v-show="isAnonymous" href="/login" variant="primary">Sign In</BDropdownItem>
-          <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
+        <BNavForm class="d-flex">
+          <BInputGroup>
+            <BFormInput placeholder="Search" 
+                v-b-color-mode="'light'"
+                v-model="textsearch"
+                @keyup="searchCards()"/>
+            <BInputGroupAppend>
+                <BButton :disabled="!textsearch"
+                          @click="textsearch = null; searchCards()"><X/></BButton>
+              </BInputGroupAppend>
+          </BInputGroup>
+        </BNavForm>
+        <BNavItemDropdown text="Settings"
+                              v-show="!isAnonymous"
+                              v-b-color-mode="'light'">
+            <BDropdownItem @click="newCard()" variant="primary"
+                            >Add card</BDropdownItem>
+        </BNavItemDropdown>
+        <BNavItemDropdown right  v-b-color-mode="'light'">
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <em><Person/></em>
+            </template>
+            <BDropdownItem v-show="isAnonymous" href="/login" variant="primary">Sign In</BDropdownItem>
+            <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
         </BNavItemDropdown>
       </BNavbarNav>
     </BCollapse>

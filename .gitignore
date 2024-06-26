@@ -5,6 +5,7 @@
 .nitro
 .cache
 dist
+package-lock.json
 
 .firebase
 .firebaserc

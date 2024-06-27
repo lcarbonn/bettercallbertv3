@@ -17,7 +17,7 @@
             >
           <span style="border-bottom-style: solid;" :class="themeColor(theme.id)">{{ theme.title.toUpperCase() }}</span>
         </BNavItem>
-      </BNavbarNav>      
+      </BNavbarNav>
       <BNavbarNav class="ms-auto mb-2 mb-lg-0">
         <BNavForm class="d-flex">
           <BInputGroup>
@@ -40,7 +40,7 @@
         <BNavItemDropdown right  v-b-color-mode="'light'">
             <!-- Using 'button-content' slot -->
             <template #button-content>
-              <em><Person/></em>
+              <em>{{userEmail}}<Person/></em>
             </template>
             <BDropdownItem v-show="isAnonymous" href="/login" variant="primary">Sign In</BDropdownItem>
             <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
@@ -73,6 +73,10 @@
   // computed properties
   const isAnonymous = computed(() => {
     return firebaseUser.value?.isAnonymous
+  })
+
+  const userEmail = computed(() => {
+    return firebaseUser.value?.email
   })
 
   // methods

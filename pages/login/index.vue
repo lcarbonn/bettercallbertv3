@@ -27,7 +27,8 @@
                         placeholder="Enter password"
                     />
                 </BFormGroup>
-                <BButton type="submit" variant="primary">Connexion</BButton>
+                <BButton class="m-1" type="submit" variant="primary">Connexion</BButton>
+                <BButton class="m-1" type="button" variant="primary" @click="resetPassword()">Reset Password</BButton>
             </BForm>
         </BCard>
     </BContainer>
@@ -51,11 +52,8 @@
 
         })
     }
-
-    // methods
-    const onReset = (event) => {
-        event.preventDefault()
-        form.email = null
-        form.password = null
-}
+    // const methods
+    const resetPassword = () => {
+        sendPasswordReset(form.email)
+    }
 </script>

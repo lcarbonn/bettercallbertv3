@@ -54,6 +54,10 @@
     }
     // const methods
     const resetPassword = () => {
-        sendPasswordReset(form.email)
+        if(!form.email) {
+            messageToSnack("Email should be given")
+        } else {
+            sendPasswordReset(form.email)
+        }
     }
 </script>

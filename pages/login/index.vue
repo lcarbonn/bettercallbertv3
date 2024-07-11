@@ -47,9 +47,7 @@
         event.preventDefault()
         signInUser(form.email, form.password)
         .then((credentials) => {
-            console.log("signIn user=", credentials)
-        if(credentials) navigateTo('/')
-
+            if(credentials) navigateTo('/')
         })
     }
     // const methods

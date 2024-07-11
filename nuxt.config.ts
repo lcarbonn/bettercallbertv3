@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+
   app:{
     head: {
       title: 'Better Call Bert',
@@ -14,15 +15,18 @@ export default defineNuxtConfig({
       ]
     },
   },
+
   modules: [
     '@bootstrap-vue-next/nuxt',
     'unplugin-icons/nuxt',
     '@vite-pwa/nuxt',
   ],
+
   css: [
     'bootstrap/dist/css/bootstrap.min.css',
     '~/assets/css/custom-theme.scss',
   ],
+
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
@@ -33,6 +37,7 @@ export default defineNuxtConfig({
       lang: 'fr-FR'
     }
   },
+
   runtimeConfig: {
     FIREBASE_API_KEY: process.env.NUXT_FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN: process.env.NUXT_FIREBASE_AUTH_DOMAIN,
@@ -52,5 +57,7 @@ export default defineNuxtConfig({
       FIREBASE_APP_ID: process.env.NUXT_FIREBASE_APP_ID,
       FIREBASE_MEASUREMENT_ID: process.env.NUXT_FIREBASE_MEASUREMENT_ID,
     }
-  }
+  },
+
+  compatibilityDate: '2024-07-11'
 })

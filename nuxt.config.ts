@@ -58,6 +58,4 @@ export default defineNuxtConfig({
       FIREBASE_MEASUREMENT_ID: process.env.NUXT_FIREBASE_MEASUREMENT_ID,
     }
   },
-
-  compatibilityDate: '2024-07-11'
 })

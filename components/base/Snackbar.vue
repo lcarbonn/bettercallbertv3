@@ -32,8 +32,8 @@
       dismissCountDown.value = 0
       myAlert.value?.stop()
     }// reset snackbar state
-    snackbarMessage.value = ""
-    // return commited message to componats
+    // snackbarMessage.value = ""
+    // return commited message to componants
     return mess
   })
 

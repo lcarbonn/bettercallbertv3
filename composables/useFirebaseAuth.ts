@@ -112,31 +112,3 @@ export const sendPasswordReset = (email:string) => {
     })
   })
 }
-
-/**
- * Confirm password reset
- * @param password - the new password
- */
-export const confirmNewPasswordReset = (actionCode:string, newPassword:string) => {
-  return new Promise((resolve, reject) => {
-    const auth = getAuth()
-    verifyPasswordResetCode(auth, actionCode).then((email) => {
-      confirmPasswordReset(auth,actionCode, newPassword)
-      .then(() => {
-        messageToSnack("New password confirmed")
-        navigateTo('/login')
-        resolve
-      })
-      .catch((error) => {
-        errorToSnack(error, "Error saving new password")
-        reject
-      })
- 
-    })
-    .catch((error) => {
-      errorToSnack(error, "Error verifying action code for reset password")
-      reject
-    })
-
-  })
-}

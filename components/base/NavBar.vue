@@ -1,53 +1,55 @@
 <template>
-  <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
-    <BNavbarBrand>
-      <BLink @click="goHome" class="navbar-brand">
-      <BAvatar rounded
-                  src="/icon.png"></BAvatar> BetterCallBert
-                </BLink>
-    </BNavbarBrand>
-    <BNavbarToggle target="nav-collapse" />
-    <BCollapse id="nav-collapse" isNav>
-      <BNavbarNav small fill v-if="themes">
-          <BNavItem v-for="theme in themes"
-            :key="theme.id"
-            :id="theme.id"
-            :active="isCurrentTheme(theme.id)"
-            @click="filterCards(theme.id)"
-            >
-          <span style="border-bottom-style: solid;" :class="themeColor(theme.id)">{{ theme.title.toUpperCase() }}</span>
-        </BNavItem>
-      </BNavbarNav>
-      <BNavbarNav class="ms-auto mb-2 mb-lg-0">
-        <BNavForm class="d-flex">
-          <BInputGroup>
-            <BFormInput placeholder="Search" 
-                v-b-color-mode="'light'"
-                v-model="textsearch"
-                @keyup="searchCards()"/>
-            <BInputGroupAppend>
-                <BButton :disabled="!textsearch"
-                          @click="textsearch = null; searchCards()"><X/></BButton>
-              </BInputGroupAppend>
-          </BInputGroup>
-        </BNavForm>
-        <BNavItemDropdown text="Settings"
-                              v-show="!isAnonymous"
-                              v-b-color-mode="'light'">
-            <BDropdownItem @click="newCard()" variant="primary"
-                            >Add card</BDropdownItem>
-        </BNavItemDropdown>
-        <BNavItemDropdown right  v-b-color-mode="'light'">
-            <!-- Using 'button-content' slot -->
-            <template #button-content>
-              <em>{{userEmail}}<Person/></em>
-            </template>
-            <BDropdownItem v-show="isAnonymous" href="/login" variant="primary">Sign In</BDropdownItem>
-            <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
-        </BNavItemDropdown>
-      </BNavbarNav>
-    </BCollapse>
-  </BNavbar>
+  <client-only>
+    <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
+      <BNavbarBrand>
+        <BLink @click="goHome" class="navbar-brand">
+        <BAvatar rounded
+                    src="/icon.png"></BAvatar> BetterCallBert
+                  </BLink>
+      </BNavbarBrand>
+      <BNavbarToggle target="nav-collapse" />
+      <BCollapse id="nav-collapse" isNav>
+        <BNavbarNav small fill v-if="themes">
+            <BNavItem v-for="theme in themes"
+              :key="theme.id"
+              :id="theme.id"
+              :active="isCurrentTheme(theme.id)"
+              @click="filterCards(theme.id)"
+              >
+            <span style="border-bottom-style: solid;" :class="themeColor(theme.id)">{{ theme.title.toUpperCase() }}</span>
+          </BNavItem>
+        </BNavbarNav>
+        <BNavbarNav class="ms-auto mb-2 mb-lg-0">
+          <BNavForm class="d-flex">
+            <BInputGroup>
+              <BFormInput placeholder="Search" 
+                  v-b-color-mode="'light'"
+                  v-model="textsearch"
+                  @keyup="searchCards()"/>
+              <BInputGroupAppend>
+                  <BButton :disabled="!textsearch"
+                            @click="textsearch = null; searchCards()"><X/></BButton>
+                </BInputGroupAppend>
+            </BInputGroup>
+          </BNavForm>
+          <BNavItemDropdown text="Settings"
+                                v-show="!isAnonymous"
+                                v-b-color-mode="'light'">
+              <BDropdownItem @click="newCard()" variant="primary"
+                              >Add card</BDropdownItem>
+          </BNavItemDropdown>
+          <BNavItemDropdown right  v-b-color-mode="'light'">
+              <!-- Using 'button-content' slot -->
+              <template #button-content>
+                <em>{{userEmail}}<Person/></em>
+              </template>
+              <BDropdownItem v-show="isAnonymous" href="/login" variant="primary">Sign In</BDropdownItem>
+              <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
+          </BNavItemDropdown>
+        </BNavbarNav>
+      </BCollapse>
+    </BNavbar>
+  </client-only>
 </template>
 
 <script setup lang="ts">

@@ -1,6 +1,6 @@
 {
   "name": "bettercallbert",
-  "version": "3.0.15",
+  "version": "3.0.17",
   "description": "Better Call Bert V3",
   "author": "laurent",
   "private": true,
@@ -10,11 +10,13 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/icon.png"
   },
   "devDependencies": {
     "@bootstrap-vue-next/nuxt": "^0.15.5",
     "@nuxt/devtools": "latest",
+    "@vite-pwa/assets-generator": "^0.2.4",
     "bootstrap": "^5.3.2",
     "bootstrap-vue-next": "^0.15.5",
     "nuxt": "^3.8.2",

@@ -34,7 +34,38 @@ export default defineNuxtConfig({
       short_name: 'bettercallbert',
       display: 'standalone',
       description: 'Better Call Bert',
-      lang: 'fr-FR'
+      lang: 'fr-FR',
+      theme_color: '#17a2b8',
+      icons: [
+        {
+          "src": "pwa-64x64.png",
+          "sizes": "64x64",
+          "type": "image/png"
+        },
+        {
+          "src": "pwa-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        },
+        {
+          "src": "pwa-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        },
+        {
+          "src": "maskable-icon-512x512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "maskable"
+        }
+      ]
+    },
+    workbox: {
+      navigateFallback: '/'
+    },
+    devOptions: {
+      enabled: true,
+      type: "module"
     }
   },
 

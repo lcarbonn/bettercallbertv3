@@ -1,5 +1,6 @@
 <template>
   <div class="d-flex flex-column justify-content-between min-vh-100">
+    <VitePwaManifest/>
     <div>
       <BaseNavBar  @filter-cards="filterCards" @search-cards="searchCards"></BaseNavBar>
       <BContainer fluid>

@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   pwa: {
     manifest: {
       name: 'Better Call Bert',
-      short_name: 'bettercallbert',
+      short_name: 'BetterCallBert',
       display: 'standalone',
       description: 'Better Call Bert',
       lang: 'fr-FR',

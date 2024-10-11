@@ -2,7 +2,7 @@
   <client-only>
     <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
       <BNavbarBrand>
-        <BLink @click="goHome" class="navbar-brand">
+        <BLink @click="goHome" href="/" class="navbar-brand">
         <BAvatar rounded
                     src="/icon.png"></BAvatar> BetterCallBert
                   </BLink>
@@ -86,7 +86,7 @@
     textsearch.value = null
     currentTheme.value = ""
     resetCards()
-    await navigateTo('/')
+    // await navigateTo('/')
   }
 
   const signOut = () => {

@@ -1,11 +1,8 @@
 <template>
   <client-only>
     <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
-      <BNavbarBrand>
-        <BLink @click="goHome" href="/" class="navbar-brand">
-        <BAvatar rounded
-                    src="/icon.png"></BAvatar> BetterCallBert
-                  </BLink>
+      <BNavbarBrand @click="goHome" href="/">
+        <BAvatar rounded src="/icon.png"></BAvatar> BetterCallBert
       </BNavbarBrand>
       <BNavbarToggle target="nav-collapse" />
       <BCollapse id="nav-collapse" isNav>

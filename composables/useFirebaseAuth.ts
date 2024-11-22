@@ -5,8 +5,6 @@ import {
     getAuth,
     sendPasswordResetEmail,
     type UserCredential,
-    verifyPasswordResetCode,
-    confirmPasswordReset,
   } from "firebase/auth";
 
 /**

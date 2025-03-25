@@ -1,7 +1,5 @@
 <template>
-    <div>
-      <DomainListCards :cards="cards"/>
-    </div>
+    <DomainListCards :cards="cards"/>
 </template>
 
 <script setup lang="ts">

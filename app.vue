@@ -25,17 +25,10 @@
 
   const firebaseUser = useFirebaseUser()
 
-  const cards = useFullCards()
-
   // nuxt cycle hook
   onMounted(() => {
-    console.log("bettercallbert starting")
-    try {
       getCardsWithImage()
       getThemes()
-    } catch (error) {
-      console.log("error on startin bcb ", error)      
-    }
   })
 
   // methods

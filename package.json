@@ -1,6 +1,6 @@
 {
   "name": "bettercallbert",
-  "version": "3.0.20",
+  "version": "3.1.00",
   "description": "Better Call Bert V3",
   "author": "laurent",
   "private": true,
@@ -14,22 +14,20 @@
     "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/icon.png"
   },
   "devDependencies": {
-    "@bootstrap-vue-next/nuxt": "^0.15.5",
-    "@nuxt/devtools": "latest",
-    "@vite-pwa/assets-generator": "^0.2.4",
-    "bootstrap": "^5.3.2",
-    "bootstrap-vue-next": "^0.15.5",
-    "nuxt": "^3.8.2",
-    "sass": "^1.69.5",
-    "vue": "^3.3.10",
-    "vue-router": "^4.2.5"
+    "@bootstrap-vue-next/nuxt": "^0.28.0",
+    "@vite-pwa/nuxt": "^0.10.6",
+    "bootstrap": "^5.3.3",
+    "bootstrap-vue-next": "^0.28.0",
+    "firebase": "^11.5.0",
+    "nuxt": "^3.16.0",
+    "unplugin-icons": "^22.1.0",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
   },
   "dependencies": {
-    "@iconify-json/bi": "^1.1.21",
-    "@vite-pwa/nuxt": "^0.2.1",
-    "firebase": "^10.7.1",
-    "unplugin-icons": "^0.17.4",
-    "unplugin-vue-components": "^0.25.2",
+    "@iconify-json/bi": "^1.2.2",
+    "@vite-pwa/assets-generator": "^0.2.6",
+    "sass": "^1.85.1",
     "vue3-touch-events": "^4.1.8"
   }
 }

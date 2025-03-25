@@ -74,16 +74,16 @@ export const initUser = () => {
   onAuthStateChanged(auth, async (user) => {
     console.log("auth state change")
     if (user) {
-      console.log("auth state change, user isAnonymous:"+user.isAnonymous)
+      // console.log("auth state change, user isAnonymous:"+user.isAnonymous)
       firebaseUser.value = user;
       const currentRoute = useRoute().fullPath
       if(user.isAnonymous && currentRoute?.indexOf('/admin') != -1) {
-        console.log("auth state change, navigate")
+        // console.log("auth state change, navigate")
         await navigateTo('/')
       }
     } else {
       //if signed out sing in anonymous
-      console.log("auth state change, no user")
+      // console.log("auth state change, no user")
       signInAnonymous().then((credentials)=>{
         if(credentials) firebaseUser.value = credentials.user
       })

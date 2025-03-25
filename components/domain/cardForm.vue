@@ -55,7 +55,7 @@
                         <BFormFile id="imageFile"
                                         v-model="imageFile"
                                         accept="image/*"></BFormFile>
-                        <BInputGroupAppend>
+                        <template #append>
                             <BButton id="uploadButton"
                                 variant="primary"
                                 :disabled="!Boolean(imageFile)"
@@ -64,7 +64,7 @@
                             </BButton>
                             <BTooltip target="uploadButton"
                                 triggers="hover">Upload file</BTooltip>
-                        </BInputGroupAppend>
+                        </template>
                     </BInputGroup>
                 </BFormGroup>
 

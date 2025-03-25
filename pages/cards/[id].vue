@@ -5,7 +5,7 @@
         <BButton v-show="!isAnonymous"
                   id="updateButton"
                   variant="secondary"
-                  @click='goToAdmin()'>
+                  :to='"/admin/" + id'>
                   <Gear/>
         </BButton>
         <BTooltip target="updateButton"
@@ -58,10 +58,4 @@
         console.log("swipe left")
             if (nextId) goToCardPage(nextId.value)
         }
-
-    // methods
-    const goToAdmin = async () => {
-        await navigateTo("/admin/" + id)
-    }
-
 </script>

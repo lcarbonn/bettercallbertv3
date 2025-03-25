@@ -1,7 +1,7 @@
 <template>
   <client-only>
     <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
-      <BNavbarBrand @click="goHome" href="/">
+      <BNavbarBrand @click="goHome" to="/">
         <BAvatar rounded src="/icon.png"></BAvatar> BetterCallBert
       </BNavbarBrand>
       <BNavbarToggle target="nav-collapse" />
@@ -23,10 +23,10 @@
                   v-b-color-mode="'light'"
                   v-model="textsearch"
                   @keyup="searchCards()"/>
-              <BInputGroupAppend>
+                  <template #append>
                   <BButton :disabled="!textsearch"
                             @click="textsearch = null; searchCards()"><X/></BButton>
-                </BInputGroupAppend>
+                  </template>
             </BInputGroup>
           </BNavForm>
           <BNavItemDropdown text="Settings"
@@ -40,7 +40,7 @@
               <template #button-content>
                 <em>{{userEmail}}<Person/></em>
               </template>
-              <BDropdownItem v-show="isAnonymous" href="/login" variant="primary">Sign In</BDropdownItem>
+              <BDropdownItem v-show="isAnonymous" to="/login" variant="primary">Sign In</BDropdownItem>
               <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
           </BNavItemDropdown>
         </BNavbarNav>

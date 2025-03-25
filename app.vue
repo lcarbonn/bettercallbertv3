@@ -3,9 +3,12 @@
     <VitePwaManifest/>
     <div>
       <BaseNavBar  @filter-cards="filterCards" @search-cards="searchCards"></BaseNavBar>
-      <BContainer fluid>
+      <BContainer fluid v-if="firebaseUser">
         <NuxtPage />
       </BContainer>
+      <div v-else class="text-center">
+        <BSpinner variant="primary" label="Spinning"/>
+      </div>
     </div>
     <div class="d-flex flex-column justify-content-end">
       <BaseFooter :appVersion="version"></BaseFooter>
@@ -20,7 +23,10 @@
 
   console.debug("appVersion:",version)
 
+  const firebaseUser = useFirebaseUser()
+
   const cards = useFullCards()
+
   // nuxt cycle hook
   onMounted(() => {
     console.log("bettercallbert starting")

@@ -4,7 +4,7 @@
       <BNavbarBrand @click="goHome" to="/">
         <BAvatar rounded src="/icon.png"></BAvatar> BetterCallBert
       </BNavbarBrand>
-      <BNavbarNav class="ms-auto mb-2 mb-lg-0">
+      <BNavbarNav>
         <BNavForm class="d-flex">
           <BInputGroup>
             <BFormInput placeholder="Search" 
@@ -18,7 +18,7 @@
           </BInputGroup>
         </BNavForm>
       </BNavbarNav>
-    <BNavbarToggle target="nav-collapse" />
+      <BNavbarToggle target="nav-collapse" />
       <BOffcanvas id="nav-collapse"
         isNav
         v-model="show"
@@ -59,6 +59,7 @@
               <BDropdownItem v-show="isAnonymous" to="/login" variant="primary">Sign In</BDropdownItem>
               <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
           </BNavItemDropdown>
+          <BaseThemeItemDropdown @clicked="show=!show"/>
         </BNavbarNav>
       </BOffcanvas>
     </BNavbar>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BRow v-if="cards.length>0" cols="1"
+    <BRow v-if="cards?.length>0" cols="1"
          cols-lg="2"
          cols-xl="5">
       <BCol v-for="card in cards"

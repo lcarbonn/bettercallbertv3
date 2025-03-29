@@ -24,7 +24,7 @@
     // props
     const props = defineProps({
         cards: {
-            type: Array<CardType>,
+            type: Array<ICard>,
             default: undefined
         },
     })

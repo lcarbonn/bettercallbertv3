@@ -6,7 +6,7 @@ import { type FirebaseStorage } from "firebase/storage"
  * @param cards - the cards list
  * @returns Promise - when resolved
  */
-export const setCardsImageSrc = (cards:CardType[]) :Promise<void> => {
+export const setCardsImageSrc = (cards:ICard[]) :Promise<void> => {
     return new Promise((resolve) => {
         // console.log("set cards image :", cards)
         if(!cards) resolve()
@@ -24,7 +24,7 @@ export const setCardsImageSrc = (cards:CardType[]) :Promise<void> => {
  * @param card - the card
  * @returns Promise - when resolved
  */
-export const setCardImageSrc = (card:CardType) :Promise<void> => {
+export const setCardImageSrc = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
         // console.log("set card image :", card)
         const { $storage } = useNuxtApp()

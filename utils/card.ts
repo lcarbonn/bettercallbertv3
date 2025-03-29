@@ -1,10 +1,10 @@
 import { type DocumentData } from "firebase/firestore"
 
 /**
- * CardType interface
+ * ICard interface
  * @public
  */
-export interface CardType {
+export interface ICard {
     id:string,
     title: string,
     idTheme: string,
@@ -13,16 +13,16 @@ export interface CardType {
     img:string|undefined,
     /**
      * Card equals
-     * @param card - CardType to compare
+     * @param card - ICard to compare
      */
-    equals: (card:CardType) => boolean
+    equals: (card:ICard) => boolean
 }
 
 /**
  * Card class
  * @public
  */
-export class Card implements CardType {
+export class Card implements ICard {
     id:string
     title: string
     idTheme: string
@@ -44,9 +44,9 @@ export class Card implements CardType {
     }
     /**
      * Card equals
-     * @param card - CardType to compare
+     * @param card - ICard to compare
      */
-    public equals(card:CardType) : boolean {
+    public equals(card:ICard) : boolean {
         return (this.id == card.id && this.title == card.title && this.idTheme == card.idTheme && this.link == card.link && this.src == card.src && this.img == card.img)
     }
 }
@@ -57,7 +57,7 @@ export class Card implements CardType {
  * @param cards - the given list of cards
  * @return id or undefined
  */
-export const getCardNextId = (card:CardType, cards:CardType[]) :string|undefined => {
+export const getCardNextId = (card:ICard, cards:ICard[]) :string|undefined => {
     if(!card||!cards) return undefined
     const i = cards.findIndex(x => x.id === card.id)
     if(i<cards.length) {
@@ -73,7 +73,7 @@ export const getCardNextId = (card:CardType, cards:CardType[]) :string|undefined
  * @param cards - the given list of cards
  * @return id or undefined
  */
-export const getCardPreviousId = (card:CardType, cards:CardType[]) :string|undefined => {
+export const getCardPreviousId = (card:ICard, cards:ICard[]) :string|undefined => {
     if(!card||!cards) return undefined
     const i = cards.findIndex(x => x.id === card.id)
     if(i>0) return cards[i-1].id

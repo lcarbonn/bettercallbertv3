@@ -3,16 +3,16 @@ import { type Firestore } from "firebase/firestore"
 
 /**
  * Get all cards from firebase db
- * @returns A Promise that resolve a list of CardType
+ * @returns A Promise that resolve a list of ICard
  * @throws Throws the firebase error
  */
-export const getDbCards = () :Promise<CardType[]> => {
+export const getDbCards = () :Promise<ICard[]> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
         
         console.debug("start get Cards")
         const cardsRef = collection($db as Firestore, "cards")
-        const list: CardType[] = [];
+        const list: ICard[] = [];
     
         const q = query(cardsRef, orderBy("idTheme"));
         getDocs(q)
@@ -39,7 +39,7 @@ export const getDbCards = () :Promise<CardType[]> => {
  * @returns A Promise that resolve the card
  * @throws Throws the firebase error
  */
-export const getDbCard = (id:string) :Promise<CardType> => {
+export const getDbCard = (id:string) :Promise<ICard> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
     
@@ -92,7 +92,7 @@ export const createDbCard = () :Promise<string> => {
  * Save a card in firebase db
  * @throws Throws the firebase error
  */
-export const saveDbCard = (card:CardType) :Promise<void> => {
+export const saveDbCard = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 

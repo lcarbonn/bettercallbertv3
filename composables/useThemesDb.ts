@@ -6,13 +6,13 @@ import { type Firestore } from "firebase/firestore"
  * @returns Promise - the themes list
  * @returns Reject the error
  */
-export const getDbThemes= () :Promise<ThemeType[]> => {
+export const getDbThemes= () :Promise<ITheme[]> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
         console.debug("start get Themes")
         const cardsRef = collection($db as Firestore, "themes")
-        const list: ThemeType[] = [];
+        const list: ITheme[] = [];
     
         const q = query(cardsRef, orderBy("order"));
         getDocs(q)

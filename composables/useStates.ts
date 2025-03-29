@@ -10,19 +10,19 @@ export const useSnackBarMessage = () => useState<ISnackMessage>("snackBarMessage
 /**
  * State for list of current cards
  */
-export const useCards = () => useState<CardType[]>("cards");
+export const useCards = () => useState<ICard[]>("cards");
 /**
  * State of current card
  */
-export const useCard = () => useState<CardType>("card");
+export const useCard = () => useState<ICard>("card");
 /**
  * State for list of all cards
  */
-export const useFullCards = () => useState<CardType[]>("fullCards");
+export const useFullCards = () => useState<ICard[]>("fullCards");
 /**
  * State for list of themes
  */
-export const useThemes = () => useState<ThemeType[]>("themes");
+export const useThemes = () => useState<ITheme[]>("themes");
 /**
  * State for single page management
  */

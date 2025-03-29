@@ -27,7 +27,7 @@
 
     // const
     const id:string = useRoute().params.id as string
-    let initialCard:CardType
+    let initialCard:ICard
     
     // use states
     const card = useCard()

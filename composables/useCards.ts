@@ -9,7 +9,7 @@ export const resetCards = () => {
  * Get all cards then get their image
  */
 export const getCardsWithImage = () => {
-    getDbCards().then((list:CardType[]) => {
+    getDbCards().then((list:ICard[]) => {
         const cards = useCards()
         cards.value = list
         const fullCards = useFullCards()
@@ -23,7 +23,7 @@ export const getCardsWithImage = () => {
  * @param id - the card id
  */
 export const getCardWithImage = (id:string) => {
-    getDbCard(id).then((card:CardType) => {
+    getDbCard(id).then((card:ICard) => {
         const stateCard = useCard()
         stateCard.value = card
         if (card.src?.indexOf("http") == -1) {
@@ -37,7 +37,7 @@ export const getCardWithImage = (id:string) => {
  * @param idTheme - the theme id
  */
 export const filterCardsOnTheme = (idTheme:string) => {
-    const list: CardType[] = [];
+    const list: ICard[] = [];
     const cards = useCards()
     const fullCards = useFullCards()
     if (idTheme == null) {
@@ -57,7 +57,7 @@ export const filterCardsOnTheme = (idTheme:string) => {
  * @param textsearch - the text to search in title
  */
 export const searchCardsOnTitle = (textsearch:string) => {
-    const list: CardType[] = [];
+    const list: ICard[] = [];
     const cards = useCards()
     const fullCards = useFullCards()
     const st = textsearch ? textsearch.trim() : textsearch

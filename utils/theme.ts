@@ -1,10 +1,10 @@
 import { type DocumentData } from "firebase/firestore"
 
 /**
- * ThemeType interface
+ * ITheme interface
  * @public
  */
-export interface ThemeType {
+export interface ITheme {
     id:string,
     color:string,
     order: number,
@@ -15,7 +15,7 @@ export interface ThemeType {
  * Theme class
  * @public
  */
-export class Theme implements ThemeType {
+export class Theme implements ITheme {
     id:string
     color:string
     order: number
@@ -54,7 +54,7 @@ export const getThemeColor = (idTheme:string) : string => {
  * @param themes - the themes list
  * @return options as {value:string, text:string}[]
  */
-export const genThemeOptions = (themes:ThemeType[]) :{value:string, text:string}[] => {
+export const genThemeOptions = (themes:ITheme[]) :{value:string, text:string}[] => {
     const opts:{value:string, text:string}[] = []
     if (themes) themes.forEach(theme => {
         opts.push(

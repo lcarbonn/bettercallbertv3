@@ -1,34 +1,50 @@
 <template>
   <client-only>
-    <BNavbar toggleable="lg" variant="primary" sticky='top' v-b-color-mode="'dark'">
+    <BNavbar :toggleable="true" variant="primary" sticky='top' v-b-color-mode="'dark'">
       <BNavbarBrand @click="goHome" to="/">
         <BAvatar rounded src="/icon.png"></BAvatar> BetterCallBert
       </BNavbarBrand>
-      <BNavbarToggle target="nav-collapse" />
-      <BCollapse id="nav-collapse" isNav>
-        <BNavbarNav small fill v-if="themes">
-            <BNavItem v-for="theme in themes"
-              :key="theme.id"
-              :id="theme.id"
-              :active="isCurrentTheme(theme.id)"
-              @click="filterCards(theme.id)"
-              >
+      <BNavbarNav class="ms-auto mb-2 mb-lg-0">
+        <BNavForm class="d-flex">
+          <BInputGroup>
+            <BFormInput placeholder="Search" 
+                v-b-color-mode="'light'"
+                v-model="textsearch"
+                @keyup="searchCards()"/>
+                <template #append>
+                <BButton :disabled="!textsearch"
+                          @click="textsearch = null; searchCards()"><X/></BButton>
+                </template>
+          </BInputGroup>
+        </BNavForm>
+      </BNavbarNav>
+    <BNavbarToggle target="nav-collapse" />
+      <BOffcanvas id="nav-collapse"
+        isNav
+        v-model="show"
+        placement="end"
+        title="Better Call Bert"
+        style="background-color:var(--bs-primary);color:var(--bs-white)"
+       >
+       
+        <BNavbarNav small v-if="themes">
+          <BNavItem
+            key=""
+            id=""
+            @click="goHome()"
+            >
+            <span style="border-bottom-style: solid;">All</span>
+          </BNavItem>
+          <BNavItem v-for="theme in themes"
+            :key="theme.id"
+            :id="theme.id"
+            :active="isCurrentTheme(theme.id)"
+            @click="filterCards(theme.id)"
+            >
             <span style="border-bottom-style: solid;" :class="themeColor(theme.id)">{{ theme.title.toUpperCase() }}</span>
           </BNavItem>
         </BNavbarNav>
         <BNavbarNav class="ms-auto mb-2 mb-lg-0">
-          <BNavForm class="d-flex">
-            <BInputGroup>
-              <BFormInput placeholder="Search" 
-                  v-b-color-mode="'light'"
-                  v-model="textsearch"
-                  @keyup="searchCards()"/>
-                  <template #append>
-                  <BButton :disabled="!textsearch"
-                            @click="textsearch = null; searchCards()"><X/></BButton>
-                  </template>
-            </BInputGroup>
-          </BNavForm>
           <BNavItemDropdown text="Settings"
                                 v-show="!isAnonymous"
                                 v-b-color-mode="'light'">
@@ -44,7 +60,7 @@
               <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
           </BNavItemDropdown>
         </BNavbarNav>
-      </BCollapse>
+      </BOffcanvas>
     </BNavbar>
   </client-only>
 </template>
@@ -65,6 +81,7 @@
   const isSinglePage = useSinglePage()
 
   // Local states
+  const show = ref(false)
   const currentTheme = useCurrentTheme()
 
   const textsearch = ref()
@@ -79,16 +96,17 @@
   })
 
   // methods
-  const goHome = async () => {
+  const goHome = () => {
+    show.value = false
     textsearch.value = null
     currentTheme.value = ""
     resetCards()
-    // await navigateTo('/')
   }
 
   const signOut = () => {
-    signOutUser().then(async () => {
-      await navigateTo('/')
+    signOutUser().then(() => {
+      show.value = false
+      navigateTo('/')
     })
   }
 
@@ -102,6 +120,7 @@
    }
 
   const filterCards = async (idTheme:string) => {
+    show.value = false
     textsearch.value = null
     if (isCurrentTheme(idTheme)) {
       emit('filterCards')
@@ -120,6 +139,7 @@
   }
 
   const newCard = () => {
+      show.value = false
       filterCards("")
       createDbCard().then((id) => {
         navigateTo('/admin/' + id)

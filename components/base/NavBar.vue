@@ -1,8 +1,10 @@
 <template>
   <client-only>
     <BNavbar :toggleable="true" variant="primary" sticky='top' v-b-color-mode="'dark'">
-      <BNavbarBrand @click="goHome" to="/">
-        <BAvatar rounded src="/icon.png"></BAvatar> BetterCallBert
+      <BNavbarBrand>
+        <BLink @click="goHome" to="/" class="navbar-brand">
+          <BAvatar rounded src="/icon.png"></BAvatar> BetterCallBert
+        </BLink>
       </BNavbarBrand>
       <BNavbarNav>
         <BNavForm class="d-flex">
@@ -142,7 +144,7 @@
   const newCard = () => {
       show.value = false
       filterCards("")
-      createDbCard().then((id) => {
+      addCard().then((id) => {
         navigateTo('/admin/' + id)
       })
   }

@@ -8,7 +8,7 @@
             class="py-3">
         <nuxt-link :to="'/cards/' + card.id"
                   class="nodecoLink">
-          <DomainCard :card="card"></DomainCard>
+          <DomainCard :card="card as Card"></DomainCard>
         </nuxt-link>
       </BCol>
     </BRow>

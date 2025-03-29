@@ -9,7 +9,7 @@ export interface ICard {
     title: string,
     idTheme: string,
     link: string|undefined,
-    src: string,
+    src: string|undefined,
     img:string|undefined,
     /**
      * Card equals
@@ -27,20 +27,19 @@ export class Card implements ICard {
     title: string
     idTheme: string
     link: string|undefined
-    src: string
+    src: string|undefined
     img:string|undefined
 
     /**
      * Card constructor
      * @param doc - DocumentData form Firebase
      */
-    constructor(doc:DocumentData) {
-        this.id = doc.id
-        this.title = doc.data().title
-        this.idTheme= doc.data().idTheme
-        this.link = doc.data().link
-        this.src = doc.data().src
-        this.img = ""
+    constructor(doc?:DocumentData) {
+        this.id = doc?.id
+        this.title = doc?.data().title ?? ""
+        this.idTheme= doc?.data().idTheme ?? ""
+        this.link = doc?.data().link
+        this.src = doc?.data().src
     }
     /**
      * Card equals

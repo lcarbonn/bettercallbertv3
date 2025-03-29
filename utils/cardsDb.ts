@@ -3,10 +3,9 @@ import { type Firestore } from "firebase/firestore"
 
 /**
  * Get all cards from firebase db
- * @returns A Promise that resolve a list of ICard
- * @throws Throws the firebase error
+ * @returns A `Promise` that will be resolved with a array of ICard
  */
-export const getDbCards = () :Promise<ICard[]> => {
+export const getCardsDb = () :Promise<ICard[]> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
         
@@ -27,7 +26,6 @@ export const getDbCards = () :Promise<ICard[]> => {
             resolve(list)
         })
         .catch((error) => {
-            errorToSnack(error, "Error getting cards")
             reject(error)
         });    
     })
@@ -36,10 +34,9 @@ export const getDbCards = () :Promise<ICard[]> => {
 /**
  * Get a card from firebase db
  * @param id - the card id
- * @returns A Promise that resolve the card
- * @throws Throws the firebase error
+ * @returns A `Promise` that will be resolved with the card
  */
-export const getDbCard = (id:string) :Promise<ICard> => {
+export const getCardDb = (id:string) :Promise<ICard> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
     
@@ -55,34 +52,30 @@ export const getDbCard = (id:string) :Promise<ICard> => {
             resolve(card)
         })
         .catch((error) => {
-            errorToSnack(error, "Error getting card")
             reject(error)
         });
     })
 };
 
 /**
- * Create a default card in firebase db
- * @returns A Promise that resolve the id of the created card
- * @throws Throws the firebase error
+ * Add a card in firebase db
+ * @param newCard - card to add
+ * @returns A `Promise` that will be resolved with the id of created card
  */
-export const createDbCard = () :Promise<string> => {
+export const addCardDb = (newCard:ICard) :Promise<string> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
         console.debug("start create Card")
 
-        const newCard = {
-            "title": "New Card",
-            "idTheme": "DEFAULT"
-        }
         const cardsRef = collection($db as Firestore, "cards")
-        addDoc(cardsRef, newCard)
+        addDoc(cardsRef,
+            {title:newCard.title,
+            idTheme:newCard.idTheme})
         .then((doc) => {
             resolve(doc.id)
         })
         .catch((error) => {
-            errorToSnack(error, "Error creating card")
             reject(error)
         });
     })
@@ -90,9 +83,10 @@ export const createDbCard = () :Promise<string> => {
 
 /**
  * Save a card in firebase db
- * @throws Throws the firebase error
+ * @param card - the card to update
+ * @return A `Promise`that resolves when card updated
  */
-export const saveDbCard = (card:ICard) :Promise<void> => {
+export const saveCardDb = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
@@ -101,16 +95,14 @@ export const saveDbCard = (card:ICard) :Promise<void> => {
         const docRef = doc($db as Firestore, "cards", card.id)
         updateDoc(docRef, {
             title: card.title,
-            link: card.link ? card.link : "",
+            link: card.link,
             src: card.src,
             idTheme: card.idTheme
         })
         .then(() => {
-            messageToSnack("Card saved")
             resolve()
         })
         .catch((error) => {
-            errorToSnack(error, "Error saving card")
             reject(error)
         });
     })
@@ -119,9 +111,9 @@ export const saveDbCard = (card:ICard) :Promise<void> => {
 /**
  * Delete a card in firebase db
  * @param id - the card id
- * @throws Throws the firebase error
+  * @return A `Promise`that resolves when card is deleted
  */
-export const deleteDbCard = (id:string) :Promise<void> => {
+export const deleteCardDb = (id:string) :Promise<void> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
@@ -130,12 +122,11 @@ export const deleteDbCard = (id:string) :Promise<void> => {
         const docRef = doc($db as Firestore, "cards", id)
         deleteDoc(docRef)
         .then(() => {
-            messageToSnack("Card deleted")
             resolve()
         })
         .catch((error) => {
-            errorToSnack(error, "Error deleting card")
             reject(error)
         });
     })
 };
+

@@ -9,13 +9,17 @@ export const resetCards = () => {
  * Get all cards then get their image
  */
 export const getCardsWithImage = () => {
-    getDbCards().then((list:ICard[]) => {
+    getCardsDb()
+    .then((list:ICard[]) => {
         const cards = useCards()
         cards.value = list
         const fullCards = useFullCards()
         fullCards.value = list
         setCardsImageSrc(cards.value)
     })
+    .catch((error) => {
+        errorToSnack(error, "Error getting cards")
+    });    
 }
 
 /**
@@ -23,14 +27,82 @@ export const getCardsWithImage = () => {
  * @param id - the card id
  */
 export const getCardWithImage = (id:string) => {
-    getDbCard(id).then((card:ICard) => {
+    getCardDb(id)
+    .then((card:ICard) => {
         const stateCard = useCard()
         stateCard.value = card
         if (card.src?.indexOf("http") == -1) {
             setCardImageSrc(stateCard.value)
         }
     })
+    .catch((error) => {
+        errorToSnack(error, "Error getting card")
+    });
 }
+
+/**
+ * Add a default card in firebase db
+ * @returns A `Promise` that will be resolved with the id of created card
+ * @throws Throws the firebase error
+ */
+export const addCard = () :Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const newCard = new Card()
+        newCard.title = "New Card"
+        newCard.idTheme = "DEFAULT"
+        addCardDb(newCard)
+        .then((id) => {
+            console.log("new card id:"+id)
+            messageToSnack("Card created")
+            resolve(id)
+        })
+        .catch((error) => {
+            errorToSnack(error, "Error creating card")
+            reject(error)
+        });
+    })
+};
+
+/**
+ * Save a card
+ * @param card - the card to update
+ * @return A `Promise`that resolves when card updated
+ */
+export const saveCard = (card:ICard) :Promise<void> => {
+    return new Promise((resolve, reject) => {
+        console.debug("start save Card")
+        saveCardDb(card)
+        .then(() => {
+            messageToSnack("Card saved")
+            resolve()
+        })
+        .catch((error) => {
+            errorToSnack(error, "Error saving card")
+            reject(error)
+        });
+    })
+};
+
+/**
+ * Delete a card
+ * @param id - the card id
+  * @return A `Promise`that resolves when card is deleted
+ */
+export const deleteCard = (id:string) :Promise<void> => {
+    return new Promise((resolve, reject) => {
+        console.debug("start delete Card")
+        deleteCardDb(id)
+        .then(() => {
+            messageToSnack("Card deleted")
+            resolve()
+        })
+        .catch((error) => {
+            errorToSnack(error, "Error deleting card")
+            reject(error)
+        });
+    })
+};
+
 
 /**
  * Filtering cards on theme

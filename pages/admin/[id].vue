@@ -71,13 +71,11 @@
     }
 
     const saveCardForm = () => {
-        console.log("saveCard=", card.value.id)
-        saveDbCard(card.value).then(() => {
+        saveCard(card.value).then(() => {
             if (card.value?.src?.indexOf("http") == -1) {
                 setCardImageSrc(card.value)
                 .catch((e) => {
-                    const snackBarMessage = useSnackBarMessage()
-                    snackBarMessage.value = "Image Source non disponible dans le store"
+                    messageToSnack("Image Source non disponible dans le store")
                 })
             }
             initialCard = card.value
@@ -86,7 +84,7 @@
 
     const deleteCardForm = async () => {
         console.log("deleteCard=", card.value.id)
-        await deleteDbCard(card.value.id)
+        await deleteCard(card.value.id)
         //refresh full cards list
         getCardsWithImage()
         await navigateTo('/')

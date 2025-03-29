@@ -30,7 +30,8 @@ export const setCardImageSrc = (card:ICard) :Promise<void> => {
         const { $storage } = useNuxtApp()
         const storageRef = ref($storage as FirebaseStorage, card.src)
         if(!card.src || card.src == "") resolve()
-        getDownloadURL(storageRef).then((url) => {
+        getDownloadURL(storageRef)
+        .then((url) => {
             card.img = url
             resolve()
         }).catch((error) => {
@@ -55,6 +56,7 @@ export const uploadStorageImageFile = (file:File) :Promise<any|void> => {
         uploadBytes(storageRef, file, metadata)
         .then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
+                // ADD to interface and update resolve
                 const paths = {
                     imagePath: storageRef.fullPath,
                     imageUrl: url

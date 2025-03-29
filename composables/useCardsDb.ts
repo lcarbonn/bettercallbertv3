@@ -72,7 +72,7 @@ export const createDbCard = () :Promise<string> => {
 
         console.debug("start create Card")
 
-        const newCard ={
+        const newCard = {
             "title": "New Card",
             "idTheme": "DEFAULT"
         }

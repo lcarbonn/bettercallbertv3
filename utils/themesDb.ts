@@ -3,10 +3,9 @@ import { type Firestore } from "firebase/firestore"
 
 /**
  * Get the themes from firestore
- * @returns Promise - the themes list
- * @returns Reject the error
+ * @returns A `Promise` that will be resolved with an array of themes
  */
-export const getDbThemes= () :Promise<ITheme[]> => {
+export const getThemesDb= () :Promise<ITheme[]> => {
     return new Promise((resolve, reject) => {
         const { $db } = useNuxtApp()
 
@@ -24,7 +23,6 @@ export const getDbThemes= () :Promise<ITheme[]> => {
             resolve(list)
         })
         .catch((error) => {
-            errorToSnack(error, "Error getting Themes")
             reject(error)
         });
     })

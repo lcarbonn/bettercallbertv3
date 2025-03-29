@@ -13,7 +13,7 @@
         if(newMessage.isError)
             show?.({props: {title:'Error', body: ''+newMessage.message , variant:'danger'}})
         else
-            show?.({props: {title:'Idealicious', body: ''+newMessage.message}})
+            show?.({props: {title:'Better Call Bert', body: ''+newMessage.message}})
       }
     })
 </script>

@@ -3,8 +3,10 @@
  * @param message - the message
  */
 export const messageToSnack = (message:string) => {
-    const snackBarMessage = useSnackBarMessage()
-    snackBarMessage.value = new String(message)
+    const snackBarMessage = new SnackMessage()
+    snackBarMessage.message = new String(message).toString()
+    snackBarMessage.isError = false
+    useSnackBarMessage().value = snackBarMessage
 }
 
 /**
@@ -12,7 +14,9 @@ export const messageToSnack = (message:string) => {
  * @param error - the error
  * @param message - the message
  */
-export const errorToSnack = (error:any, message:string) => {
-    const snackBarMessage = useSnackBarMessage()
-    snackBarMessage.value = new String(message + " : " + error?.message)
+export const errorToSnack = (message:string, error:any) => {
+    const snackBarMessage = new SnackMessage()
+    snackBarMessage.message = new String(message + " : " + error?.message).toString()
+    snackBarMessage.isError = true
+    useSnackBarMessage().value = snackBarMessage
 }

@@ -6,7 +6,7 @@ export const useFirebaseUser = () => useState<User>("firebaseUser");
 /**
  * State for snackbar message
  */
-export const useSnackBarMessage = () => useState<String>("snackBarMessage", () => "");
+export const useSnackBarMessage = () => useState<ISnackMessage>("snackBarMessage");
 /**
  * State for list of current cards
  */

@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-md-center bg-primary text-white">Copyright © 2024 - Agilisé à Toulouse, France - V{{appVersion}}</div>
+  <div class="d-flex justify-content-md-center bg-primary text-white">Copyright © 2025 - Agilisé à Toulouse, France - V{{appVersion}}</div>
 </template>
 
 <script setup>

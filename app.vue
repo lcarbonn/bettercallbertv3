@@ -3,6 +3,7 @@
     <VitePwaManifest/>
     <div>
       <BaseNavBar  @filter-cards="filterCards" @search-cards="searchCards"></BaseNavBar>
+      <BaseSnackToast></BaseSnackToast>
       <BContainer fluid v-if="firebaseUser">
         <NuxtPage />
       </BContainer>
@@ -12,7 +13,6 @@
     </div>
     <div class="d-flex flex-column justify-content-end">
       <BaseFooter :appVersion="version"></BaseFooter>
-      <BaseSnackbar></BaseSnackbar>
     </div>
   </div>
 </template>

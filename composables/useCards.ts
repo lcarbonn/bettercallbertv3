@@ -10,7 +10,7 @@ export const resetCards = () => {
  */
 export const getCardsWithImage = () => {
     getCardsDb()
-    .then((list:ICard[]) => {
+    .then((list) => {
         const cards = useCards()
         cards.value = list
         const fullCards = useFullCards()
@@ -28,7 +28,7 @@ export const getCardsWithImage = () => {
  */
 export const getCardWithImage = (id:string) => {
     getCardDb(id)
-    .then((card:ICard) => {
+    .then((card) => {
         const stateCard = useCard()
         stateCard.value = card
         if (card.src?.indexOf("http") == -1) {

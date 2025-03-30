@@ -82,7 +82,7 @@
 
     const deleteCardForm = () => {
         console.log("deleteCard=", card.value.id)
-        deleteCard(card.value.id)
+        deleteCard(card.value)
         .then(() => {
             //refresh full cards list
             getCardsWithImage()

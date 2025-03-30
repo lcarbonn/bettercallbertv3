@@ -20,14 +20,17 @@ export const setCardsImageSrc = (cards:ICard[]) => {
 export const setCardImageSrc = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
         // console.log("set card image :", card)
-        setStorageCardImageSrc(card)
-        .then((url) => {
-            if(url) card.img = url
-            resolve()
-        }).catch((error) => {
-            errorToSnack(error, "Error setting image src on cards")
-            reject()
-        })
+        if(!card.src) resolve()
+        else {
+            getStorageImageSrc(card.src)
+            .then((url) => {
+                if(url) card.img = url
+                resolve()
+            }).catch((error) => {
+                errorToSnack(error, "Error setting image src on cards")
+                reject()
+            })
+        }
     })
 }
 
@@ -41,10 +44,26 @@ export const uploadImageFile = (file:File) :Promise<IPaths> => {
         uploadStorageImageFile(file)
         .then((paths) => {
             messageToSnack("Image uploaded")
-            console.debug("storage path=" + paths.imagePath + ', url=' + paths.imageUrl)
+            // console.debug("storage path=" + paths.imagePath + ', url=' + paths.imageUrl)
             resolve(paths)
         }).catch((error) => {
             errorToSnack(error, "Error on uploading image file")
+            reject(error)
+        })
+    })
+}
+
+/**
+ * Delete the src img
+ * @param src - the image file src
+ * @returns Promise - resolved when done
+ */
+export const deleteImage = (src:string) :Promise<void> => {
+    return new Promise((resolve, reject) => {
+        deleteStorageImage(src)
+        .then(() => {
+            resolve()
+        }).catch((error) => {
             reject(error)
         })
     })

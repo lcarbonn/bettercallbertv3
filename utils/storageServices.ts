@@ -1,17 +1,17 @@
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage";
 import { type FirebaseStorage } from "firebase/storage"
 
 /**
- * Retrieve and set image of the card from firebase storage 
- * @param card - the card
- * @returns Promise - will resolve the url when done
+ * Retrieve the src file url
+ * @param src - the file src
+ * @returns `Promise` - that resolves with the download URL for this object
  */
-export const setStorageCardImageSrc = (card:ICard) :Promise<string|void> => {
+export const getStorageImageSrc = (src:string) :Promise<string|void> => {
     return new Promise((resolve, reject) => {
         // console.log("set card image :", card)
         const { $storage } = useNuxtApp()
-        const storageRef = ref($storage as FirebaseStorage, card.src)
-        if(!card.src || card.src == "") resolve()
+        const storageRef = ref($storage as FirebaseStorage, src)
+        if(!src || src == "") resolve()
         getDownloadURL(storageRef)
         .then((url) => {
             resolve(url)
@@ -39,6 +39,25 @@ export const uploadStorageImageFile = (file:File) :Promise<IPaths> => {
                 const paths = new Paths(storageRef.fullPath, url)
                 resolve(paths)
             })
+        }).catch((error) => {
+            reject(error)
+        })
+    })
+}
+
+/**
+ * Delete the src file
+ * @param src - the file
+ * @returns A `Promise` that resolves if the deletion succeeds.
+ */
+export const deleteStorageImage = (src:string) :Promise<void> => {
+    return new Promise((resolve, reject) => {
+        // console.log("set card image :", card)
+        const { $storage } = useNuxtApp()
+        const storageRef = ref($storage as FirebaseStorage, src)
+        deleteObject(storageRef)
+        .then(() => {
+            resolve()
         }).catch((error) => {
             reject(error)
         })

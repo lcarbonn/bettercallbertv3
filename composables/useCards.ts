@@ -85,14 +85,15 @@ export const saveCard = (card:ICard) :Promise<void> => {
 
 /**
  * Delete a card
- * @param id - the card id
+ * @param card - the ICard
   * @return A `Promise`that resolves when card is deleted
  */
-export const deleteCard = (id:string) :Promise<void> => {
+export const deleteCard = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
         console.debug("start delete Card")
-        deleteCardDb(id)
+        deleteCardDb(card.id)
         .then(() => {
+            if(card.src) deleteImage(card.src)
             messageToSnack("Card deleted")
             resolve()
         })

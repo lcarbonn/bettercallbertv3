@@ -41,10 +41,10 @@
 
     //computed properties
     const previousId = computed(() => {
-        return getCardPreviousId(card.value, cards.value)
+        return card.value?.getCardPreviousId(cards.value)
     })
     const nextId = computed(() => {
-        return getCardNextId(card.value, cards.value)
+        return card.value?.getCardNextId(cards.value)
     })
     const isAnonymous = computed(() => {
         return firebaseUser.value?.isAnonymous

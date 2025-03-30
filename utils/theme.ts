@@ -29,7 +29,7 @@ export class Theme implements ITheme {
         this.color = doc.data().color
         this.order = doc.data().order
         this.title = doc.data().title
-      }    
+    }
 }
 
 /**

@@ -45,11 +45,9 @@
         isSinglePage.value = true
     })
 
-    onBeforeUnmount(() => {
-        console.log("before unmount :")
-    })
     onBeforeRouteLeave(async (leaveGuard) => {
-        //if nothing change, keep on leabing
+        //if nothing change, keep on leaving
+        if(!initialCard || !card.value) return true
         if(initialCard.equals(card.value)) return true
         // else ask for
         const user = useFirebaseUser()

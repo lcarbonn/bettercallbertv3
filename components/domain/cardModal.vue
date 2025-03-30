@@ -4,7 +4,7 @@
              centered
              body-bg-variant="secondary"
              header-text-variant="white"
-             :headerBgVariant="themeColor"
+             :class="themeColor"
              size="xl"
              ok-only>
         <p class="text-center">
@@ -32,7 +32,10 @@
                 type: String,
                 default: undefined
             },
-            propShow:Object
+            propShow: {
+                type: Object,
+                default: {show:false}
+            }
     })
 
 </script>

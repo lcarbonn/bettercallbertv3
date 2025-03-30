@@ -103,7 +103,6 @@ export const deleteCard = (id:string) :Promise<void> => {
     })
 };
 
-
 /**
  * Filtering cards on theme
  * @param idTheme - the theme id

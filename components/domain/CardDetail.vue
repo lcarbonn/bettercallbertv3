@@ -2,7 +2,7 @@
     <BCard v-if="card"
             bgVariant="secondary"
             text-variant="white"
-            :headerBgVariant="themeColor"
+            :class="themeColor"
             imgBottom
             align="center">
         <template #header>

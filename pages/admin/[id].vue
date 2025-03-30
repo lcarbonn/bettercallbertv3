@@ -97,7 +97,7 @@
 
     const uploadImageFileForm = (file:File) => {
         console.log("uploadImageFile=", file)
-        uploadStorageImageFile(file).then((paths) => {
+        uploadImageFile(file).then((paths) => {
             card.value.src = paths.imagePath
             card.value.img = paths.imageUrl
         })

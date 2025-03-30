@@ -3,7 +3,7 @@
             class="h-100"
             bg-variant="secondary"
             text-variant="white"
-            :headerBgVariant="theme"
+            :class="theme"
             header-tag="header"
             >
         <BCardBody v-if="!card?.img"><BSpinner label="Loading..."></BSpinner></BCardBody>

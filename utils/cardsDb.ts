@@ -95,9 +95,9 @@ export const saveCardDb = (card:ICard) :Promise<void> => {
         const docRef = doc($db as Firestore, "cards", card.id)
         updateDoc(docRef, {
             title: card.title,
-            link: card.link,
             src: card.src,
-            idTheme: card.idTheme
+            idTheme: card.idTheme,
+            link: card.link??""
         })
         .then(() => {
             resolve()

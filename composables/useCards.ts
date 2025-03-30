@@ -52,7 +52,6 @@ export const addCard = () :Promise<string> => {
         newCard.idTheme = "DEFAULT"
         addCardDb(newCard)
         .then((id) => {
-            console.log("new card id:"+id)
             messageToSnack("Card created")
             resolve(id)
         })
@@ -70,7 +69,6 @@ export const addCard = () :Promise<string> => {
  */
 export const saveCard = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.debug("start save Card")
         saveCardDb(card)
         .then(() => {
             messageToSnack("Card saved")
@@ -90,7 +88,6 @@ export const saveCard = (card:ICard) :Promise<void> => {
  */
 export const deleteCard = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        console.debug("start delete Card")
         deleteCardDb(card.id)
         .then(() => {
             if(card.src) deleteImage(card.src)

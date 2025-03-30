@@ -28,8 +28,8 @@ export class Card implements ICard {
     id:string
     title: string
     idTheme: string
+    src: string
     link: string|undefined
-    src: string|undefined
     img:string|undefined
 
     /**
@@ -40,8 +40,8 @@ export class Card implements ICard {
         this.id = doc?.id
         this.title = doc?.data().title ?? ""
         this.idTheme= doc?.data().idTheme ?? ""
-        this.link = doc?.data().link
         this.src = doc?.data().src
+        this.link = doc?.data().link
     }
     /**
      * Card equals

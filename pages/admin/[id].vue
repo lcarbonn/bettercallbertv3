@@ -82,12 +82,14 @@
         })
     }
 
-    const deleteCardForm = async () => {
+    const deleteCardForm = () => {
         console.log("deleteCard=", card.value.id)
-        await deleteCard(card.value.id)
-        //refresh full cards list
-        getCardsWithImage()
-        await navigateTo('/')
+        deleteCard(card.value.id)
+        .then(() => {
+            //refresh full cards list
+            getCardsWithImage()
+            navigateTo('/')
+        })
     }
 
     const resetCardForm = () => {

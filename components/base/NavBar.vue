@@ -145,6 +145,8 @@
       show.value = false
       filterCards("")
       addCard().then((id) => {
+        // reload cards list
+        getCardsWithImage()
         navigateTo('/admin/' + id)
       })
   }

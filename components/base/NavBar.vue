@@ -3,13 +3,14 @@
     <BNavbar :toggleable="true" variant="primary" sticky='top' v-b-color-mode="'dark'">
       <BNavbarBrand>
         <BLink @click="goHome" to="/" class="navbar-brand">
-          <BAvatar rounded src="/icon.png"></BAvatar> BetterCallBert
+          <BAvatar rounded src="/icon.png"></BAvatar>
         </BLink>
       </BNavbarBrand>
       <BNavbarNav>
-        <BNavForm class="d-flex">
+        <BNavForm>
           <BInputGroup>
-            <BFormInput placeholder="Search" 
+            <BFormInput placeholder="Search"
+                size="sm"
                 v-b-color-mode="'light'"
                 v-model="textsearch"
                 @keyup="searchCards()"/>

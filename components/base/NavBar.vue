@@ -61,7 +61,7 @@
               <template #button-content>
                 <em>{{userEmail}}<Person/></em>
               </template>
-              <BDropdownItem v-show="isAnonymous" to="/login" variant="primary">Sign In</BDropdownItem>
+              <BDropdownItem v-show="isAnonymous" @click="showOffCanevas=!showOffCanevas"  to="/login" variant="primary">Sign In</BDropdownItem>
               <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
           </BNavItemDropdown>
           <BaseThemeItemDropdown @clicked="showOffCanevas=!showOffCanevas"/>
@@ -82,7 +82,7 @@
   const emit = defineEmits(['filterCards', 'searchCards'])
 
   // global states
-  const firebaseUser = useFirebaseUser()
+  const authUser = useAuthUser()
   const themes = useThemes()
   const isSinglePage = useSinglePage()
 
@@ -94,11 +94,11 @@
 
   // computed properties
   const isAnonymous = computed(() => {
-    return firebaseUser.value?.isAnonymous
+    return authUser.value?.isAnonymous
   })
 
   const userEmail = computed(() => {
-    return firebaseUser.value?.email
+    return authUser.value?.email
   })
 
   // methods

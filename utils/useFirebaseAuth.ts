@@ -14,17 +14,16 @@ import {
  * @returns A Promise that resolve the user credentials
  * @throws Throws the firebase error
  */
-export const signInUser = (email:string, password:string) :Promise<UserCredential> => {
+export const signInUserFirebase = (email:string, password:string) :Promise<IAuthUser> => {
     return new Promise((resolve, reject) => {
       const auth = getAuth()
   
       signInWithEmailAndPassword(auth,email,password)
       .then((credentials) => {
-        if(credentials) messageToSnack("Hello " + credentials.user.email)
-        resolve(credentials)
+        const authUser = toAuthUser(credentials)
+        resolve(authUser)
       })
       .catch((error) => {
-        errorToSnack(error, "Error on login")
         reject(error)
       })
     })
@@ -35,15 +34,15 @@ export const signInUser = (email:string, password:string) :Promise<UserCredentia
  * @returns A Promise that resolve the user credentials
  * @throws Throws the firebase error
  */
-export const signInAnonymous = () :Promise<UserCredential> => {
+export const signInAnonymousFirebase = () :Promise<IAuthUser> => {
     return new Promise((resolve, reject) => {
       const auth = getAuth()
       signInAnonymously(auth)
       .then((credentials) => {
-        resolve(credentials)        
+        const authUser = toAuthUser(credentials)
+        resolve(authUser)
       })
       .catch((error) => {
-        errorToSnack(error, "Error on login")
         reject(error)
       })
     })
@@ -53,13 +52,11 @@ export const signInAnonymous = () :Promise<UserCredential> => {
  * Sign out the current user from firebase
  * @throws Throws the firebase error
  */
-export const signOutUser = () :Promise<void> => {
+export const signOutUserFirebase = () :Promise<void> => {
     return new Promise((resolve, reject) => {
-
       getAuth().signOut()
       .then(() => {
-        messageToSnack("SignOut")
-        resolve
+        resolve()
       })
     })
   }
@@ -67,15 +64,14 @@ export const signOutUser = () :Promise<void> => {
 /**
  * Initialize the firebase listener on auth state change
  */
-export const initUser = () => {
+export const initUserFirebase = (callback:any) => {
   const auth = getAuth()
-  const firebaseUser = useFirebaseUser();
-
   onAuthStateChanged(auth, async (user) => {
     console.log("auth state change")
     if (user) {
       // console.log("auth state change, user isAnonymous:"+user.isAnonymous)
-      firebaseUser.value = user;
+      const authUser = new AuthUser(user.uid, user.isAnonymous, user.email)
+      callback(authUser)
       const currentRoute = useRoute().fullPath
       if(user.isAnonymous && currentRoute?.indexOf('/admin') != -1) {
         // console.log("auth state change, navigate")
@@ -84,8 +80,10 @@ export const initUser = () => {
     } else {
       //if signed out sing in anonymous
       // console.log("auth state change, no user")
-      signInAnonymous().then((credentials)=>{
-        if(credentials) firebaseUser.value = credentials.user
+      signInAnonymousFirebase().then((authUser)=>{
+        if(authUser) {
+          callback(authUser)
+        }
       })
     }
   })
@@ -95,18 +93,19 @@ export const initUser = () => {
  * Send password reset email
  * @param email - the email
  */
-export const sendPasswordReset = (email:string) => {
+export const sendPasswordResetFirebase = (email:string) :Promise<void> => {
   return new Promise((resolve, reject) => {
     const auth = getAuth()
-
     sendPasswordResetEmail(auth,email)
     .then(() => {
-      messageToSnack("Reset password email sent to "+ email)
-      resolve
+      resolve()
     })
     .catch((error) => {
-      errorToSnack(error, "Error on sending email to reset password")
-      reject
+      reject(error)
     })
   })
+}
+
+export const toAuthUser = (credentials:UserCredential) => {
+  return new AuthUser(credentials.user.uid, credentials.user.isAnonymous, credentials.user.email)
 }

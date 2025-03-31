@@ -28,7 +28,7 @@
     // use states
     const card = useCard()
     const cards = useFullCards()
-    const firebaseUser = useFirebaseUser()
+    const authUser = useAuthUser()
 
     // nuxt cycle hooks
     onMounted(() => {
@@ -47,7 +47,7 @@
         return card.value?.getCardNextId(cards.value)
     })
     const isAnonymous = computed(() => {
-        return firebaseUser.value?.isAnonymous
+        return authUser.value?.isAnonymous
     })
 
     const swipeRightHandler = () => {

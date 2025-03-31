@@ -50,7 +50,7 @@
         if(!initialCard || !card.value) return true
         if(initialCard.equals(card.value)) return true
         // else ask for
-        const user = useFirebaseUser()
+        const user = useAuthUser()
         if(user.value.isAnonymous) {
             forceNext.value = true
             modal.value = false

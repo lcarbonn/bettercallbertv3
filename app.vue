@@ -4,7 +4,7 @@
     <div>
       <BaseNavBar  @filter-cards="filterCards" @search-cards="searchCards"></BaseNavBar>
       <BaseSnackToast></BaseSnackToast>
-      <BContainer fluid v-if="firebaseUser">
+      <BContainer fluid v-if="authUser">
         <NuxtPage />
       </BContainer>
       <div v-else class="text-center">
@@ -23,7 +23,7 @@
 
   console.debug("appVersion:",version)
 
-  const firebaseUser = useFirebaseUser()
+  const authUser = useAuthUser()
 
   // nuxt cycle hook
   onMounted(() => {

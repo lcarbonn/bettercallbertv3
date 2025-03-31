@@ -15,9 +15,6 @@
 </template>
 
 <script setup lang="ts">
-import { getBgTheme } from '~/utils/theme';
-
-
     //props
     const props = defineProps({
         card: {

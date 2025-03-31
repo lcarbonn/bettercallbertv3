@@ -69,7 +69,7 @@
 
     //computed properties
     const themeColor = computed(() => {
-        return getThemeColor(props.card.idTheme)
+        return getBgTheme(props.card.idTheme)
     })
 
     // nuxt cycle hooks

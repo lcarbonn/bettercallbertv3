@@ -8,9 +8,9 @@ export interface ICard {
     id:string,
     title: string,
     idTheme: string,
-    link: string|undefined,
-    src: string|undefined,
-    img:string|undefined,
+    link?: string,
+    src?: string,
+    img?:string,
     /**
      * Card equals
      * @param card - ICard to compare
@@ -28,9 +28,9 @@ export class Card implements ICard {
     id:string
     title: string
     idTheme: string
-    src: string
-    link: string|undefined
-    img:string|undefined
+    src?: string
+    link?: string
+    img?:string
 
     /**
      * Card constructor

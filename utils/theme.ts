@@ -50,6 +50,14 @@ export const getThemeColor = (idTheme:string) : string => {
 }
 
 /**
+ * 
+ * @param idTheme Get he bg theme color for the theme
+ * @returns bg theme color
+ */
+export const getBgTheme = (idTheme:string) => {
+    return "bg-"+getThemeColor(idTheme)
+}
+/**
  * Build options for input select based on themes list
  * @param themes - the themes list
  * @return options as {value:string, text:string}[]

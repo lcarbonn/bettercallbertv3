@@ -15,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+import { getBgTheme } from '~/utils/theme';
+
 
     //props
     const props = defineProps({
@@ -26,6 +28,6 @@
 
     // computed props
     const theme = computed(() => {
-        if(props.card) return "bg-"+getThemeColor(props.card.idTheme)
+        if(props.card) return getBgTheme(props.card.idTheme)
     })
 </script>

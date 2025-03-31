@@ -71,6 +71,12 @@ export const saveCard = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
         saveCardDb(card)
         .then(() => {
+            if (card.src?.indexOf("http") == -1) {
+                setCardImageSrc(card)
+                .catch((e) => {
+                    messageToSnack("Image Source non disponible dans le store")
+                })
+            }
             messageToSnack("Card saved")
             resolve()
         })
@@ -90,7 +96,10 @@ export const deleteCard = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
         deleteCardDb(card.id)
         .then(() => {
+            // delete image
             if(card.src) deleteImage(card.src)
+            //refresh full cards list
+            getCardsWithImage()
             messageToSnack("Card deleted")
             resolve()
         })

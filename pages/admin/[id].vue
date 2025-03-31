@@ -70,12 +70,6 @@
 
     const saveCardForm = () => {
         saveCard(card.value).then(() => {
-            if (card.value?.src?.indexOf("http") == -1) {
-                setCardImageSrc(card.value)
-                .catch((e) => {
-                    messageToSnack("Image Source non disponible dans le store")
-                })
-            }
             initialCard = card.value
         })
     }
@@ -84,8 +78,6 @@
         console.log("deleteCard=", card.value.id)
         deleteCard(card.value)
         .then(() => {
-            //refresh full cards list
-            getCardsWithImage()
             navigateTo('/')
         })
     }

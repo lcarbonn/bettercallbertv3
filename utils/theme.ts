@@ -39,11 +39,11 @@ export class Theme implements ITheme {
  */
 export const getThemeColor = (idTheme:string) : string => {
     const themes = useThemes()
-    let color = "bg-primary"
+    let color = "primary"
     if (!idTheme || !themes?.value) return color
     themes.value.forEach(theme => {
         if (theme.id == idTheme) {
-            color = "bg-"+theme.color
+            color = theme.color
         }
     });
     return color

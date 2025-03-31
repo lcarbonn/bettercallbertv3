@@ -1,6 +1,5 @@
 <template>
     <BCard v-if="card"
-            bgVariant="secondary"
             text-variant="white"
             :class="themeColor"
             imgBottom

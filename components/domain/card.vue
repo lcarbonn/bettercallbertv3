@@ -26,6 +26,6 @@
 
     // computed props
     const theme = computed(() => {
-        if(props.card) return getThemeColor(props.card.idTheme)
+        if(props.card) return "bg-"+getThemeColor(props.card.idTheme)
     })
 </script>

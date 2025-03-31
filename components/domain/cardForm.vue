@@ -1,7 +1,6 @@
 <template>
     <BCard v-if="card"
-            bg-variant="secondary"
-            header-bg-variant="primary">
+            bg-variant="primary">
         <BCardBody>
             <BForm>
                 <BFormGroup

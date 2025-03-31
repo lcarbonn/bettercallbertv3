@@ -2,9 +2,7 @@
     <BModal v-model="propShow.show" id ="modal-card"
              :title="title"
              centered
-             body-bg-variant="secondary"
-             header-text-variant="white"
-             :class="themeColor"
+             :body-class="themeColor"
              size="xl"
              ok-only>
         <p class="text-center">

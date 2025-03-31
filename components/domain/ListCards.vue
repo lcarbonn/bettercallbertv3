@@ -1,13 +1,13 @@
 <template>
   <div>
-    <BRow v-if="cards?.length>0" cols="1"
+    <BRow v-if="cards && cards.length>0" cols="1"
          cols-lg="2"
          cols-xl="5">
       <BCol v-for="card in cards"
             :key="card.id"
             class="py-3">
         <nuxt-link :to="'/cards/' + card.id"
-                  class="nodecoLink">
+              class="nodecoLink">
           <DomainCard :card="card as Card"></DomainCard>
         </nuxt-link>
       </BCol>

@@ -1,31 +1,16 @@
 /**
- * Retrieve and set image of each card in the cards list
- * @param cards - the cards list
- */
-export const setCardsImageSrc = (cards:ICard[]) => {
-    // console.log("set cards image :", cards)
-    if(!cards) return
-    cards.forEach(card => {
-        if (card.src?.indexOf("http") == -1) {
-            setCardImageSrc(card)
-        }
-    })
-}
-
-/**
- * Retrieve and set image of the card
+ * Retrieve the image of the card
  * @param card - the card
- * @returns Promise - when resolved
+ * @returns Promise - will resolves the url of the image
  */
-export const setCardImageSrc = (card:ICard) :Promise<void> => {
+export const getCardImageSrc = (src:string) :Promise<string|void> => {
     return new Promise((resolve, reject) => {
         // console.log("set card image :", card)
-        if(!card.src) resolve()
+        if(!src) resolve()
         else {
-            getStorageImageSrc(card.src)
+            getStorageImageSrc(src)
             .then((url) => {
-                if(url) card.img = url
-                resolve()
+                resolve(url)
             }).catch((error) => {
                 errorToSnack(error, "Error setting image src on cards")
                 reject()

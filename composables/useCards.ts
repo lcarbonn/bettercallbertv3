@@ -1,12 +1,46 @@
 /**
  * Reset cards list to full cards list
  */
-export const resetCards = () => {
+export const resetCards = (cards?:ICard[]) => {
+    if(cards) useFullCards().value = cards
     useCards().value = useFullCards().value
 }
 
 /**
- * Get all cards then get their image
+ * Add or replace a card in stated cards list
+ * @param card - the card
+ */
+export const setCardToStatedCards = (card:ICard) => {
+    const cards:ICard[] = []
+    Object.assign(cards, useFullCards().value)
+    let found = false
+    cards.forEach((oldCard) => {
+        if(card.id == oldCard.id) {
+            oldCard = card,
+            found = true
+        }
+    })
+    if(!found) cards.push(card)
+    resetCards(cards)
+}
+
+/**
+ * Delete the card form stated cards list
+ * @param card - the card
+ */
+export const removeCardFormStatedCards = (card:ICard) => {
+    const cards:ICard[] = []
+    const oldCards = useFullCards().value
+    oldCards.forEach((oldCard) => {
+        if(oldCard.id != card.id) {
+            cards.push(oldCard)
+        }
+    })
+    resetCards(cards)
+}
+
+/**
+ * Get all cards then set their image
  */
 export const getCardsWithImage = () => {
     getCardsDb()
@@ -23,17 +57,54 @@ export const getCardsWithImage = () => {
 }
 
 /**
+ * Set the card image url
+ * @param card - the card
+ */
+const setCardStatedSrc = (card:ICard) => {
+    if (card.src?.indexOf("http") == -1) {
+        getCardImageSrc(card.src)
+        .then((url) => {
+            if(url) {
+                card.img = url
+                setCardToStatedCards(card)
+            }
+        })
+        .catch((e) => {
+            messageToSnack("Image Source non disponible dans le store")
+        })
+    }
+}
+
+/**
+ * Retrieve and set image of each card in the cards list
+ * @param cards - the cards list
+ */
+export const setCardsImageSrc = (cards:ICard[]) => {
+    // console.log("set cards image :", cards)
+    if(!cards) return
+    cards.forEach(card => {
+        setCardStatedSrc(card)
+    })
+}
+
+
+/**
  * Get a card then get its image
  * @param id - the card id
  */
 export const getCardWithImage = (id:string) => {
     getCardDb(id)
     .then((card) => {
-        const stateCard = useCard()
-        stateCard.value = card
         if (card.src?.indexOf("http") == -1) {
-            setCardImageSrc(stateCard.value)
+            getCardImageSrc(card.src)
+            .then((url) => {
+                if(url) {
+                    card.img = url
+                    useCard().value = card
+                }
+            })
         }
+        else useCard().value = card
     })
     .catch((error) => {
         errorToSnack(error, "Error getting card")
@@ -52,8 +123,8 @@ export const addCard = () :Promise<string> => {
         newCard.idTheme = "DEFAULT"
         addCardDb(newCard)
         .then((id) => {
-            // reload cards list
-            getCardsWithImage()
+            newCard.id = id
+            setCardToStatedCards(newCard)
             messageToSnack("Card created")
             resolve(id)
         })
@@ -73,16 +144,7 @@ export const saveCard = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
         saveCardDb(card)
         .then(() => {
-            if (card.src?.indexOf("http") == -1) {
-                setCardImageSrc(card)
-                .then(() => {
-                    // reload cards to react image
-                    getCardsWithImage()
-                })
-                .catch((e) => {
-                    messageToSnack("Image Source non disponible dans le store")
-                })
-            }
+            setCardStatedSrc(card)
             messageToSnack("Card saved")
             resolve()
         })
@@ -103,9 +165,8 @@ export const deleteCard = (card:ICard) :Promise<void> => {
         deleteCardDb(card.id)
         .then(() => {
             // delete image
+            removeCardFormStatedCards(card)
             if(card.src) deleteImage(card.src)
-            //refresh full cards list
-            getCardsWithImage()
             messageToSnack("Card deleted")
             resolve()
         })

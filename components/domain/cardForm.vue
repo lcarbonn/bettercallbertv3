@@ -107,12 +107,9 @@
     import Reset from '~icons/bi/arrowCounterclockwise'
 
     //props
-    const props = defineProps({
-        card: {
-            type: Card,
-            default: null
-        }
-    })
+    const props = defineProps<{
+        card?:Card
+    }>()
 
     // emits declaration
     const emit = defineEmits(['saveCard', 'deleteCard', 'resetCard', 'uploadImageFile'])
@@ -126,14 +123,16 @@
 
     //computed properties
     const titleState = computed(() => {
-        return (props.card.title != null && props.card.title != "") ? true : false
+        if(props.card) return (props.card.title != null && props.card.title != "") ? true : false
     })
     const srcState = computed(() => {
-        return (props.card.src != null && props.card.src != "") ? true : false
+        if(props.card) return (props.card.src != null && props.card.src != "") ? true : false
     })
     const linkState = computed(() => {
-        if(props.card.link==null || props.card.link=="") return true
-        return (props.card.link.indexOf('http')>-1) ? true : false
+        if(props.card) {
+            if(props.card.link==null || props.card.link=="") return true
+            return (props.card.link.indexOf('http')>-1) ? true : false
+        }
     })
     const themeOptions = computed(() => {
         return genThemeOptions(themes.value)

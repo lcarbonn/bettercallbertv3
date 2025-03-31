@@ -25,7 +25,7 @@
                 <ArrowRightSquare variant="primary"/>
             </BButton>
         </BCardBody>
-        <BButton v-if="card.img" @click="show">
+        <BButton v-if="card.img" @click="showImageModal">
             <BCardImg :src="card.img"
                             :alt="card.title"
                             class="BCard-img"></BCardImg>
@@ -45,31 +45,22 @@
     import ArrowLeftSquare from '~icons/bi/arrowLeftSquare'
 
     //props
-    const props = defineProps({
-        card: {
-            type: Card,
-            default: null
-        },
-        nextId: {
-            type: String,
-            default: null
-        },
-        previousId: {
-            type: String,
-            default: null
-        },
-    })
+    const props = defineProps<{
+        card?:Card
+        nextId?:string,
+        previousId?:string
+    }>()
 
     // refs and method for modal since useModal doesn't work in sub componenent
     const propShow = ref({show:false})
 
-    const show = () => {
+    const showImageModal = () => {
         propShow.value.show = !propShow.value.show
     }
 
     //computed properties
     const themeColor = computed(() => {
-        return getBgTheme(props.card.idTheme)
+        if(props.card) return getBgTheme(props.card.idTheme)
     })
 
     // nuxt cycle hooks

@@ -16,12 +16,9 @@
 
 <script setup lang="ts">
     //props
-    const props = defineProps({
-        card: {
-            type:Card,
-            default:undefined
-        }
-    })
+    const props = defineProps<{
+        card?:Card
+    }>()
 
     // computed props
     const theme = computed(() => {

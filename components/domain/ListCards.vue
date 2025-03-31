@@ -22,12 +22,9 @@
 
 <script setup lang="ts">
     // props
-    const props = defineProps({
-        cards: {
-            type: Array<ICard>,
-            default: undefined
-        },
-    })
+    const props = defineProps<{
+        cards?:Array<ICard>
+    }>()
 </script>
 <style scoped>
 .nodecoLink {

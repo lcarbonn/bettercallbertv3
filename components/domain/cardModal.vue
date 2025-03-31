@@ -19,24 +19,12 @@
 <script setup lang="ts">
 
     //props
-    const props = defineProps({
-            title: {
-                type: String,
-                default: undefined
-            },
-            img: {
-                type: String,
-                default: undefined
-            },
-            themeColor: {
-                type: String,
-                default: undefined
-            },
-            propShow: {
-                type: Object,
-                default: {show:false}
-            }
-    })
+    const props = defineProps<{
+            title:string,
+            img?:string,
+            themeColor?:string,
+            propShow:{show:boolean}
+    }>()
 
 </script>
 

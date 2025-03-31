@@ -2,7 +2,7 @@
   <client-only>
     <BNavbar :toggleable="true" variant="primary" sticky='top' v-b-color-mode="'dark'">
       <BNavbarBrand>
-        <BLink @click="goHome" to="/" class="navbar-brand">
+        <BLink @click="resetPage" to="/" class="navbar-brand">
           <BAvatar rounded src="/icon.png"></BAvatar>
         </BLink>
       </BNavbarBrand>
@@ -24,7 +24,7 @@
       <BNavbarToggle target="nav-collapse" />
       <BOffcanvas id="nav-collapse"
         isNav
-        v-model="show"
+        v-model="showOffCanevas"
         placement="end"
         title="Better Call Bert"
         style="background-color:var(--bs-primary);color:var(--bs-white)"
@@ -34,13 +34,15 @@
           <BNavItem
             key=""
             id=""
-            @click="goHome()"
+            to="/"
+            @click="resetPage()"
             >
             <span style="border-bottom-style: solid;">All</span>
           </BNavItem>
           <BNavItem v-for="theme in themes"
             :key="theme.id"
             :id="theme.id"
+            to="/"
             :active="isCurrentTheme(theme.id)"
             @click="filterCards(theme.id)"
             >
@@ -62,7 +64,7 @@
               <BDropdownItem v-show="isAnonymous" to="/login" variant="primary">Sign In</BDropdownItem>
               <BDropdownItem v-show="!isAnonymous" @click="signOut()" variant="primary">Sign Out</BDropdownItem>
           </BNavItemDropdown>
-          <BaseThemeItemDropdown @clicked="show=!show"/>
+          <BaseThemeItemDropdown @clicked="showOffCanevas=!showOffCanevas"/>
         </BNavbarNav>
       </BOffcanvas>
     </BNavbar>
@@ -85,7 +87,7 @@
   const isSinglePage = useSinglePage()
 
   // Local states
-  const show = ref(false)
+  const showOffCanevas = ref(false)
   const currentTheme = useCurrentTheme()
 
   const textsearch = ref()
@@ -100,40 +102,33 @@
   })
 
   // methods
-  const goHome = () => {
-    show.value = false
+  const resetPage = () => {
+    showOffCanevas.value = false
     textsearch.value = null
-    currentTheme.value = ""
+    currentTheme.value = undefined
     resetCards()
   }
 
   const signOut = () => {
     signOutUser().then(() => {
-      show.value = false
+      showOffCanevas.value = false
       navigateTo('/')
     })
   }
 
   const isCurrentTheme = (idTheme:string) => {
-    if(currentTheme) return idTheme == currentTheme.value
-    else return false
+    return idTheme == currentTheme?.value
   }
 
   const themeColor = (idTheme:string) => {
     return "border-" + getThemeColor(idTheme)
    }
 
-  const filterCards = async (idTheme:string) => {
-    show.value = false
+  const filterCards = (idTheme:string) => {
+    showOffCanevas.value = false
     textsearch.value = null
-    if (isCurrentTheme(idTheme)) {
-      emit('filterCards')
-      currentTheme.value = ""
-    } else {
-      emit('filterCards', idTheme)
-      currentTheme.value = idTheme
-    }
-    if(isSinglePage.value) await navigateTo('/')
+    currentTheme.value = idTheme
+    emit('filterCards', idTheme)
   }
 
   const searchCards = async () => {
@@ -143,8 +138,7 @@
   }
 
   const newCard = () => {
-      show.value = false
-      filterCards("")
+      resetPage()
       addCard().then((id) => {
         // reload cards list
         getCardsWithImage()

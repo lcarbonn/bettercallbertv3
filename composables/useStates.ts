@@ -30,4 +30,4 @@ export const useSinglePage = () => useState<boolean>("singlePage", () => false);
 /**
  * State for current theme
  */
-export const useCurrentTheme = () => useState<string>("currentTheme");
+export const useCurrentTheme = () => useState<string|undefined>("currentTheme");

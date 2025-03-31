@@ -1,5 +1,5 @@
 /**
- * State for firebaseUser
+ * State for AuthUser
  */
 export const useAuthUser = () => useState<IAuthUser>("authUser");
 /**

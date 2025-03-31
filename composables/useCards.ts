@@ -52,6 +52,8 @@ export const addCard = () :Promise<string> => {
         newCard.idTheme = "DEFAULT"
         addCardDb(newCard)
         .then((id) => {
+            // reload cards list
+            getCardsWithImage()
             messageToSnack("Card created")
             resolve(id)
         })
@@ -73,6 +75,10 @@ export const saveCard = (card:ICard) :Promise<void> => {
         .then(() => {
             if (card.src?.indexOf("http") == -1) {
                 setCardImageSrc(card)
+                .then(() => {
+                    // reload cards to react image
+                    getCardsWithImage()
+                })
                 .catch((e) => {
                     messageToSnack("Image Source non disponible dans le store")
                 })

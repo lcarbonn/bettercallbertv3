@@ -140,8 +140,6 @@
   const newCard = () => {
       resetPage()
       addCard().then((id) => {
-        // reload cards list
-        getCardsWithImage()
         navigateTo('/admin/' + id)
       })
   }

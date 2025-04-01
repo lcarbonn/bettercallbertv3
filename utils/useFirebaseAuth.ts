@@ -72,11 +72,6 @@ export const initUserFirebase = (callback:any) => {
       // console.log("auth state change, user isAnonymous:"+user.isAnonymous)
       const authUser = new AuthUser(user.uid, user.isAnonymous, user.email)
       callback(authUser)
-      const currentRoute = useRoute().fullPath
-      if(user.isAnonymous && currentRoute?.indexOf('/admin') != -1) {
-        // console.log("auth state change, navigate")
-        await navigateTo('/')
-      }
     } else {
       //if signed out sing in anonymous
       // console.log("auth state change, no user")

@@ -53,8 +53,14 @@ export const signOutUser = () :Promise<void> => {
  * Initialize the authUser listener on auth state change
  */
 export const initUser = () => {
-    const callback = (auhUser:IAuthUser) => {
+    const callback = async (auhUser:IAuthUser) => {
         useAuthUser().value = auhUser
+        const currentRoute = useRoute().fullPath
+        if(auhUser.isAnonymous && currentRoute?.indexOf('/admin') != -1) {
+          // console.log("auth state change, navigate")
+          await navigateTo('/')
+        }
+  
     }
     initUserFirebase(callback)
 }

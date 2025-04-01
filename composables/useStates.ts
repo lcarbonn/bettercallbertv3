@@ -9,7 +9,7 @@ export const useSnackBarMessage = () => useState<ISnackMessage>("snackBarMessage
 /**
  * State for list of current cards
  */
-export const useCards = () => useState<ICard[]>("cards");
+export const useCards = () => useState<ICard[]|undefined>("cards");
 /**
  * State of current card
  */
@@ -17,7 +17,7 @@ export const useCard = () => useState<ICard>("card");
 /**
  * State for list of all cards
  */
-export const useFullCards = () => useState<ICard[]>("fullCards");
+export const useFullCards = () => useState<ICard[]|undefined>("fullCards");
 /**
  * State for list of themes
  */

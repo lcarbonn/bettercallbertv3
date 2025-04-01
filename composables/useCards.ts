@@ -29,31 +29,18 @@ export const setCardToStatedCards = (card:ICard) => {
  * @param card - the card
  */
 export const removeCardFormStatedCards = (card:ICard) => {
-    const cards:ICard[] = []
+    let cards:ICard[]
     const oldCards = useFullCards().value
-    oldCards.forEach((oldCard) => {
-        if(oldCard.id != card.id) {
-            cards.push(oldCard)
-        }
-    })
-    resetCards(cards)
-}
-
-/**
- * Get all cards then set their image
- */
-export const getCardsWithImage = () => {
-    getCardsDb()
-    .then((list) => {
-        const cards = useCards()
-        cards.value = list
-        const fullCards = useFullCards()
-        fullCards.value = list
-        setCardsImageSrc(cards.value)
-    })
-    .catch((error) => {
-        errorToSnack(error, "Error getting cards")
-    });    
+    if(oldCards) {
+        cards = []
+        oldCards.forEach((oldCard) => {
+            if(oldCard.id != card.id) {
+                cards.push(oldCard)
+            }
+        })
+        resetCards(cards)
+    }
+    else resetCards()
 }
 
 /**
@@ -87,6 +74,22 @@ export const setCardsImageSrc = (cards:ICard[]) => {
     })
 }
 
+/**
+ * Get all cards then set their image
+ */
+export const getCardsWithImage = () => {
+    getCardsDb()
+    .then((list) => {
+        const cards = useCards()
+        cards.value = list
+        const fullCards = useFullCards()
+        fullCards.value = list
+        setCardsImageSrc(cards.value)
+    })
+    .catch((error) => {
+        errorToSnack(error, "Error getting cards")
+    });    
+}
 
 /**
  * Get a card then get its image
@@ -183,17 +186,20 @@ export const deleteCard = (card:ICard) :Promise<void> => {
  */
 export const filterCardsOnTheme = (idTheme:string) => {
     const list: ICard[] = [];
-    const cards = useCards()
-    const fullCards = useFullCards()
+    const filteredCards = useCards()
+    const fullCards = useFullCards().value
     if (idTheme == null) {
-        cards.value = fullCards.value
+        filteredCards.value = fullCards
     } else {
-        fullCards.value.forEach((card) => {
-            if (card.idTheme == idTheme) {
-                list.push(card);
-            }
-        })
-        cards.value = list
+        if(fullCards) {
+            fullCards?.forEach((card) => {
+                if (card.idTheme == idTheme) {
+                    list.push(card);
+                }
+            })
+            filteredCards.value = list
+        }
+        else filteredCards.value = undefined
     }
 }
 
@@ -203,17 +209,19 @@ export const filterCardsOnTheme = (idTheme:string) => {
  */
 export const searchCardsOnTitle = (textsearch:string) => {
     const list: ICard[] = [];
-    const cards = useCards()
-    const fullCards = useFullCards()
+    const filteredCard = useCards()
+    const fullCards = useFullCards().value
     const st = textsearch ? textsearch.trim() : textsearch
     if (!st) {
-        cards.value = fullCards.value
+        filteredCard.value = fullCards
     } else {
-        fullCards.value.forEach((card) => {
-            if (card.title.toLowerCase().includes(st.toLowerCase())) {
-                list.push(card);
-            }
-        })
-        cards.value = list
+        if(fullCards) {
+            fullCards.forEach((card) => {
+                if (card.title.toLowerCase().includes(st.toLowerCase())) {
+                    list.push(card);
+                }
+            })
+            filteredCard.value = list
+        } else filteredCard.value = undefined
     }   
 }

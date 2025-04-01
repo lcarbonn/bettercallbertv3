@@ -1,14 +1,14 @@
 /**
- * Retrieve the image of the card
- * @param card - the card
+ * Retrieve the image download url form a src
+ * @param src - the source
  * @returns Promise - will resolves the url of the image
  */
-export const getCardImageSrc = (src:string) :Promise<string|void> => {
+export const getImageDownloadUrl = (src:string) :Promise<string|void> => {
     return new Promise((resolve, reject) => {
         // console.log("set card image :", card)
         if(!src) resolve()
         else {
-            getStorageImageSrc(src)
+            getStorageDownloadUrl(src)
             .then((url) => {
                 resolve(url)
             }).catch((error) => {

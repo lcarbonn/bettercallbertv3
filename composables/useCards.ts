@@ -62,7 +62,7 @@ export const getCardsWithImage = () => {
  */
 const setCardStatedSrc = (card:ICard) => {
     if (card.src?.indexOf("http") == -1) {
-        getCardImageSrc(card.src)
+        getImageDownloadUrl(card.src)
         .then((url) => {
             if(url) {
                 card.img = url
@@ -96,7 +96,7 @@ export const getCardWithImage = (id:string) => {
     getCardDb(id)
     .then((card) => {
         if (card.src?.indexOf("http") == -1) {
-            getCardImageSrc(card.src)
+            getImageDownloadUrl(card.src)
             .then((url) => {
                 if(url) {
                     card.img = url

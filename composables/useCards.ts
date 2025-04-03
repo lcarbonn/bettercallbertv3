@@ -57,7 +57,7 @@ const setCardStatedSrc = (card:ICard) => {
             }
         })
         .catch((e) => {
-            messageToSnack("Image Source non disponible dans le store")
+            console.error("Image Source non disponible dans le store", e)
         })
     }
 }
@@ -87,7 +87,7 @@ export const getCardsWithImage = () => {
         setCardsImageSrc(cards.value)
     })
     .catch((error) => {
-        errorToSnack(error, "Error getting cards")
+        console.error(error, "Error getting cards", error)
     });    
 }
 

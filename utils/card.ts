@@ -62,6 +62,7 @@ export class Card implements ICard {
             })
         })
     }
+    
     /**
      * Read the card from db
      * @returns A Promise that resolves the card
@@ -74,6 +75,7 @@ export class Card implements ICard {
             })
         })
     }
+
     /**
      * Update the card in db
      * @returns Promise when done
@@ -86,6 +88,7 @@ export class Card implements ICard {
             })
         })
     }
+
     /**
      * Delete the card in db
      * @returns A Promise when done
@@ -98,6 +101,7 @@ export class Card implements ICard {
             })
         })
     }
+
     /**
      * Get all the cards from db
      * @returns A Promise that resolves a array of cards
@@ -110,6 +114,7 @@ export class Card implements ICard {
             })
         })
     }
+
     /**
      * Card equals
      * @param card - ICard to compare

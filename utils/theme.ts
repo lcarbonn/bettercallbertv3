@@ -30,6 +30,19 @@ export class Theme implements ITheme {
         this.order = doc.data().order
         this.title = doc.data().title
     }
+    /**
+     * Get all the themes from db
+     * @returns A Promise that resolves a array of themes
+     */
+    public static getThemes = () :Promise<Array<ITheme>> => {
+        return new Promise((resolve, reject) => {
+            getThemesDb()
+            .then((themes) => {
+                resolve(themes)
+            })
+        })
+    }
+
 }
 
 /**

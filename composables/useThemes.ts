@@ -2,7 +2,7 @@
  * Get themes form firebase and manage state
  */
 export const getThemes = () => {
-    getThemesDb()
+    Theme.getThemes()
     .then((themeslist) => {
         const themes = useThemes()
         themes.value = themeslist

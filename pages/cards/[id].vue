@@ -4,7 +4,7 @@
         v-touch:swipe.left="swipeLeftHandler">
         <BButton v-show="!isAnonymous"
                   id="updateButton"
-                  variant="secondary"
+                  variant="primary"
                   :to='"/admin/" + id'>
                   <Gear/>
         </BButton>

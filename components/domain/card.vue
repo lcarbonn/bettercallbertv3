@@ -1,7 +1,6 @@
 <template>
     <BCard 
             class="h-100"
-            bg-variant="secondary"
             text-variant="white"
             :class="theme"
             header-tag="header"

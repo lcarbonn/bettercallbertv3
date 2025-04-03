@@ -14,11 +14,13 @@ export const setCardToStatedCards = (card:ICard) => {
     const cards:ICard[] = []
     Object.assign(cards, useFullCards().value)
     let found = false
+    let i = 0
     cards.forEach((oldCard) => {
         if(card.id == oldCard.id) {
-            oldCard = card,
+            cards[i] = card,
             found = true
         }
+        i++
     })
     if(!found) cards.push(card)
     resetStatedCards(cards)

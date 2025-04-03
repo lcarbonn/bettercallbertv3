@@ -2,7 +2,7 @@
     <BContainer>
         <BButton
                   id="backButton"
-                  variant="secondary"
+                  variant="primary"
                   :to='"/cards/" + id'>
             <ArrowUpLeftSquare/>
         </BButton>
@@ -15,8 +15,9 @@
             @reset-card="resetCardForm"
             @upload-image-file="uploadImageFileForm">
         </DomainCardForm>
-        <DomainCardDetail :card="card"></DomainCardDetail>
+            <DomainCardDetail :card="card"></DomainCardDetail>
         <BModal v-model="modal" title="Without saving" @ok="keepNavigate"> You have unsaved information on your card, do you really want to leave ? </BModal>
+        <BOverlay :show="showOverlay" rounded="sm" no-wrap />
     </BContainer>
 </template>
 
@@ -37,6 +38,7 @@
     const modal = ref(false)
     const nextPath = ref()
     const forceNext = ref(false)
+    const showOverlay = ref(false)
 
     // nuxt cycle hooks
     onMounted(() => {
@@ -83,11 +85,16 @@
 
     const uploadImageFileForm = (file:File) => {
         console.log("uploadImageFile=", file)
-        uploadImageFile(file).then((paths) => {
+        showOverlay.value = !showOverlay.value
+        uploadImageFile(file)
+        .then((paths) => {
             card.value.src = paths.imagePath
             card.value.img = paths.imageUrl
-            card.value.update()
-            initialCard = card.value
+            showOverlay.value = !showOverlay.value
+        })
+        .catch((error) => {
+            // in case        
+            showOverlay.value = !showOverlay.value
         })
     }
 

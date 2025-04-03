@@ -22,6 +22,8 @@ export interface ICard {
     read : () => Promise<ICard>
     update : () => Promise<void>
     delete : () => Promise<void>
+    getImageDownloadUrl : () => Promise<string|void>
+    deleteImage : () => Promise<void>
 }
 
 /**
@@ -130,7 +132,6 @@ export class Card implements ICard {
         }
         else return undefined
     }
-
     
     /**
      * Get the previous id of the given card
@@ -141,5 +142,40 @@ export class Card implements ICard {
         if(!cards) return undefined
         const i = cards.findIndex(x => x.id === this.id)
         if(i>0) return cards[i-1].id
+    }
+
+    /**
+     * Retrieve the image download url form a src
+     * @param src - the source
+     * @returns Promise - will resolves the url of the image
+     */
+    public getImageDownloadUrl = () :Promise<string|void> => {
+        return new Promise((resolve, reject) => {
+            // console.log("set card image :", card)
+            if(!this.src) resolve()
+            else {
+                getStorageDownloadUrl(this.src)
+                .then((url) => {
+                    resolve(url)
+                })
+            }
+        })
+    }
+
+    /**
+     * Delete the src img
+     * @param src - the image file src
+     * @returns Promise - resolved when done
+     */
+    public deleteImage = () :Promise<void> => {
+        return new Promise((resolve, reject) => {
+            if(!this.src) resolve()
+            else {
+                deleteStorageImage(this.src)
+                .then(() => {
+                    resolve()
+                })
+            }
+        })
     }
 }

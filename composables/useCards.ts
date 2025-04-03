@@ -28,7 +28,7 @@ export const setCardToStatedCards = (card:ICard) => {
  * Delete the card form stated cards list
  * @param card - the card
  */
-export const removeCardFormStatedCards = (card:ICard) => {
+export const removeCardFromStatedCards = (card:ICard) => {
     let cards:ICard[]
     const oldCards = useFullCards().value
     if(oldCards) {
@@ -49,7 +49,7 @@ export const removeCardFormStatedCards = (card:ICard) => {
  */
 const setCardStatedSrc = (card:ICard) => {
     if (card.src?.indexOf("http") == -1) {
-        getImageDownloadUrl(card.src)
+        card.getImageDownloadUrl()
         .then((url) => {
             if(url) {
                 card.img = url
@@ -101,7 +101,7 @@ export const getCardWithImage = (id:string) => {
     card.read()
     .then((card) => {
         if (card.src?.indexOf("http") == -1) {
-            getImageDownloadUrl(card.src)
+            card.getImageDownloadUrl()
             .then((url) => {
                 if(url) {
                     card.img = url
@@ -170,8 +170,8 @@ export const deleteCard = (card:ICard) :Promise<void> => {
         card.delete()
         .then(() => {
             // delete image
-            removeCardFormStatedCards(card)
-            if(card.src) deleteImage(card.src)
+            removeCardFromStatedCards(card)
+            card.deleteImage()
             messageToSnack("Card deleted")
             resolve()
         })

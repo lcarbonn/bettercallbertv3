@@ -6,17 +6,16 @@ import { type FirebaseStorage } from "firebase/storage"
  * @param src - the file src
  * @returns `Promise` - that resolves with the download URL for this object
  */
-export const getStorageDownloadUrl = (src:string) :Promise<string|void> => {
+export const getStorageDownloadUrl = (src:string) :Promise<string> => {
     return new Promise((resolve, reject) => {
         // console.log("set card image :", card)
         const { $storage } = useNuxtApp()
         const storageRef = ref($storage as FirebaseStorage, src)
-        if(!src || src == "") resolve()
         getDownloadURL(storageRef)
         .then((url) => {
             resolve(url)
         }).catch((error) => {
-            reject()
+            reject(error)
         })
     })
 }

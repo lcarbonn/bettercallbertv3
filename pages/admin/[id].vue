@@ -92,6 +92,7 @@
         uploadImageFile(file).then((paths) => {
             card.value.src = paths.imagePath
             card.value.img = paths.imageUrl
+            card.value.update()
         })
     }
 

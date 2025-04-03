@@ -49,15 +49,8 @@
         //if nothing change, keep on leaving
         if(!initialCard || !card.value) return true
         if(initialCard.equals(card.value)) return true
-        // else ask for
-        const user = useAuthUser()
-        if(user.value.isAnonymous) {
-            forceNext.value = true
-            modal.value = false
-        } else {
-            modal.value = true
-            nextPath.value = leaveGuard.fullPath
-        }
+        modal.value = true
+        nextPath.value = leaveGuard.fullPath
         if(!forceNext.value) return false
         return true
     })
@@ -78,6 +71,7 @@
         console.log("deleteCard=", card.value.id)
         deleteCard(card.value)
         .then(() => {
+            initialCard = card.value
             navigateTo('/')
         })
     }
@@ -93,6 +87,7 @@
             card.value.src = paths.imagePath
             card.value.img = paths.imageUrl
             card.value.update()
+            initialCard = card.value
         })
     }
 

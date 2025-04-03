@@ -134,7 +134,7 @@
         }
     })
     const themeOptions = computed(() => {
-        return genThemeOptions(themes.value)
+        return genThemeOptions()
     })
 
     // methods

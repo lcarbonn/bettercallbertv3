@@ -1,4 +1,5 @@
 import { type DocumentData } from "firebase/firestore"
+import { getThemesDb } from "./db/themesDb"
 
 /**
  * ITheme interface

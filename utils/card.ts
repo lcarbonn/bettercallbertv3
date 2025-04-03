@@ -15,9 +15,13 @@ export interface ICard {
      * Card equals
      * @param card - ICard to compare
      */
-    equals: (card:ICard) => boolean
-    getCardNextId : (cards:ICard[]) => string|undefined
-    getCardPreviousId : (cards:ICard[]) => string|undefined
+    equals: (card:ICard) => boolean;
+    getCardNextId : (cards:ICard[]) => string|undefined;
+    getCardPreviousId : (cards:ICard[]) => string|undefined;
+    create: () => Promise<string>
+    read : () => Promise<ICard>
+    update : () => Promise<void>
+    delete : () => Promise<void>
 }
 
 /**
@@ -43,11 +47,72 @@ export class Card implements ICard {
         this.src = doc?.data().src
         this.link = doc?.data().link
     }
+
+    /**
+     * Create the Card in db
+     * @returns A Promise that resolves the id
+     */
+    public create = () :Promise<string> => {
+        return new Promise((resolve, reject) => {
+            addCardDb(this)
+            .then((id) => {
+                resolve(id)
+            })
+        })
+    }
+    /**
+     * Read the card from db
+     * @returns A Promise that resolves the card
+     */
+    public read = () :Promise<ICard> => {
+        return new Promise((resolve, reject) => {
+            getCardDb(this.id)
+            .then((card) => {
+                resolve(card)
+            })
+        })
+    }
+    /**
+     * Update the card in db
+     * @returns Promise when done
+     */
+    public update = () :Promise<void> => {
+        return new Promise((resolve, reject) => {
+            saveCardDb(this)
+            .then(() => {
+                resolve()
+            })
+        })
+    }
+    /**
+     * Delete the card in db
+     * @returns A Promise when done
+     */
+    public delete = () :Promise<void> => {
+        return new Promise((resolve, reject) => {
+            deleteCardDb(this.id)
+            .then(() => {
+                resolve()
+            })
+        })
+    }
+    /**
+     * Get all the cards from db
+     * @returns A Promise that resolves a array of cards
+     */
+    public static getCards = () :Promise<Array<ICard>> => {
+        return new Promise((resolve, reject) => {
+            getCardsDb()
+            .then((cards) => {
+                resolve(cards)
+            })
+        })
+    }
     /**
      * Card equals
      * @param card - ICard to compare
      */
-    public equals(card:ICard) : boolean {
+    public equals = (card:ICard) :boolean => {
         return (this.id == card.id && this.title == card.title && this.idTheme == card.idTheme && this.link == card.link && this.src == card.src && this.img == card.img)
     }
 

@@ -106,7 +106,7 @@
     showOffCanevas.value = false
     textsearch.value = null
     currentTheme.value = undefined
-    resetCards()
+    resetStatedCards()
   }
 
   const signOut = () => {

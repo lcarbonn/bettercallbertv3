@@ -1,7 +1,7 @@
 /**
  * Reset cards list to full cards list
  */
-export const resetCards = (cards?:ICard[]) => {
+export const resetStatedCards = (cards?:ICard[]) => {
     if(cards) useFullCards().value = cards
     useCards().value = useFullCards().value
 }
@@ -21,7 +21,7 @@ export const setCardToStatedCards = (card:ICard) => {
         }
     })
     if(!found) cards.push(card)
-    resetCards(cards)
+    resetStatedCards(cards)
 }
 
 /**
@@ -38,9 +38,9 @@ export const removeCardFormStatedCards = (card:ICard) => {
                 cards.push(oldCard)
             }
         })
-        resetCards(cards)
+        resetStatedCards(cards)
     }
-    else resetCards()
+    else resetStatedCards()
 }
 
 /**
@@ -78,7 +78,7 @@ export const setCardsImageSrc = (cards:ICard[]) => {
  * Get all cards then set their image
  */
 export const getCardsWithImage = () => {
-    getCardsDb()
+    Card.getCards()
     .then((list) => {
         const cards = useCards()
         cards.value = list
@@ -96,7 +96,9 @@ export const getCardsWithImage = () => {
  * @param id - the card id
  */
 export const getCardWithImage = (id:string) => {
-    getCardDb(id)
+    const card = new Card()
+    card.id = id
+    card.read()
     .then((card) => {
         if (card.src?.indexOf("http") == -1) {
             getImageDownloadUrl(card.src)
@@ -121,13 +123,13 @@ export const getCardWithImage = (id:string) => {
  */
 export const addCard = () :Promise<string> => {
     return new Promise((resolve, reject) => {
-        const newCard = new Card()
-        newCard.title = "New Card"
-        newCard.idTheme = "DEFAULT"
-        addCardDb(newCard)
+        const card = new Card()
+        card.title = "New Card"
+        card.idTheme = "DEFAULT"
+        card.create()
         .then((id) => {
-            newCard.id = id
-            setCardToStatedCards(newCard)
+            card.id = id
+            setCardToStatedCards(card)
             messageToSnack("Card created")
             resolve(id)
         })
@@ -145,7 +147,7 @@ export const addCard = () :Promise<string> => {
  */
 export const saveCard = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        saveCardDb(card)
+        card.update()
         .then(() => {
             setCardStatedSrc(card)
             messageToSnack("Card saved")
@@ -165,7 +167,7 @@ export const saveCard = (card:ICard) :Promise<void> => {
  */
 export const deleteCard = (card:ICard) :Promise<void> => {
     return new Promise((resolve, reject) => {
-        deleteCardDb(card.id)
+        card.delete()
         .then(() => {
             // delete image
             removeCardFormStatedCards(card)

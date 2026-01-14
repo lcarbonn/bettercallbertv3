@@ -1,0 +1,8 @@
+node_modules
+.vscode
+.output
+.nuxt
+.git
+.env*
+.gitattributes
+.gitignore

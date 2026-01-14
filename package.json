@@ -1,33 +1,30 @@
 {
   "name": "bettercallbert",
-  "version": "3.3.02",
+  "version": "4.0.0",
   "description": "Better Call Bert",
   "author": "laurent",
-  "private": true,
   "type": "module",
+  "private": true,
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 public/icon.png"
-  },
-  "devDependencies": {
-    "@bootstrap-vue-next/nuxt": "^0.28.0",
-    "@vite-pwa/nuxt": "^0.10.6",
-    "bootstrap": "^5.3.3",
-    "bootstrap-vue-next": "^0.28.0",
-    "firebase": "^11.5.0",
-    "nuxt": "^3.16.0",
-    "unplugin-icons": "^22.1.0",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@iconify-json/bi": "^1.2.2",
-    "@vite-pwa/assets-generator": "^0.2.6",
-    "sass": "^1.85.1",
-    "vue3-touch-events": "^4.1.8"
+    "@nuxt/ui": "^4.2.1",
+    "@nuxtjs/i18n": "^10.2.1",
+    "@vite-pwa/nuxt": "^1.1.0",
+    "nuxt": "^4.2.1",
+    "nuxt-auth-utils": "^0.5.25",
+    "vue": "^3.5.25",
+    "vue-router": "^4.6.3",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.77",
+    "@iconify-json/mdi": "^1.2.3",
+    "@iconify-json/streamline-color": "^1.2.2"
   }
 }

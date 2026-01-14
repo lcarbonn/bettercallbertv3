@@ -7,9 +7,6 @@
 dist
 package-lock.json
 
-.firebase
-.firebaserc
-
 # Node dependencies
 node_modules
 

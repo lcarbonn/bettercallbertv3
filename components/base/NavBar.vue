@@ -55,6 +55,8 @@
                                 v-b-color-mode="'light'">
               <BDropdownItem @click="newCard()" variant="primary"
                               >Add card</BDropdownItem>
+              <BDropdownItem variant="primary" @click="exportCards"><Download/>export cards</BDropdownItem>
+              <BDropdownItem variant="primary" @click="exportThemes"><Download/>export themes</BDropdownItem>
           </BNavItemDropdown>
           <BNavItemDropdown right  v-b-color-mode="'light'">
               <!-- Using 'button-content' slot -->
@@ -77,6 +79,7 @@
   import Person from '~icons/bi/person'
   import X from '~icons/bi/x'
   import {vBColorMode} from 'bootstrap-vue-next'
+import { exportStorageCSVFile } from '~/utils/export'
   
   // emits declaration
   const emit = defineEmits(['filterCards', 'searchCards'])
@@ -142,6 +145,17 @@
       addCard().then((id) => {
         navigateTo('/admin/' + id)
       })
+  }
+
+  const exportCards = () => {
+    console.log("export cards asked")
+    const fullCards = useFullCards()
+    if(fullCards.value) exportCSVFile(fullCards.value)
+  }
+  const exportThemes = () => {
+    console.log("export themes asked")
+    const themes = useThemes()
+    if(themes.value) exportThemeCSVFile(themes.value)
   }
 
 </script>

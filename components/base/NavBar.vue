@@ -79,7 +79,6 @@
   import Person from '~icons/bi/person'
   import X from '~icons/bi/x'
   import {vBColorMode} from 'bootstrap-vue-next'
-import { exportStorageCSVFile } from '~/utils/export'
   
   // emits declaration
   const emit = defineEmits(['filterCards', 'searchCards'])

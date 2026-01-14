@@ -1,6 +1,6 @@
 <template>
   <div>
-    Better Call Bert
+    <DomainCardsList :cards="cards"/>
   </div>
 </template>
 
@@ -10,6 +10,8 @@
   definePageMeta({
     // middleware: 'auth'
   })
+
+  const cards = await getAllCards()
 
 
 </script>

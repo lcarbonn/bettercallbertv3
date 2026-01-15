@@ -11,6 +11,7 @@ export default defineAppConfig({
     pageCard: {
       slots: {
         wrapper: 'flex flex-col flex-1 items-start',
+        // title: 'text-white',
       }
     },
     modal: {

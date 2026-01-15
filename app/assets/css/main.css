@@ -2,7 +2,7 @@
 @import "@nuxt/ui";
 
 /* Custom Colors */
-@theme {
+@theme static {
   --color-brand-50: #f1fcfd;
   --color-brand-100: #e4f8fc;
   --color-brand-200: #c0eff7;
@@ -41,5 +41,5 @@
   --color-themethree: #19B9D1;
   --color-themefour: #138C9E;
   --color-themefive: #0D5F6B;
-  --color-themesix: #073238;
+  --color-themesix: #14808f;
 }

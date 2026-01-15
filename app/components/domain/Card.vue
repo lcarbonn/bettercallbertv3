@@ -1,21 +1,10 @@
 <template>
   <UPageCard
+    :title="card.title"
+    @click="nav2card(card.id)"
     variant="subtle"
-    :class="color">
-    <template #header>
-      <h1><b>{{card.title}}</b></h1>
-    </template>
-    <template #body>
-      {{card.color}}
-      <NuxtLink @click="nav2card(card.id)" to="#">
-        <img v-if="card.src?.startsWith('http')" :src="card.src"/>
-      </NuxtLink>
-    </template>
-    <template #footer class="justify-items-center">
-      <!-- <UButton icon="streamline-color:pencil" @click="nav2facture(card.id)" class="mr-1" size="sm"></UButton>
-      <UButton icon="streamline-color:recycle-bin-2-flat" @click="deleteFacture(card)" class="mr-1" size="sm"></UButton>
-      <UButton icon="streamline-color:copy-paste-flat" @click="copyFacture(card)"size="sm"></UButton> -->
-    </template>
+    :class="bgColor">
+    <img v-if="card.src?.startsWith('http')" :src="card.src"/>
   </UPageCard>
 </template>
 
@@ -26,7 +15,7 @@
       card:ICard;
   }>()
 
-  const color = computed (() => {
+  const bgColor = computed (() => {
     return "bg-"+props.card.color
   })
 

@@ -4,11 +4,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app:{
     head: {
-      title: 'Noco Lowco Bill',
+      title: 'Better Call Bert',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Noco Lowco Bill' },
+        { name: 'description', content: 'Better Call Bert' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },

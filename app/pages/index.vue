@@ -1,17 +1,24 @@
 <template>
   <div>
-    <DomainCardsList :cards="cards"/>
+    <DomainCardsList v-if="cards" :cards="cards"/>
   </div>
 </template>
 
 <script setup lang="ts">
 
-  // middleware
-  definePageMeta({
-    // middleware: 'auth'
+  const cards = ref<ICard[]>()
+  const pagination = ref<Pagination>({
+    pageIndex : 0,
+    pageSize : 200
   })
+  
+  cards.value = await getAllCards(pagination.value)
 
-  const cards = await getAllCards()
+    // pagination méthod
+  const paginate = async (pageIndex:number) => {
+    pagination.value.pageIndex = pageIndex
+    cards.value = await getAllCards(pagination.value)
+  }
 
 
 </script>

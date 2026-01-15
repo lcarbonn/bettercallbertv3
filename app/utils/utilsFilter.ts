@@ -10,10 +10,8 @@ export type Pagination = {
  * Filter type
  */
 export type Filter = {
-    ca?: string;
-    client?:string;
-    statut?:string;
-    index?:string;
+    title?: string;
+    theme?: number;
 }
 
 export type BaserowFilterType =
@@ -23,6 +21,8 @@ export type BaserowFilterType =
   | "contains_not"
   | "higher_than"
   | "lower_than"
+  | "higher_than_or_equal"
+  | "lower_than_or_equal"
   | "date_equal"
   | "date_not_equal"
   | "date_before"

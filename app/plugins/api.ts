@@ -15,8 +15,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     onResponse ({ request, response, options }) {
       // console.log("response data:", response._data)
     },
-    async onResponseError ({ response }) {
-      console.log("error", response.status, ":", response.status)
+    onResponseError ({ response }) {
+      // console.log("error", response.status, ":", response.status)
     },
   })
 

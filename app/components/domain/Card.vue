@@ -3,8 +3,10 @@
     :title="card.title"
     @click="nav2card(card.id)"
     variant="subtle"
-    :class="bgColor">
-    <img v-if="card.src?.startsWith('http')" :src="card.src"/>
+    :class="bgColor"
+    spotlight
+    spotlight-color="primary">
+    <img :src="card.src"/>
   </UPageCard>
 </template>
 

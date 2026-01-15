@@ -1,11 +1,12 @@
 <template>
   <UPageCard
     variant="subtle"
-    :class="'text-xs ' +  'bg-themeone'">
+    :class="color">
     <template #header>
       <h1><b>{{card.title}}</b></h1>
     </template>
     <template #body>
+      {{card.color}}
       <NuxtLink @click="nav2card(card.id)" to="#">
         <img v-if="card.src?.startsWith('http')" :src="card.src"/>
       </NuxtLink>
@@ -24,6 +25,10 @@
   const props = defineProps<{
       card:ICard;
   }>()
+
+  const color = computed (() => {
+    return "bg-"+props.card.color
+  })
 
   const nav2card = async (id:number) => {
     await navigateTo("/cards/"+id)

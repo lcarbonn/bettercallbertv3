@@ -36,6 +36,7 @@ export class Card implements ICard {
         this.link = raw["Link"]
         const theme = raw["Theme"][0]
         this.idTheme= theme?theme.value:undefined
-        this.color = raw["Color"]
+        const color = raw["Color"][0]
+        this.color = color?color.value:"primary"
     }
 }

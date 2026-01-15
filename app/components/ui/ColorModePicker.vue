@@ -50,6 +50,7 @@
 
   // default
   const selectedMode = ref(modes[0])
+  if(selectedMode.value) colorMode.preference = selectedMode.value.label
 
   watch(selectedMode, value => {
     if(value) colorMode.preference = value.label

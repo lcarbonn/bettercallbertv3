@@ -34,3 +34,21 @@ export const getAllCards = async (filter?:Filter) :Promise<ICard[]>=> {
   })
   return cards
 }
+
+/**
+ * get the card
+ */
+export const getCard = async (id:number) :Promise<ICard> => {
+  const config = useRuntimeConfig();
+  const CARD_TABLE_ID = config.public.tableCard;
+  const { $api } = useNuxtApp();
+
+  const endpoint = `/api/database/rows/table/${CARD_TABLE_ID}/${id}/?user_field_names=true`
+  const raw = await $api(endpoint, {
+        method:"GET",
+      });
+  const item = new Card(raw)
+
+  return item
+}
+

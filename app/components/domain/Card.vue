@@ -22,7 +22,7 @@
   })
 
   const nav2card = async (id:number) => {
-    await navigateTo("/cards/"+id)
+    await navigateTo("/card/"+id)
   }
 
 </script>

@@ -15,7 +15,7 @@
       :to="item.link"
       target="_blank"
       variant="subtle"
-      :class="bgColor"
+      :class="'bg-'+item.color"
       spotlight
       spotlight-color="primary">
       <img :src="item.src"/>
@@ -33,9 +33,9 @@
 
   const carousel = useTemplateRef('carousel')
 
-  const bgColor = computed (() => {
-    return "bg-"+props.items[1]?.color
-  })
+  // const bgColor = computed (() => {
+  //   return "bg-" +props.items[props.index]?.color
+  // })
 
   const gotoPrevious = async () => {
     const id = props.items[0]?.id

@@ -1,6 +1,6 @@
 <template>
 
-  <DomainCard :card="card" class="mt-2"/>
+  <DomainCardDetail :card="card" class="mt-2"/>
 
 </template>
 <script setup lang="ts">

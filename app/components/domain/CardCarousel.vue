@@ -33,10 +33,6 @@
 
   const carousel = useTemplateRef('carousel')
 
-  // const bgColor = computed (() => {
-  //   return "bg-" +props.items[props.index]?.color
-  // })
-
   const gotoPrevious = async () => {
     const id = props.items[0]?.id
     if(id) await navigateTo("/card/"+id)

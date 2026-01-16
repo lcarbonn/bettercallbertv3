@@ -1,9 +1,8 @@
 <template>
   <UPageCard
     :title="card.title"
-    @click="nav2card(card.id)"
+    :to="'/card/'+card.id"
     variant="subtle"
-    :class="'bg-'+card.color"
     spotlight
     spotlight-color="primary">
     <img :src="card.src"/>
@@ -20,9 +19,5 @@
   // const bgColor = computed (() => {
   //   return "bg-"+props.card.color
   // })
-
-  const nav2card = async (id:number) => {
-    await navigateTo("/card/"+id)
-  }
 
 </script>

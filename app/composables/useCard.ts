@@ -2,11 +2,16 @@
  * Get all cards
  * @returns Cards
  */
-export const getAllCards = async (pagination:Pagination, filter?:Filter) :Promise<ICard[]>=> {
+export const getAllCards = async (filter?:Filter) :Promise<ICard[]>=> {
   const config = useRuntimeConfig();
   const CARD_TABLE_ID = config.public.tableCard;
   const { $api } = useNuxtApp();
-  
+
+  const pagination = {
+    pageIndex : 0,
+    pageSize : 200
+  }
+
   const endpoint = `/api/database/rows/table/${CARD_TABLE_ID}/?user_field_names=true`;
   const queryBase = {
       page: pagination.pageIndex?pagination.pageIndex+1:1,
@@ -16,7 +21,7 @@ export const getAllCards = async (pagination:Pagination, filter?:Filter) :Promis
     const queryFilters = new BaserowFilterBuilder()
     if(filter) {
       queryFilters.add("Title", "contains", filter.title)
-      queryFilters.add("Theme", "equal", filter.theme)
+      queryFilters.add("Theme", "link_row_has", filter.theme)
     }
   
   const query = Object.assign({}, queryBase, queryFilters.toJSON())

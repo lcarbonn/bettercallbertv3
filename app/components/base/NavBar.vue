@@ -62,6 +62,14 @@
 
   const items = computed<NavigationMenuItem[]>(() => {
     const items:NavigationMenuItem[] = []
+    // // add color selector
+    // items.push(
+    //   {
+    //     icon:"streamline-color:user-circle-single-flat",
+    //     slot: 'colorpicker' as const
+    //   },
+    // )
+
     if (!loggedIn.value) return []
     else {
       items.push(

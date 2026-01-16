@@ -7,6 +7,6 @@
 <script setup lang="ts">
   // props
   const props = defineProps<{
-      cards:Array<ICard>;
+      cards:Array<ICard>|undefined;
   }>()
 </script>

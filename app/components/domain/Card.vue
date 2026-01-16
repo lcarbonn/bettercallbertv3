@@ -3,9 +3,8 @@
     :title="card.title"
     :to="'/card/'+card.id"
     variant="subtle"
-    spotlight
-    spotlight-color="primary">
-    <img :src="card.src"/>
+    :class="bgColor">
+    <img :src="card.src" :alt="card.title"/>
   </UPageCard>
 </template>
 
@@ -16,8 +15,8 @@
       card:ICard;
   }>()
 
-  // const bgColor = computed (() => {
-  //   return "bg-"+props.card.color
-  // })
+  const bgColor = computed (() => {
+    return getBgColor(props.card.color)
+  })
 
 </script>

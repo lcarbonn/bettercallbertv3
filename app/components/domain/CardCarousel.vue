@@ -15,9 +15,7 @@
       :to="item.link"
       target="_blank"
       variant="subtle"
-      :class="'bg-'+item.color"
-      spotlight
-      spotlight-color="primary">
+      :class="getBgColor(item.color)">
       <img :src="item.src"/>
     </UPageCard>
   </UCarousel>
@@ -30,8 +28,6 @@
       items:ICard[];
       index:number
   }>()
-
-  const carousel = useTemplateRef('carousel')
 
   const gotoPrevious = async () => {
     const id = props.items[0]?.id

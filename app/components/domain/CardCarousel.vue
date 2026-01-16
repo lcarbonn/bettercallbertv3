@@ -42,7 +42,6 @@
     if(id) await navigateTo("/card/"+id)
   }
   const gotoCard = (index:number) => {
-    console.log("select:", index, "items:", props.items.length)
     if(index==0) {
       gotoPrevious()
     }

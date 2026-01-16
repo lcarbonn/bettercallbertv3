@@ -12,13 +12,17 @@
     pageSize : 200
   })
   
+  // inital call
   cards.value = await getAllCards(pagination.value)
 
-    // pagination méthod
-  const paginate = async (pageIndex:number) => {
-    pagination.value.pageIndex = pageIndex
-    cards.value = await getAllCards(pagination.value)
-  }
-
+  // listening to search card
+  const searchText = useSearchText()
+  const filter = ref<Filter>()
+  watch(() => searchText.value, async (text) => {
+    console.log("search changed:", text)
+    filter.value = {}
+    filter.value.title = text
+    cards.value = await getAllCards(pagination.value, filter.value)
+  })
 
 </script>

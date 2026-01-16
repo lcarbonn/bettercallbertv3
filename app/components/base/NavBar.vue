@@ -7,7 +7,16 @@
     </template>
     <UNavigationMenu :items="items"/>
     <template #right>
-       <UiColorModePicker size="sm"/>
+      <UFieldGroup>
+        <UInput v-model="searchText" icon="i-lucide-search" trim @keyup="searchCards()"/>
+        <UButton
+            icon="i-lucide-x"
+            size="sm"
+            variant="subtle"
+            @click="searchText = undefined; searchCards()"
+          />
+      </UFieldGroup>
+      <UiColorModePicker size="sm"/>
       <NuxtLink
         :to="baseUrl + baseId +'/table/' + tableId"
         target="_blank">
@@ -16,7 +25,7 @@
             class="rounded-none"
             src="/baserow-logo-64x64.png"/>
         </UTooltip>
-        </NuxtLink>
+      </NuxtLink>
     </template>
     <template #body>
       <UNavigationMenu :items="items" orientation="vertical" class="-mx-2.5" />
@@ -25,7 +34,7 @@
 </template>
 <script setup lang="ts">
 
-import type { NavigationMenuItem } from '@nuxt/ui'
+  import type { NavigationMenuItem } from '@nuxt/ui'
 
   // get env variables from config
   const config = useRuntimeConfig()
@@ -39,7 +48,12 @@ import type { NavigationMenuItem } from '@nuxt/ui'
     return config.public.tableCard
   })
 
-    // get user session
+  const searchText = ref<string>()
+  const searchCards = async () => {
+    useSearchText().value = searchText.value
+  }
+
+  // get user session
   const { loggedIn, user, clear: clearSession } = useUserSession()
 
   const userEmail = computed(() => {

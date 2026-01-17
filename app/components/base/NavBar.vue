@@ -6,7 +6,6 @@
         src="/icon-64x64.png"/>Better Call Bert
     </template>
 
-    <!-- <UNavigationMenu :items="items"/> -->
     <UNavigationMenu 
       :items="items">
       <template #colorpicker>

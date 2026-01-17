@@ -3,7 +3,7 @@
  * @public
  */
 export interface ITheme {
-    id:string,
+    id:number,
     title: string
     color:string,
     order: number,
@@ -14,7 +14,7 @@ export interface ITheme {
  * @public
  */
 export class Theme implements ITheme {
-    id:string
+    id:number
     title: string
     color:string
     order: number
@@ -26,6 +26,6 @@ export class Theme implements ITheme {
         this.id = raw["Id"]
         this.title = raw["Title"]
         this.color = raw["Color"]
-        this.order = Number(raw["Order"]).valueOf()
+        this.order = raw["Order"]
     }
 }

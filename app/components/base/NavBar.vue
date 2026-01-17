@@ -15,7 +15,7 @@
 
     <template #right>
       <UFieldGroup>
-        <UInput v-model="searchText" icon="i-lucide-search" trim @keyup="searchCards()"/>
+        <UInput v-model="searchText" icon="i-lucide-search" trim @keyup="searchCards()" class="w-30"/>
         <UButton
             icon="i-lucide-x"
             size="sm"
@@ -38,7 +38,7 @@
 </template>
 <script setup lang="ts">
 
-  import type { NavigationMenuItem, AvatarProps } from '@nuxt/ui'
+  import type { NavigationMenuItem } from '@nuxt/ui'
 
   // get env variables from config
   const config = useRuntimeConfig()
@@ -47,6 +47,7 @@
   const searchText = ref<string>()
   const searchCards = async () => {
     useSearchText().value = searchText.value
+    await navigateTo('/')
   }
 
   // get user session
@@ -56,8 +57,35 @@
     return user.value?.username
   })
 
+  const themes = await getThemes()
+
   const items = computed<NavigationMenuItem[]>(() => {
     const items:NavigationMenuItem[] = []
+
+    items.push(
+      {
+        label: 'All',
+        to: '/',
+        onSelect:  () => {
+              searchText.value = undefined
+              useSearchText().value = searchText.value
+            }
+      },
+    )
+
+    themes?.forEach(theme => {
+      items.push(
+        {
+          label: theme.title,
+          to: '/theme/'+theme.id,
+          onSelect:  () => {
+              searchText.value = undefined
+              useSearchText().value = searchText.value
+            }
+        },
+      )
+    });
+
     // add color selector
     items.push(
       {

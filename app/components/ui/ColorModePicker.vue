@@ -1,14 +1,14 @@
 <template>
     <UPopover v-model:open="open" :ui="{ content: 'px-6 py-4 flex flex-col gap-4 overflow-y-auto' }" class="w-min">
       <template #default>
-          <UButton 
+          <UButton
             :icon="selectedMode?.icon"
             :size="size"
             square
             color="neutral"
             :variant="open ? 'soft' : 'ghost'"
             aria-label="Color mode"
-          :ui="{ leadingIcon: 'text-primary' }"
+            :ui="{ leadingIcon: 'text-primary' }"
           />
       </template>
       <template #content>

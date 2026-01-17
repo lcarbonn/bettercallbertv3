@@ -1,11 +1,19 @@
 <template>
-  <UHeader mode="modal" toggle-side="right">
+  <UHeader mode="modal" toggle-side="left">
     <template #title>
       <UAvatar
         class="rounded-none"
         src="/icon-64x64.png"/>Better Call Bert
     </template>
-    <UNavigationMenu :items="items"/>
+
+    <!-- <UNavigationMenu :items="items"/> -->
+    <UNavigationMenu 
+      :items="items">
+      <template #colorpicker>
+        <UiColorModePicker size="sm"/>
+      </template>        
+    </UNavigationMenu>
+
     <template #right>
       <UFieldGroup>
         <UInput v-model="searchText" icon="i-lucide-search" trim @keyup="searchCards()"/>
@@ -16,37 +24,26 @@
             @click="searchText = undefined; searchCards()"
           />
       </UFieldGroup>
-      <UiColorModePicker size="sm"/>
-      <NuxtLink
-        :to="baseUrl + baseId +'/table/' + tableId"
-        target="_blank">
-        <UTooltip text="Open on Baserow">
-          <UAvatar 
-            class="rounded-none"
-            src="/baserow-logo-64x64.png"/>
-        </UTooltip>
-      </NuxtLink>
     </template>
+    
     <template #body>
-      <UNavigationMenu :items="items" orientation="vertical" class="-mx-2.5" />
+      <UNavigationMenu
+        :items="items"
+        orientation="vertical">
+        <template #colorpicker>
+          <UiColorModePicker size="sm"/>
+        </template>
+      </UNavigationMenu>
     </template>    
   </UHeader>
 </template>
 <script setup lang="ts">
 
-  import type { NavigationMenuItem } from '@nuxt/ui'
+  import type { NavigationMenuItem, AvatarProps } from '@nuxt/ui'
 
   // get env variables from config
   const config = useRuntimeConfig()
-  const baseUrl = computed(() => {
-    return config.public.baseUrl
-  })
-  const baseId = computed(() => {
-    return config.public.baseId
-  })
-  const tableId = computed(() => {
-    return config.public.tableCard
-  })
+  const baseUrl = config.public.baseUrl + config.public.baseId + '/table/' + config.public.tableCard
 
   const searchText = ref<string>()
   const searchCards = async () => {
@@ -62,15 +59,23 @@
 
   const items = computed<NavigationMenuItem[]>(() => {
     const items:NavigationMenuItem[] = []
-    // // add color selector
-    // items.push(
-    //   {
-    //     icon:"streamline-color:user-circle-single-flat",
-    //     slot: 'colorpicker' as const
-    //   },
-    // )
+    // add color selector
+    items.push(
+      {
+        slot: 'colorpicker' as const,
+      },
+    )
+    items.push(
+      {
+        avatar: {
+          src: '/baserow-logo-64x64.png'
+        },
+        to: baseUrl,
+        target: '_blank',
+      }
+    )
 
-    if (!loggedIn.value) return []
+    if (!loggedIn.value) return items
     else {
       items.push(
         {
@@ -92,7 +97,7 @@
 
   const signOut = async () => {
     await clearSession()
-    await navigateTo('/login')
+    await navigateTo('/')
     messageToSnack("Signed out")
   }
 

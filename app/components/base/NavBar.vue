@@ -45,7 +45,7 @@
 </template>
 <script setup lang="ts">
 
-  import type { NavigationMenuItem, NavigationMenuChildItem } from '@nuxt/ui'
+  import type { NavigationMenuItem } from '@nuxt/ui'
 
   // get env variables from config
   const config = useRuntimeConfig()

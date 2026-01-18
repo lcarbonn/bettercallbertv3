@@ -12,10 +12,9 @@
   const searchText = useSearchText()
 
   // inital calls
-  // cards.value = await getAllCards()
-    filter.value = {}
-    filter.value.title = searchText.value?searchText.value:undefined
-    cards.value = await getAllCards(filter.value)
+  filter.value = {}
+  filter.value.title = searchText.value?searchText.value:undefined
+  cards.value = await getAllCards(filter.value)
 
   // listening to search card
   watch(() => searchText.value, async (text) => {

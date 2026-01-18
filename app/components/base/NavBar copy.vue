@@ -1,18 +1,21 @@
 <template>
-  <UHeader mode="modal" toggle-side="right">
+  <UHeader mode="modal" toggle-side="left">
     <template #title>
       <UAvatar
         class="rounded-none"
-        src="/icon-64x64.png"/><span >BetterCallBert</span>
+        src="/icon-64x64.png"/>Better Call Bert
     </template>
 
     <UNavigationMenu 
       :items="items">
+      <template #colorpicker>
+        <UiColorModePicker size="sm"/>
+      </template>
     </UNavigationMenu>
 
     <template #right>
       <UFieldGroup>
-        <UInput v-model="searchText" icon="i-lucide-search" trim @keyup="searchCards()"/>
+        <UInput v-model="searchText" icon="i-lucide-search" trim @keyup="searchCards()" class="w-30"/>
         <UButton
             icon="i-lucide-x"
             size="sm"
@@ -20,18 +23,8 @@
             @click="searchText = undefined; searchCards()"
           />
       </UFieldGroup>
-      <UiColorModePicker size="sm"/>
-      <NuxtLink
-        :to=baseUrl
-        target="_blank">
-        <UTooltip text="Open on Baserow">
-          <UAvatar 
-            class="rounded-none"
-            src="/baserow-logo-64x64.png"/>
-        </UTooltip>
-      </NuxtLink>
     </template>
-   
+    
     <template #body>
       <UNavigationMenu
         :items="items"
@@ -45,13 +38,12 @@
 </template>
 <script setup lang="ts">
 
-  import type { NavigationMenuItem, NavigationMenuChildItem } from '@nuxt/ui'
+  import type { NavigationMenuItem } from '@nuxt/ui'
 
   // get env variables from config
   const config = useRuntimeConfig()
   const baseUrl = config.public.baseUrl + config.public.baseId + '/table/' + config.public.tableCard
 
-  // for search
   const searchText = ref<string>()
   const searchCards = async () => {
     useSearchText().value = searchText.value
@@ -65,11 +57,8 @@
     return user.value?.username
   })
 
-  // get themes
   const themes = await getThemes()
 
-
-  // set th elist of navigation items
   const items = computed<NavigationMenuItem[]>(() => {
     const items:NavigationMenuItem[] = []
 
@@ -97,6 +86,23 @@
         },
       )
     });
+
+    // add color selector
+    items.push(
+      {
+        slot: 'colorpicker' as const,
+      },
+    )
+    // add link to baserow
+    items.push(
+      {
+        avatar: {
+          src: '/baserow-logo-64x64.png'
+        },
+        to: baseUrl,
+        target: '_blank',
+      }
+    )
 
     // loggedIn/logout mngt
     if (!loggedIn.value) return items
